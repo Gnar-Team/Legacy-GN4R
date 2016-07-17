@@ -86,8 +86,11 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 //		commandManager.builder("kotlin_xkcd").executor(KOTLIN_xkcdCommand.class);
 //		commandManager.builder("test").executor(TestCommand.class);
 		
+		
+		
 		commandManager.builder("joinchannel").executor(JoinChannelCommand.class);
 		commandManager.builder("queue").executor(QueueCommand.class);
+		commandManager.builder("volume").executor(VolumeCommand.class);
 		commandManager.builder("play", "resume").executor(PlayCommand.class);
 		commandManager.builder("leavechannel").executor(LeaveChannelCommand.class);
 		commandManager.builder("nowplaying").executor(NowPlayingCommand.class);
