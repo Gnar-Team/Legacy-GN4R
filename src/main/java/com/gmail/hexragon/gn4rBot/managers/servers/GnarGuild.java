@@ -11,6 +11,7 @@ import com.gmail.hexragon.gn4rBot.command.general.HelpCommand;
 import com.gmail.hexragon.gn4rBot.command.general.InviteBotCommand;
 import com.gmail.hexragon.gn4rBot.command.general.WhoIsCommand;
 import com.gmail.hexragon.gn4rBot.command.media.CatsCommand;
+import com.gmail.hexragon.gn4rBot.command.media.GetMediaCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.BanCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.MuteCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.UnmuteCommand;
@@ -97,6 +98,7 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 		commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
 		commandManager.builder("runjs", "javascript").executor(JavascriptCommand.class);
 		commandManager.builder("reassignperm", "changeperm", "reassignpermission").executor(ReassignPermissionCommand.class);
+		commandManager.builder("getimage", "getmedia", "getshit").executor(GetMediaCommand.class);
 
 	}
 	
