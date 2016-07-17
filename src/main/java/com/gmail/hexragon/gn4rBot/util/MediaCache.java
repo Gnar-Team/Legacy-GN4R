@@ -1,141 +1,54 @@
 package com.gmail.hexragon.gn4rBot.util;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.io.FileReader;
+import java.net.URL;
+import java.util.HashMap;
 
 public class MediaCache
 {
-	private FileIOManager fileIOManager;
+	public static HashMap<String, File> imageCache = new HashMap<>();
+	public static HashMap<String, String> gifCache = new HashMap<>();
+	public static HashMap<String, String> vineCache = new HashMap<>();
 
-
-	private Map<String, MediaSet> imageCache;
-
-	private Map<String, MediaSet> gifCache;
-
-	private Map<String, MediaSet> vineCache;
-
-	public class MediaSet
-	{
-		private final String name;
-		private final String extension;
-
-		private MediaSet(String name, String extension)
-		{
-			this.name = name;
-			this.extension = extension;
+	public synchronized static void cacheImage(String url, String extension, String name) {
+		if (extension.equalsIgnoreCase("gif")) {
+			gifCache.put(name, url);
+			return;
 		}
-
-		public String getName()
-		{
-			return name;
+		if(extension.equalsIgnoreCase("vine")) {
+			vineCache.put(name, url);
+			return;
 		}
-
-		public String getExtension()
-		{
-			return extension;
+		try {
+			File imgf = new File("_DATA/images/pics/" + name + "." + extension);
+			BufferedImage img = ImageIO.read(new URL(url));
+			ImageIO.write(img, extension, imgf);
+			imageCache.put(name, imgf);
+		} catch (Exception e) {
+			System.out.println("Was not able to load image " + name);
+			e.printStackTrace();
 		}
 	}
 
-	public MediaCache()
-	{
-		imageCache = new LinkedHashMap<>();
-		gifCache = new LinkedHashMap<>();
-		vineCache = new LinkedHashMap<>();
+	public synchronized void cacheImages() {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(new File("_DATA/images/imageCache.txt")));
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				try {
+					String[] another = line.split("!=");
+					cacheImage(another[1], another[2], another[0]);
 
-		fileIOManager = new FileIOManager(new File("_DATA/images/imageCache.txt"));
-	}
-
-	public void loadFromFile()
-	{
-		List<String> entries = fileIOManager.readList();
-
-		entries.stream()
-				.filter(s -> !s.isEmpty())
-				.map(s -> s.split("!="))
-				.forEach(strings -> cacheImage(strings[0], strings[1], strings[2]));
-	}
-
-	public void storeToFile()
-	{
-		List<String> entries = new ArrayList<>();
-
-		entries.addAll(imageCache.entrySet().stream()
-				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue().getName(), entry.getValue().getExtension()))
-				.collect(Collectors.toList()));
-
-		entries.add("");
-
-		entries.addAll(gifCache.entrySet().stream()
-				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue().getName(), entry.getValue().getExtension()))
-				.collect(Collectors.toList()));
-
-		entries.add("");
-
-		entries.addAll(vineCache.entrySet().stream()
-				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue().getName(), entry.getValue().getExtension()))
-				.collect(Collectors.toList()));
-
-		fileIOManager.writeFile(entries);
-
-//		//TESTING
-//		JSONObject obj = new JSONObject();
-//		obj.put("wow.lol", imageCache);
-//
-//
-////		//NOTE: you need to create base folder before server
-////
-////
-//		FileReadingUtils.writeToFile(obj.toString(4), "_DATA/lmao.txt", false);
-//
-//		JSONObject obj2 = new JSONObject(FileReadingUtils.fileToString("_DATA/lmao.txt"));
-//
-//		//noinspection unchecked
-//		Iterator<?> it = ((JSONObject) obj2.get("wow.lol")).keys();
-//
-//		while (it.hasNext())
-//		{
-//			String key = (String) it.next();
-//			System.out.println(key);
-//		}
-
-	}
-
-	public synchronized boolean cacheImage(String id, String url, String extension)
-	{
-		switch(extension.toLowerCase())
-		{
-			case "gif":
-				gifCache.put(id, new MediaSet(url, extension));
-				return true;
-
-			case "vine":
-				vineCache.put(id, new MediaSet(url, extension));
-				return true;
-
-			case "jpg":
-			case "jpeg":
-			case "png":
-				imageCache.put(id, new MediaSet(url, extension));
-				return true;
-
-			default:
-				throw new IllegalArgumentException("Extension '"+extension+"' is invalid.");
+				} catch (Exception e) {
+					continue;
+				}
+			}
+			br.close();
+		} catch (Exception e) {
 		}
-	}
-
-	public Map<String, MediaSet> getImageCache() {
-		return imageCache;
-	}
-
-	public Map<String, MediaSet> getGifCache() {
-		return gifCache;
-	}
-
-	public Map<String, MediaSet> getVineCache() {
-		return vineCache;
 	}
 }
