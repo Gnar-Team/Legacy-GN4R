@@ -2,53 +2,120 @@ package com.gmail.hexragon.gn4rBot.util;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MediaCache
 {
-	public static HashMap<String, File> imageCache = new HashMap<>();
-	public static HashMap<String, String> gifCache = new HashMap<>();
-	public static HashMap<String, String> vineCache = new HashMap<>();
-
-	public synchronized static void cacheImage(String url, String extension, String name) {
-		if (extension.equalsIgnoreCase("gif")) {
-			gifCache.put(name, url);
-			return;
-		}
-		if(extension.equalsIgnoreCase("vine")) {
-			vineCache.put(name, url);
-			return;
-		}
-		try {
-			File imgf = new File("_DATA/images/pics/" + name + "." + extension);
-			BufferedImage img = ImageIO.read(new URL(url));
-			ImageIO.write(img, extension, imgf);
-			imageCache.put(name, imgf);
-		} catch (Exception e) {
-			System.out.println("Was not able to load image " + name);
-			e.printStackTrace();
-		}
+	private FileIOManager fileIOManager = new FileIOManager("_DATA/images/imageCache.txt");
+	
+	private HashMap<String, File> imgFileCache;
+	
+	private HashMap<String, String> imgCache;
+	private HashMap<String, String> gifCache;
+	private HashMap<String, String> vineCache;
+	
+	public MediaCache()
+	{
+		this.imgFileCache = new HashMap<>();
+		
+		this.imgCache = new HashMap<>();
+		this.gifCache = new HashMap<>();
+		this.vineCache = new HashMap<>();
+		
+		load();
+		store();
 	}
-
-	public synchronized void cacheImages() {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File("_DATA/images/imageCache.txt")));
-			String line = "";
-			while ((line = br.readLine()) != null) {
-				try {
-					String[] another = line.split("!=");
-					cacheImage(another[1], another[2], another[0]);
-
-				} catch (Exception e) {
-					continue;
+	
+	public synchronized void cacheImage(String id, String url, String extension)
+	{
+		switch (extension)
+		{
+			case "gif":
+				gifCache.put(id, url);
+				return;
+			case "vine":
+				vineCache.put(id, url);
+				return;
+			case "jpg":
+			case "png":
+			{
+				try
+				{
+					File file = new File("_DATA/images/pics/" + id + "." + extension);
+					BufferedImage img = ImageIO.read(new URL(url));
+					ImageIO.write(img, extension, file);
+					
+					imgFileCache.put(id, file);
+					imgCache.put(id, url);
+				}
+				catch (Exception e)
+				{
+					System.out.println("Was not able to load image " + id);
+					e.printStackTrace();
 				}
 			}
-			br.close();
-		} catch (Exception e) {
 		}
+	}
+	
+	public void store()
+	{
+		List<String> entries = new ArrayList<>();
+		
+		entries.addAll(imgCache.entrySet().stream()
+				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue(), entry.getValue().substring(entry.getValue().lastIndexOf('.') + 1)))
+				.collect(Collectors.toList()));
+		
+		entries.add("");
+		
+		entries.addAll(gifCache.entrySet().stream()
+				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue(), "gif"))
+				.collect(Collectors.toList()));
+		
+		entries.add("");
+		
+		entries.addAll(vineCache.entrySet().stream()
+				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue(), "vine"))
+				.collect(Collectors.toList()));
+		
+		fileIOManager.writeFile(entries);
+	}
+	
+	public synchronized void load()
+	{
+		List<String> entries = fileIOManager.readList();
+		
+		entries.stream().filter(s -> !s.isEmpty()).map(s -> s.split("!=")).forEach(args -> cacheImage(args[0], args[1], args[2]));
+	}
+	
+	public HashMap<String, File> getImgFileCache()
+	{
+		return imgFileCache;
+	}
+	
+	public HashMap<String, String> getGifCache()
+	{
+		return gifCache;
+	}
+	
+	public HashMap<String, String> getImgCache()
+	{
+		return imgCache;
+	}
+	
+	public HashMap<String, String> getVineCache()
+	{
+		return vineCache;
+	}
+	
+	public Map<String, String> getURLCaches()
+	{
+		Map<String, String> urlCaches = new HashMap<>();
+		urlCaches.putAll(imgCache);
+		urlCaches.putAll(gifCache);
+		urlCaches.putAll(vineCache);
+		return urlCaches;
 	}
 }

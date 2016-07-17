@@ -2,7 +2,6 @@ package com.gmail.hexragon.gn4rBot;
 
 import com.gmail.hexragon.gn4rBot.managers.servers.GuildManager;
 import com.gmail.hexragon.gn4rBot.util.FileIOManager;
-import com.gmail.hexragon.gn4rBot.util.MediaCache;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.JDABuilder;
@@ -21,8 +20,6 @@ public class GnarBot
 	public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
 
 	private static GnarBot instance;
-
-	private static MediaCache mc;
 
 	public static void main(String[] args) throws Exception
 	{
@@ -49,9 +46,6 @@ public class GnarBot
 		File f = new File("_DATA/images/pics/");
 		f.mkdir();
 		f.deleteOnExit();
-
-		mc = new MediaCache();
-		mc.cacheImages();
 
 		try
 		{

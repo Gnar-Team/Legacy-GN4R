@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.music;
 
+import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.player.MusicPlayer;
@@ -10,6 +11,7 @@ import net.dv8tion.jda.player.source.AudioSource;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class QueueCommand extends MusicCommandExecutor
 {
@@ -17,7 +19,7 @@ public class QueueCommand extends MusicCommandExecutor
 	{
 		super(commandManager);
 		setUsage("queue (video url)");
-		setDescription("Add linked music to current playlist.");
+		setDescription("Add music or show the current queue.");
 	}
 	
 	@Override
@@ -25,56 +27,83 @@ public class QueueCommand extends MusicCommandExecutor
 	{
 		super.execute(event, args);
 		
-		String msg = "";
-		String url = args[0];
-		Playlist playlist = Playlist.getPlaylist(url);
-		List<AudioSource> sources = new LinkedList<>(playlist.getSources());
-		
-		if (sources.size() > 1)
+		if (args.length == 0)
 		{
-			event.getChannel().sendMessage("Found a playlist with **" + sources.size() + "** entries.\n" +
-					"Proceeding to gather information and queue sources. This may take some time...");
-			final MusicPlayer fPlayer = player;
-			Thread thread = new Thread()
-			{
-				@Override
-				public void run()
-				{
-					for (Iterator<AudioSource> it = sources.iterator(); it.hasNext();)
+			StringJoiner joiner = new StringJoiner("\n");
+			
+			event.getChannel().sendMessage("**"+GnarQuotes.getRandomQuote() + "** Here's what's queued to be played!");
+			joiner.add("```xl");
+			
+			if (player.getAudioQueue().isEmpty()) joiner.add(" Empty.");
+			
+			final int[] i = {1};
+			player.getAudioQueue().stream()
+					.map(AudioSource::getInfo)
+					.forEach(audioInfo ->
 					{
-						AudioSource source = it.next();
-						AudioInfo info = source.getInfo();
-						List<AudioSource> queue = fPlayer.getAudioQueue();
-						if (info.getError() == null)
-						{
-							queue.add(source);
-						}
-						else
-						{
-							event.getChannel().sendMessage("Error detected, skipping source. Error:\n" + info.getError());
-							it.remove();
-						}
-					}
-					event.getChannel().sendMessage("Finished queuing provided playlist. Successfully queued **" + sources.size() + "** sources");
-				}
-			};
-			thread.start();
+						joiner.add("[" + i[0] + "] " + audioInfo.getTitle() + "");
+						i[0]++;
+					});
+			
+			joiner.add("```");
+			
+			event.getChannel().sendMessage(joiner.toString());
+			return;
 		}
-		else
+		
+		try
 		{
-			AudioSource source = sources.get(0);
-			AudioInfo info = source.getInfo();
-			if (info.getError() == null)
+			String url = args[0];
+			Playlist playlist = Playlist.getPlaylist(url);
+			List<AudioSource> sources = new LinkedList<>(playlist.getSources());
+			
+			if (sources.size() > 1)
 			{
-				player.getAudioQueue().add(source);
-				msg += "The provided URL has been added the to queue";
-				event.getChannel().sendMessage(msg + ".");
+				event.getChannel().sendMessage(String.format("%s ➤ I've found a playlist with **%d** entries, will begin to gather info and queue sources. **(This may take a while.)**", event.getAuthor().getAsMention(), sources.size()));
+				final MusicPlayer fPlayer = player;
+				Thread thread = new Thread()
+				{
+					@Override
+					public void run()
+					{
+						for (Iterator<AudioSource> it = sources.iterator(); it.hasNext(); )
+						{
+							AudioSource source = it.next();
+							AudioInfo info = source.getInfo();
+							List<AudioSource> queue = fPlayer.getAudioQueue();
+							if (info.getError() == null)
+							{
+								queue.add(source);
+							}
+							else
+							{
+								event.getChannel().sendMessage(String.format("%s ➤ Skipping the source due to error.\nError: %s", event.getAuthor().getAsMention(), info.getError()));
+								it.remove();
+							}
+						}
+						event.getChannel().sendMessage(String.format("%s ➤ Finished queuing provided playlist. Successfully queued **%d** sources.", event.getAuthor().getAsMention(), sources.size()));
+					}
+				};
+				thread.start();
 			}
 			else
 			{
-				event.getChannel().sendMessage("There was an error while loading the provided URL.\n" +
-						"Error: " + info.getError());
+				AudioSource source = sources.get(0);
+				AudioInfo info = source.getInfo();
+				if (info.getError() == null)
+				{
+					player.getAudioQueue().add(source);
+					event.getChannel().sendMessage(String.format("%s ➤ **%s** The URL has been successfully added to the queue.", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote()));
+				}
+				else
+				{
+					event.getChannel().sendMessage(String.format("%s ➤ There was an error while loading the provided URL.\nError: %s", event.getAuthor().getAsMention(), info.getError()));
+				}
 			}
+		}
+		catch (Exception e)
+		{
+			event.getChannel().sendMessage(String.format("%s ➤ There was an error while loading the provided URL.", event.getAuthor().getAsMention()));
 		}
 	}
 }

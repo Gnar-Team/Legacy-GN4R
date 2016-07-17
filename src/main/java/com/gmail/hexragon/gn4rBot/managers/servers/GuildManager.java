@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.servers;
 
+import com.gmail.hexragon.gn4rBot.util.MediaCache;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
@@ -11,20 +12,14 @@ import java.util.Map;
  */
 public class GuildManager
 {
-	private static GuildManager instance;
-
+	private final MediaCache mediaCache;
+	
 	private Map<String, GnarGuild> serverMap;
 
 	public GuildManager()
 	{
-		instance = this;
-
 		this.serverMap = new LinkedHashMap<>();
-	}
-
-	public static GuildManager getInstance()
-	{
-		return instance;
+		this.mediaCache = new MediaCache();
 	}
 
 	public void addServer(Guild server)
@@ -49,8 +44,13 @@ public class GuildManager
 		server.messageEvent(event);
 	}
 
-	public GnarGuild getServer(String accessID)
+	public GnarGuild getGnarGuildByID(String accessID)
 	{
 		return serverMap.get(accessID);
+	}
+	
+	public MediaCache getMediaCache()
+	{
+		return mediaCache;
 	}
 }
