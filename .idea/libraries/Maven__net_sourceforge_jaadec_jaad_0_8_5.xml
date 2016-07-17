@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.sourceforge.jaadec:jaad:0.8.5">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/jaadec/jaad/0.8.5/jaad-0.8.5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/jaadec/jaad/0.8.5/jaad-0.8.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/jaadec/jaad/0.8.5/jaad-0.8.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
