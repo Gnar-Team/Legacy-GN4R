@@ -2,6 +2,7 @@ package com.gmail.hexragon.gn4rBot;
 
 import com.gmail.hexragon.gn4rBot.managers.servers.GuildManager;
 import com.gmail.hexragon.gn4rBot.util.FileIOManager;
+import com.gmail.hexragon.gn4rBot.util.MediaCache;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.JDABuilder;
@@ -9,6 +10,7 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +22,8 @@ public class GnarBot
 
 	private static GnarBot instance;
 
+	private static MediaCache mc;
+
 	public static void main(String[] args) throws Exception
 	{
 		//adminIDs.add("123");
@@ -30,7 +34,7 @@ public class GnarBot
 //		ImageCache imageCache = new ImageCache();
 //		imageCache.loadFromFile();
 //		imageCache.storeToFile();
-		
+
 		//new JDAPlayerBot(token);
 
 		System.out.println("Loading test bot...");
@@ -42,10 +46,17 @@ public class GnarBot
 	{
 		GuildManager guildManager = new GuildManager();
 
+		File f = new File("_DATA/images/pics/");
+		f.mkdir();
+		f.deleteOnExit();
+
+		mc = new MediaCache();
+		mc.cacheImages();
+
 		try
 		{
 			final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
-			
+
 			jda.getAccountManager().setUsername("GN4R");
 			jda.getAccountManager().setGame("League of Cuddles");
 
