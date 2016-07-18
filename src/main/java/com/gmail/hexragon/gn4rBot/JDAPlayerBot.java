@@ -37,19 +37,19 @@ public class JDAPlayerBot extends ListenerAdapter
 	
 	
 	//Current commands
-	// join [name]  - Joins a voice channel that has the provided name
-	// leave        - Leaves the voice channel that the bot is currently in.
-	// play         - Plays songs from the current queue. Starts playing again if it was previously paused
-	// play [url]   - Adds a new song to the queue and starts playing if it wasn't playing already
-	// pause        - Pauses audio playback
-	// stop         - Completely stops audio playback, skipping the current song.
-	// skip         - Skips the current song, automatically starting the next
-	// nowplaying   - Prints information about the currently playing song (title, current time)
-	// list         - Lists the songs in the queue
-	// volume [val] - Sets the volume of the MusicPlayer [0.0 - 1.0]
-	// restart      - Restarts the current song or restarts the previous song if there is no current song playing.
-	// repeat       - Makes the player repeat the currently playing song
-	// reset        - Completely resets the player, fixing all errors and clearing the queue.
+	//X join [name]  - Joins a voice channel that has the provided name
+	//X leave        - Leaves the voice channel that the bot is currently in.
+	//X play         - Plays songs from the current queue. Starts playing again if it was previously paused
+	//X play [url]   - Adds a new song to the queue and starts playing if it wasn't playing already
+	//X pause        - Pauses audio playback
+	//X stop         - Completely stops audio playback, skipping the current song.
+	//X skip         - Skips the current song, automatically starting the next
+	//X nowplaying   - Prints information about the currently playing song (title, current time)
+	//X list         - Lists the songs in the queue
+	//X volume [val] - Sets the volume of the MusicPlayer [0.0 - 1.0]
+	//X restart      - Restarts the current song or restarts the previous song if there is no current song playing.
+	//X repeat       - Makes the player repeat the currently playing song
+	//X reset        - Completely resets the player, fixing all errors and clearing the queue.
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event)
 	{
 		//If the person who sent the message isn't a known auth'd user, ignore.

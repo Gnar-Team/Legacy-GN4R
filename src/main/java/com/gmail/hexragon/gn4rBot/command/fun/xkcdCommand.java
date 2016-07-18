@@ -34,14 +34,13 @@ public class xkcdCommand extends CommandExecutor
 
 				if (randJSON != null)
 				{
-					@SuppressWarnings("StringBufferReplaceableByString") // just not now pls
-					StringBuilder builder = new StringBuilder();
-
-					builder.append("XKCD **").append(randJSON.get("title")).append("**\n");
-					builder.append("No: **").append(randJSON.get("num")).append("**\n");
-					builder.append("Link: ").append(((String) randJSON.get("img")).replaceAll("\\\\/", "/"));
-
-					event.getChannel().sendMessage(builder.toString());
+					String builder =
+							"XKCD **" + randJSON.get("title") + "**\n" +
+							"No: **" + randJSON.get("num") + "**\n" +
+							"Link: " + ((String) randJSON.get("img")).replaceAll("\\\\/", "/");
+					
+					event.getChannel().sendMessage(builder);
+					
 					return;
 				}
 			}

@@ -32,7 +32,7 @@ public class MathCommand extends CommandExecutor
 
 	private class MathConsumer
 	{
-		private String exp;
+		private final String exp;
 		int pos = -1;
 		int ch;
 

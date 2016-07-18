@@ -14,7 +14,7 @@ public class GuildManager
 {
 	private final MediaCache mediaCache;
 	
-	private Map<String, GnarGuild> serverMap;
+	private final Map<String, GnarGuild> serverMap;
 
 	public GuildManager()
 	{

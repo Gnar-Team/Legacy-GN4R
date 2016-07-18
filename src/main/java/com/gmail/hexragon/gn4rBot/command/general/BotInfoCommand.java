@@ -64,13 +64,11 @@ public class BotInfoCommand extends CommandExecutor
 		joiner.add("        └─[Inactive]        " + inactive);
 		joiner.add("");
 		joiner.add("[Credits]");
-		joiner.add("   ├─[Creator]              Avalon");
-		joiner.add("   ├─[Senpai]               Maeyrl");
+		joiner.add("   ├─[Creator]              Avalon & Maeyrl");
 		joiner.add("   ├─[# of Commands]        " + getCommandManager().getUniqueCommandRegistry().size());
 		joiner.add("   ├─[Language]             Java 8");
 		joiner.add("   ├─[Library]              Javacord");
-		joiner.add("   ├─[Dev Server]           https://discord.me/avalonsdungeon");
-		joiner.add("   └─[GitHub]               https://github.com/Hexragon/ReinBot");
+		joiner.add("   └─[GitHub]               https://github.com/DankBots/GN4R");
 
 		event.getChannel().sendMessage(String.format("%s ➤ Here is all of my information.", event.getAuthor().getAsMention()));
 

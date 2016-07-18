@@ -30,14 +30,13 @@ public class ExplosmCommand extends CommandExecutor
 			int rand = min + new Random().nextInt(max - min);
 
 			document = Jsoup.connect(String.format("http://explosm.net/comics/%d/", rand)).get();
-
-			StringBuilder builder = new StringBuilder();
-
-			builder.append("Cyanide and Happiness").append("\n");
-			builder.append("No: **").append(rand).append("**\n");
-			builder.append("Link: ").append(document.getElementById("main-comic").absUrl("src"));
-
-			event.getChannel().sendMessage(builder.toString());
+			
+			String builder =
+					"Cyanide and Happiness" + "\n" +
+					"No: **" + rand + "**\n" +
+					"Link: " + document.getElementById("main-comic").absUrl("src");
+			
+			event.getChannel().sendMessage(builder);
 
 		}
 		catch (Exception e)

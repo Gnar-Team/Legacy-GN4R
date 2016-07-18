@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.servers;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.command.admin.JavascriptCommand;
 import com.gmail.hexragon.gn4rBot.command.admin.ReassignPermissionCommand;
 import com.gmail.hexragon.gn4rBot.command.admin.ReassignTokenCommand;
@@ -26,26 +27,19 @@ import java.io.File;
 public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 {
 	private final String accessID;
-	private final Guild server;
 	private final UserManager userManager;
 	private final CommandManager commandManager;
 	private final GuildManager manager;
 
 	private final String basePath;
 	private final File baseFile;
-
-	public GnarGuild(String accessID, GuildManager manager)
+	
+	public GnarGuild(String accessID, GuildManager manager, Guild guild)
 	{
-		this(accessID, manager, null);
-	}
-
-	public GnarGuild(String accessID, GuildManager manager, Guild server)
-	{
-		super(server);
+		super(guild);
 
 		this.accessID = accessID;
 		this.basePath = String.format("_DATA/servers/%s/", accessID);
-		this.server = server;
 		this.manager = manager;
 
 		baseFile = new File(basePath);
@@ -55,7 +49,6 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 		this.userManager = new UserManager(this);
 		this.commandManager = new CommandManager(this);
 		//NOTE: you need to create base folder before server
-
 	}
 
 	public void defaultSetup()
@@ -86,22 +79,30 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 //		commandManager.builder("kotlin_xkcd").executor(KOTLIN_xkcdCommand.class);
 //		commandManager.builder("test").executor(TestCommand.class);
 		
-		
-		
 		commandManager.builder("joinchannel").executor(JoinChannelCommand.class);
 		commandManager.builder("queue").executor(QueueCommand.class);
 		commandManager.builder("volume").executor(VolumeCommand.class);
 		commandManager.builder("play", "resume").executor(PlayCommand.class);
 		commandManager.builder("leavechannel").executor(LeaveChannelCommand.class);
 		commandManager.builder("nowplaying").executor(NowPlayingCommand.class);
+		commandManager.builder("repeat").executor(RepeatCommand.class);
 		commandManager.builder("skip").executor(SkipCommand.class);
 		commandManager.builder("stop").executor(StopCommand.class);
-
-		commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
+		
+		if (GnarBot.TEST_MODE)
+		{
+			commandManager.setToken("_test:");
+		}
+		else
+		{
+			commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
+		}
+		
 		commandManager.builder("runjs", "javascript").executor(JavascriptCommand.class);
 		commandManager.builder("reassignperm", "changeperm", "reassignpermission").executor(ReassignPermissionCommand.class);
 		commandManager.builder("getimage", "getmedia", "getshit").executor(GetMediaCommand.class);
-
+		
+		
 	}
 	
 	public CommandManager getCommandManager()

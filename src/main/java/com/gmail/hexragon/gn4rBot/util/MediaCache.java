@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 
 public class MediaCache
 {
-	private FileIOManager fileIOManager = new FileIOManager("_DATA/images/imageCache.txt");
+	private final FileIOManager fileIOManager = new FileIOManager("_DATA/images/imageCache.txt");
 	
-	private HashMap<String, File> imgFileCache;
+	private final HashMap<String, File> imgFileCache;
 	
-	private HashMap<String, String> imgCache;
-	private HashMap<String, String> gifCache;
-	private HashMap<String, String> vineCache;
+	private final HashMap<String, String> imgCache;
+	private final HashMap<String, String> gifCache;
+	private final HashMap<String, String> vineCache;
 	
 	public MediaCache()
 	{

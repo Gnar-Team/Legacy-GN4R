@@ -16,13 +16,38 @@ import java.util.List;
 
 public class GnarBot
 {
-	private static final String token = new FileIOManager("_DATA/token").readString();
-	public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
+	@SuppressWarnings("FieldCanBeLocal")
+	private static String TOKEN;
+	public static List<String> ADMIN_IDS;
+	
+	public static final boolean TEST_MODE = true;
 
 	private static GnarBot instance;
 
 	public static void main(String[] args) throws Exception
 	{
+		File dataFolder = new File("_DATA");
+		if (!dataFolder.exists())
+		{
+			System.out.println("[ERROR] - Folder '_DATA' not found.");
+			return;
+		}
+		
+		TOKEN = new FileIOManager("_DATA/token").readString();
+		ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
+		
+		if (TOKEN == null)
+		{
+			System.out.println("[ERROR] - Failed to load bot TOKEN: File at \"_DATA/token\" was not found.");
+			return;
+		}
+		else if (ADMIN_IDS == null)
+		{
+			System.out.println("[ERROR] - Failed to load bot ADMINs list: File at \"_DATA/administrators\" was not found.");
+			return;
+		}
+		
+		
 		//adminIDs.add("123");
 		//FileReadingUtils.listToFile(adminIDs, "_DATA/administrators");
 
@@ -34,9 +59,9 @@ public class GnarBot
 
 		//new JDAPlayerBot(token);
 
-		System.out.println("Loading test bot...");
+		if (TEST_MODE) System.out.println("[INFO] - Loading test bot...");
 
-		instance = new GnarBot(token);
+		instance = new GnarBot(TOKEN);
 	}
 
 	private GnarBot(String token)
@@ -44,7 +69,7 @@ public class GnarBot
 		GuildManager guildManager = new GuildManager();
 
 		File f = new File("_DATA/images/pics/");
-		f.mkdir();
+		f.mkdirs();
 		f.deleteOnExit();
 
 		try
