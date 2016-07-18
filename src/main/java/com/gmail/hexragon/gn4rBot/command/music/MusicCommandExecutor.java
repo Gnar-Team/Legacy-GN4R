@@ -34,11 +34,4 @@ public abstract class MusicCommandExecutor extends CommandExecutor
 			player = (MusicPlayer) manager.getSendingHandler();
 		}
 	}
-	
-	@Override
-	public String getDescription()
-	{
-		return "♬ MUSIC: "+super.getDescription();
-	}
-	
 }

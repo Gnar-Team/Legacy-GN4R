@@ -21,9 +21,9 @@ public class MediaCache
 	{
 		this.imgFileCache = new HashMap<>();
 		
-		this.imgCache = new HashMap<>();
-		this.gifCache = new HashMap<>();
-		this.vineCache = new HashMap<>();
+		this.imgCache = new LinkedHashMap<>();
+		this.gifCache = new LinkedHashMap<>();
+		this.vineCache = new LinkedHashMap<>();
 		
 		load();
 		store();
@@ -45,18 +45,26 @@ public class MediaCache
 				try
 				{
 					File file = new File("_DATA/images/pics/" + id + "." + extension);
-					BufferedImage img = ImageIO.read(new URL(url));
-					ImageIO.write(img, extension, file);
+					
+					if (!file.exists())
+					{
+						BufferedImage img = ImageIO.read(new URL(url));
+						ImageIO.write(img, extension, file);
+					}
 					
 					imgFileCache.put(id, file);
 					imgCache.put(id, url);
+					return;
 				}
 				catch (Exception e)
 				{
 					System.out.println("Was not able to load image " + id);
 					e.printStackTrace();
 				}
+				
 			}
+			default:
+				System.out.println("Was not able to load media id=" + id + " url=" + url + " extension=" + extension);
 		}
 	}
 	
