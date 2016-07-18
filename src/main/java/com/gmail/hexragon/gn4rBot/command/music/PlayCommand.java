@@ -17,6 +17,12 @@ public class PlayCommand extends MusicCommandExecutor
 	{
 		super.execute(event, args);
 		
+		if (manager.getConnectedChannel() == null)
+		{
+			event.getChannel().sendMessage(String.format("%s ➤ I'm not in a voice channel. :cry:", event.getAuthor().getAsMention()));
+			return;
+		}
+		
 		if (player.isPlaying())
 		{
 			event.getChannel().sendMessage(String.format("%s ➤ **%s** I'm currently dropping the beats!", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote()));

@@ -11,6 +11,7 @@ public class VolumeCommand extends MusicCommandExecutor
 	{
 		super(commandManager);
 		setDescription("Set music volume.");
+		setUsage("volume (0-100)");
 		setPermission(PermissionLevel.BOT_COMMANDER);
 	}
 	

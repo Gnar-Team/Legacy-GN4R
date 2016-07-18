@@ -18,28 +18,28 @@ public class JavascriptCommand extends CommandExecutor
 		setPermission(PermissionLevel.BOT_MASTER);
 		showInHelp(false);
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
 		ScriptEngine engine = new ScriptEngineManager().getEngineByName("javascript");
-
+		
 		engine.put("jda", event.getJDA());
-
+		
 		engine.put("messageEvent", event);
 		engine.put("message", event.getMessage());
-
-
+		
+		
 		engine.put("guild", event.getGuild());
 		engine.put("channel", event.getChannel());
-
-
+		
+		
 		String script = StringUtils.join(args, " ");
-
+		
 		event.getChannel().sendMessage(String.format("%s ➤ Running `%s`.", event.getAuthor().getAsMention(), script));
-
+		
 		Object result;
-
+		
 		try
 		{
 			result = engine.eval(script);
@@ -49,7 +49,7 @@ public class JavascriptCommand extends CommandExecutor
 			event.getChannel().sendMessage(String.format("%s ➤ The error `%s` occurred while attempting to execute JavaScript.", event.getAuthor().getAsMention(), e.toString()));
 			return;
 		}
-
+		
 		if (result != null)
 		{
 			if (result.getClass() == Integer.class
@@ -61,6 +61,6 @@ public class JavascriptCommand extends CommandExecutor
 			}
 		}
 		//
-
+		
 	}
 }

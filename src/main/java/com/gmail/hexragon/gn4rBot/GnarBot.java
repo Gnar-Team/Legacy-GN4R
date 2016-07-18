@@ -17,7 +17,7 @@ import java.util.List;
 public class GnarBot
 {
 	@SuppressWarnings("FieldCanBeLocal")
-	private static String TOKEN = new FileIOManager("_DATA/token").readString();
+	private static String TOKEN = new FileIOManager("_DATA/testtoken").readString();
 	public static List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
 	
 	private static GnarBot instance;

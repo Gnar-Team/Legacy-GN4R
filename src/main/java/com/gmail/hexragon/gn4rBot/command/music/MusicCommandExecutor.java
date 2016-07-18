@@ -8,7 +8,7 @@ import net.dv8tion.jda.player.MusicPlayer;
 
 import static net.dv8tion.jda.player.Bot.DEFAULT_VOLUME;
 
-abstract class MusicCommandExecutor extends CommandExecutor
+public abstract class MusicCommandExecutor extends CommandExecutor
 {
 	protected AudioManager manager;
 	MusicPlayer player;
@@ -40,4 +40,5 @@ abstract class MusicCommandExecutor extends CommandExecutor
 	{
 		return "♬ MUSIC: "+super.getDescription();
 	}
+	
 }

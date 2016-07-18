@@ -47,7 +47,7 @@ public class JDAPlayerBot extends ListenerAdapter
 	//X nowplaying   - Prints information about the currently playing song (title, current time)
 	//X list         - Lists the songs in the queue
 	//X volume [val] - Sets the volume of the MusicPlayer [0.0 - 1.0]
-	//X restart      - Restarts the current song or restarts the previous song if there is no current song playing.
+	// restart      - Restarts the current song or restarts the previous song if there is no current song playing.
 	//X repeat       - Makes the player repeat the currently playing song
 	//X reset        - Completely resets the player, fixing all errors and clearing the queue.
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event)

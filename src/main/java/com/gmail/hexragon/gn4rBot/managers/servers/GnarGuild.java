@@ -89,6 +89,8 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 		commandManager.builder("repeat").executor(RepeatCommand.class);
 		commandManager.builder("skip").executor(SkipCommand.class);
 		commandManager.builder("stop").executor(StopCommand.class);
+		commandManager.builder("restart").executor(RestartCommand.class);
+		commandManager.builder("resetmusic").executor(ResetCommand.class);
 		
 		commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
 		commandManager.builder("runjs", "javascript").executor(JavascriptCommand.class);
