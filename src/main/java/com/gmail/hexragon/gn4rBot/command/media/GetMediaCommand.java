@@ -13,7 +13,7 @@ public class GetMediaCommand extends CommandExecutor
     public GetMediaCommand(CommandManager manager)
     {
         super(manager);
-        setUsage("getmedia");
+        setDescription("Get a png/jpg/gif/vine from GN4R's database.");
     }
 
     @Override

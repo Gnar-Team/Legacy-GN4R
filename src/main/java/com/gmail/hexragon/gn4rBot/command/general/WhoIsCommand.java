@@ -13,11 +13,18 @@ public class WhoIsCommand extends CommandExecutor
 	{
 		super(manager);
 		setUsage("whois (user)");
+		setDescription("Get information on a user.");
 	}
 
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
+		if (args.length == 0)
+		{
+			event.getChannel().sendMessage("You did not mention a valid user.");
+			return;
+		}
+		
 		User user = event.getMessage().getMentionedUsers().get(0);
 
 		if (user == null)

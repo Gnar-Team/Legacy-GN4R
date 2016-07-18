@@ -1,6 +1,5 @@
 package com.gmail.hexragon.gn4rBot.managers.servers;
 
-import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.command.admin.JavascriptCommand;
 import com.gmail.hexragon.gn4rBot.command.admin.ReassignPermissionCommand;
 import com.gmail.hexragon.gn4rBot.command.admin.ReassignTokenCommand;
@@ -13,6 +12,7 @@ import com.gmail.hexragon.gn4rBot.command.general.InviteBotCommand;
 import com.gmail.hexragon.gn4rBot.command.general.WhoIsCommand;
 import com.gmail.hexragon.gn4rBot.command.media.CatsCommand;
 import com.gmail.hexragon.gn4rBot.command.media.GetMediaCommand;
+import com.gmail.hexragon.gn4rBot.command.media.ListMediaCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.BanCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.MuteCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.UnmuteCommand;
@@ -72,7 +72,8 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 		commandManager.builder("rand", "random", "rnd", "roll").executor(RollCommand.class);
 		commandManager.builder("discordgold").executor(DiscordGoldCommand.class);
 		commandManager.builder("tts", "texttospeech").executor(TextToSpeechCommand.class);
-
+		commandManager.builder("getimage", "getmedia", "getshit").executor(GetMediaCommand.class);
+		commandManager.builder("listimage", "listmedia", "listshit").executor(ListMediaCommand.class);
 		commandManager.builder("cats", "cat", "getmecats").executor(CatsCommand.class);
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
@@ -89,20 +90,9 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 		commandManager.builder("skip").executor(SkipCommand.class);
 		commandManager.builder("stop").executor(StopCommand.class);
 		
-		if (GnarBot.TEST_MODE)
-		{
-			commandManager.setToken("_test:");
-		}
-		else
-		{
-			commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
-		}
-		
+		commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
 		commandManager.builder("runjs", "javascript").executor(JavascriptCommand.class);
 		commandManager.builder("reassignperm", "changeperm", "reassignpermission").executor(ReassignPermissionCommand.class);
-		commandManager.builder("getimage", "getmedia", "getshit").executor(GetMediaCommand.class);
-		
-		
 	}
 	
 	public CommandManager getCommandManager()
