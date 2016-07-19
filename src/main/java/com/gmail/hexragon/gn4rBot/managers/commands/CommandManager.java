@@ -14,8 +14,8 @@ public class CommandManager
 {
 	private final GnarGuild server;
 
-	private Map<String, CommandExecutor> commandRegistry;
-
+	private final Map<String, CommandExecutor> commandRegistry;
+	
 	private String token = "_"; //default token
 
 	public CommandManager(GnarGuild server)
@@ -70,9 +70,9 @@ public class CommandManager
 		return uniqueMap;
 	}
 
-	public boolean callCommand(MessageReceivedEvent event)
+	public void callCommand(MessageReceivedEvent event)
 	{
-		if (event.getAuthor().isBot()) return false;
+		if (event.getAuthor().isBot()) return;
 		boolean directMention = false;
 
 		String messageContent = event.getMessage().getContent();
@@ -111,7 +111,7 @@ public class CommandManager
 					if (cmd.getPermission().value > server.getUserManager().getGnarUser(event.getAuthor()).getPermission().value)
 					{
 						event.getChannel().sendMessage(String.format("%s ➤ You need to be %s or higher to use this command.", event.getAuthor().getAsMention(), cmd.getPermission().toString()));
-						return false;
+						return;
 					}
 
 					// execute command
@@ -132,8 +132,8 @@ public class CommandManager
 						}
 						event.getChannel().sendMessage(String.format("%s ➤ A fatal error occured while executing this command.", event.getAuthor().getAsMention()));
 					}
-
-					return true;
+					
+					return;
 				}
 			}
 			if (directMention)
@@ -162,9 +162,7 @@ public class CommandManager
 				event.getChannel().sendMessage(String.format("%s ➤ Invalid command.%s", event.getAuthor().getAsMention(), nearest.size() > 0 ? " Nearest commands: `"+Arrays.toString(nearest.toArray())+"`":""));
 
 			}
-			return true;
 		}
-		return false;
 	}
 
 	private void registerCommand(String label, Class<? extends CommandExecutor> cls)
@@ -210,7 +208,7 @@ public class CommandManager
 
 	public class CommandBuilder
 	{
-		String[] aliases;
+		final String[] aliases;
 		private Class<? extends CommandExecutor> executor;
 
 		protected CommandBuilder(String... aliases)

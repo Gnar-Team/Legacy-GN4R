@@ -6,7 +6,7 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public abstract class CommandExecutor
 {
-	private CommandManager manager;
+	private final CommandManager manager;
 	private String description =  "No descriptions provided.";
 	private String usage;
 	private PermissionLevel permission = PermissionLevel.SERVER_USER;

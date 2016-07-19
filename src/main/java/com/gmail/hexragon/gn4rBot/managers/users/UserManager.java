@@ -10,7 +10,7 @@ public class UserManager
 {
 	private final GnarGuild server;
 
-	private Map<User, GnarUser> userRegistry;
+	private final Map<User, GnarUser> userRegistry;
 
 	public UserManager(GnarGuild server)
 	{

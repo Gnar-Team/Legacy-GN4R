@@ -1,141 +1,129 @@
 package com.gmail.hexragon.gn4rBot.util;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URL;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MediaCache
 {
-	private FileIOManager fileIOManager;
-
-
-	private Map<String, MediaSet> imageCache;
-
-	private Map<String, MediaSet> gifCache;
-
-	private Map<String, MediaSet> vineCache;
-
-	public class MediaSet
-	{
-		private final String name;
-		private final String extension;
-
-		private MediaSet(String name, String extension)
-		{
-			this.name = name;
-			this.extension = extension;
-		}
-
-		public String getName()
-		{
-			return name;
-		}
-
-		public String getExtension()
-		{
-			return extension;
-		}
-	}
-
+	private final FileIOManager fileIOManager = new FileIOManager("_DATA/images/imageCache.txt");
+	
+	private final HashMap<String, File> imgFileCache;
+	
+	private final HashMap<String, String> imgCache;
+	private final HashMap<String, String> gifCache;
+	private final HashMap<String, String> vineCache;
+	
 	public MediaCache()
 	{
-		imageCache = new LinkedHashMap<>();
-		gifCache = new LinkedHashMap<>();
-		vineCache = new LinkedHashMap<>();
-
-		fileIOManager = new FileIOManager(new File("_DATA/images/imageCache.txt"));
+		this.imgFileCache = new HashMap<>();
+		
+		this.imgCache = new LinkedHashMap<>();
+		this.gifCache = new LinkedHashMap<>();
+		this.vineCache = new LinkedHashMap<>();
+		
+		load();
+		store();
 	}
-
-	public void loadFromFile()
+	
+	public synchronized void cacheImage(String id, String url, String extension)
 	{
-		List<String> entries = fileIOManager.readList();
-
-		entries.stream()
-				.filter(s -> !s.isEmpty())
-				.map(s -> s.split("!="))
-				.forEach(strings -> cacheImage(strings[0], strings[1], strings[2]));
-	}
-
-	public void storeToFile()
-	{
-		List<String> entries = new ArrayList<>();
-
-		entries.addAll(imageCache.entrySet().stream()
-				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue().getName(), entry.getValue().getExtension()))
-				.collect(Collectors.toList()));
-
-		entries.add("");
-
-		entries.addAll(gifCache.entrySet().stream()
-				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue().getName(), entry.getValue().getExtension()))
-				.collect(Collectors.toList()));
-
-		entries.add("");
-
-		entries.addAll(vineCache.entrySet().stream()
-				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue().getName(), entry.getValue().getExtension()))
-				.collect(Collectors.toList()));
-
-		fileIOManager.writeFile(entries);
-
-//		//TESTING
-//		JSONObject obj = new JSONObject();
-//		obj.put("wow.lol", imageCache);
-//
-//
-////		//NOTE: you need to create base folder before server
-////
-////
-//		FileReadingUtils.writeToFile(obj.toString(4), "_DATA/lmao.txt", false);
-//
-//		JSONObject obj2 = new JSONObject(FileReadingUtils.fileToString("_DATA/lmao.txt"));
-//
-//		//noinspection unchecked
-//		Iterator<?> it = ((JSONObject) obj2.get("wow.lol")).keys();
-//
-//		while (it.hasNext())
-//		{
-//			String key = (String) it.next();
-//			System.out.println(key);
-//		}
-
-	}
-
-	public synchronized boolean cacheImage(String id, String url, String extension)
-	{
-		switch(extension.toLowerCase())
+		switch (extension)
 		{
 			case "gif":
-				gifCache.put(id, new MediaSet(url, extension));
-				return true;
-
+				gifCache.put(id, url);
+				return;
 			case "vine":
-				vineCache.put(id, new MediaSet(url, extension));
-				return true;
-
+				vineCache.put(id, url);
+				return;
 			case "jpg":
-			case "jpeg":
 			case "png":
-				imageCache.put(id, new MediaSet(url, extension));
-				return true;
-
+			{
+				try
+				{
+					File file = new File("_DATA/images/pics/" + id + "." + extension);
+					
+					if (!file.exists())
+					{
+						BufferedImage img = ImageIO.read(new URL(url));
+						ImageIO.write(img, extension, file);
+					}
+					
+					imgFileCache.put(id, file);
+					imgCache.put(id, url);
+					return;
+				}
+				catch (Exception e)
+				{
+					System.out.println("Was not able to load image " + id);
+					e.printStackTrace();
+				}
+				
+			}
 			default:
-				throw new IllegalArgumentException("Extension '"+extension+"' is invalid.");
+				System.out.println("Was not able to load media id=" + id + " url=" + url + " extension=" + extension);
 		}
 	}
-
-	public Map<String, MediaSet> getImageCache() {
-		return imageCache;
+	
+	public void store()
+	{
+		List<String> entries = new ArrayList<>();
+		
+		entries.addAll(imgCache.entrySet().stream()
+				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue(), entry.getValue().substring(entry.getValue().lastIndexOf('.') + 1)))
+				.collect(Collectors.toList()));
+		
+		entries.add("");
+		
+		entries.addAll(gifCache.entrySet().stream()
+				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue(), "gif"))
+				.collect(Collectors.toList()));
+		
+		entries.add("");
+		
+		entries.addAll(vineCache.entrySet().stream()
+				.map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue(), "vine"))
+				.collect(Collectors.toList()));
+		
+		fileIOManager.writeFile(entries);
 	}
-
-	public Map<String, MediaSet> getGifCache() {
+	
+	public synchronized void load()
+	{
+		List<String> entries = fileIOManager.readList();
+		
+		entries.stream().filter(s -> !s.isEmpty()).map(s -> s.split("!=")).forEach(args -> cacheImage(args[0], args[1], args[2]));
+	}
+	
+	public HashMap<String, File> getImgFileCache()
+	{
+		return imgFileCache;
+	}
+	
+	public HashMap<String, String> getGifCache()
+	{
 		return gifCache;
 	}
-
-	public Map<String, MediaSet> getVineCache() {
+	
+	public HashMap<String, String> getImgCache()
+	{
+		return imgCache;
+	}
+	
+	public HashMap<String, String> getVineCache()
+	{
 		return vineCache;
+	}
+	
+	public Map<String, String> getURLCaches()
+	{
+		Map<String, String> urlCaches = new HashMap<>();
+		urlCaches.putAll(imgCache);
+		urlCaches.putAll(gifCache);
+		urlCaches.putAll(vineCache);
+		return urlCaches;
 	}
 }

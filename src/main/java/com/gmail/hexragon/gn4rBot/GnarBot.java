@@ -9,43 +9,43 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class GnarBot
 {
-	private static final String token = new FileIOManager("_DATA/token").readString();
-	public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
-
+	@SuppressWarnings("FieldCanBeLocal")
+	private static String TOKEN = new FileIOManager("_DATA/testtoken").readString();
+	public static List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
+	
 	private static GnarBot instance;
 
 	public static void main(String[] args) throws Exception
 	{
-		//adminIDs.add("123");
-		//FileReadingUtils.listToFile(adminIDs, "_DATA/administrators");
+		File dataFolder = new File("_DATA");
+		if (!dataFolder.exists())
+		{
+			System.out.println("[ERROR] - Folder '_DATA' not found.");
+			return;
+		}
 
-		// GOAL IS 27 COMMANDS BEFORE PUBLISH
-
-//		ImageCache imageCache = new ImageCache();
-//		imageCache.loadFromFile();
-//		imageCache.storeToFile();
-		
-		//new JDAPlayerBot(token);
-
-		System.out.println("Loading test bot...");
-
-		instance = new GnarBot(token);
+		instance = new GnarBot(TOKEN);
 	}
 
 	private GnarBot(String token)
 	{
 		GuildManager guildManager = new GuildManager();
 
+		File f = new File("_DATA/images/pics/");
+		f.mkdirs();
+		f.deleteOnExit();
+
 		try
 		{
 			final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
-			
+
 			jda.getAccountManager().setUsername("GN4R");
 			jda.getAccountManager().setGame("League of Cuddles");
 

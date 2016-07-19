@@ -31,7 +31,7 @@ public class PandorabotCommand extends CommandExecutor
 				factory = new ChatterBotFactory();
 				bot = factory.create(ChatterBotType.PANDORABOTS, "b0dafd24ee35a477");
 				session = bot.createSession();
-				event.getChannel().sendMessage(String.format("%s ➤ Pandora-Bot *[The Professor]* session created for the server.", event.getAuthor().getAsMention()));
+				event.getChannel().sendMessage(String.format("%s ➤ Pandora-Bot session created for the server.", event.getAuthor().getAsMention()));
 			}
 
 			String input = StringUtils.join(args, " ");
