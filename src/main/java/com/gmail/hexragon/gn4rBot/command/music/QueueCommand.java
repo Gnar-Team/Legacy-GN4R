@@ -2,12 +2,17 @@ package com.gmail.hexragon.gn4rBot.command.music;
 
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.player.MusicPlayer;
 import net.dv8tion.jda.player.Playlist;
 import net.dv8tion.jda.player.source.AudioInfo;
 import net.dv8tion.jda.player.source.AudioSource;
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +35,8 @@ public class QueueCommand extends MusicCommandExecutor
 	{
 		super.execute(event, args);
 		
+		
+		//show the queue
 		if (args.length == 0)
 		{
 			StringJoiner joiner = new StringJoiner("\n");
@@ -54,6 +61,7 @@ public class QueueCommand extends MusicCommandExecutor
 			return;
 		}
 		
+		// add music
 		try
 		{
 			if (player.getAudioQueue().size() >= QUEUE_LIMIT)
@@ -62,7 +70,33 @@ public class QueueCommand extends MusicCommandExecutor
 				return;
 			}
 			
+			//check if it is url
 			String url = args[0];
+			try
+			{
+				new URL(url);
+			}
+			catch (MalformedURLException e) // args[0] not a url, try youtube search
+			{
+				String query = StringUtils.join(args, "+");
+				
+				String jsonURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=" + query + "&key=AIzaSyCSLbKyledFh7iRDH3jPzk-C92gXgMN5H4";
+				
+				JSONObject jsonObject = Utils.readJsonFromUrl(jsonURL);
+				
+				try
+				{
+					String videoID = jsonObject.getJSONArray("items").getJSONObject(0).getJSONObject("id").getString("videoId");
+					url = "https://www.youtube.com/watch?v=" + videoID;
+				}
+				catch (Exception e1)
+				{
+					event.getChannel().sendMessage(String.format("%s ➤ Failed to find any video with the query `%s`.", event.getAuthor().getAsMention(), query));
+					return;
+				}
+			}
+			
+			//handle trying to add the url
 			Playlist playlist = Playlist.getPlaylist(url);
 			List<AudioSource> sources = new LinkedList<>(playlist.getSources());
 			
@@ -113,7 +147,7 @@ public class QueueCommand extends MusicCommandExecutor
 						return;
 					}
 					player.getAudioQueue().add(source);
-					event.getChannel().sendMessage(String.format("%s ➤ **%s** The song '%s' has been successfully added to the queue.", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote(), source.getInfo().getTitle()));
+					event.getChannel().sendMessage(String.format("%s ➤ **%s** The song `%s` has been successfully added to the queue.", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote(), source.getInfo().getTitle()));
 				}
 				else
 				{
