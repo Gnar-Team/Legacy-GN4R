@@ -11,10 +11,10 @@ public class RollCommand extends CommandExecutor
 	public RollCommand(CommandManager manager)
 	{
 		super(manager);
-		setDescription("Roll a random number from 0 to -arg#0.");
+		setDescription("Roll a random number from 0 to arg-1.");
 		setUsage("rand (integer)");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
@@ -23,7 +23,7 @@ public class RollCommand extends CommandExecutor
 			if (!(Integer.valueOf(args[0]) > 0))
 			{
 				event.getChannel().sendMessage(String.format("%s ➤ Number need to be > 0", event.getAuthor().getAsMention()));
-
+				
 				return;
 			}
 			event.getChannel().sendMessage(String.format("%s ➤ You rolled `%d` from range `0 to %3$s`.", event.getAuthor().getAsMention(), new Random().nextInt(Integer.valueOf(args[0])), args[0]));

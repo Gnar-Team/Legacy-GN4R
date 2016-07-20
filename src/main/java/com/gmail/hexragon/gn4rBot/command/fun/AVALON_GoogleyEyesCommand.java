@@ -3,7 +3,6 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -29,8 +28,7 @@ public class AVALON_GoogleyEyesCommand extends CommandExecutor
 	public AVALON_GoogleyEyesCommand(CommandManager manager)
 	{
 		super(manager);
-		setPermission(PermissionLevel.SERVER_USER);
-		showInHelp(true);
+		showInHelp(false);
 	}
 	
 	private static BufferedImage resize(BufferedImage img, int newW, int newH)

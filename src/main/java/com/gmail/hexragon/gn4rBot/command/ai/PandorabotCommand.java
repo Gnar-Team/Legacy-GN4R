@@ -14,13 +14,14 @@ public class PandorabotCommand extends CommandExecutor
 	ChatterBotFactory factory = null;
 	ChatterBot bot = null;
 	ChatterBotSession session = null;
-
+	
 	public PandorabotCommand(CommandManager manager)
 	{
 		super(manager);
 		setDescription("Talk to Pandora-Bot.");
+		setUsage("pbot (query)");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
@@ -33,9 +34,9 @@ public class PandorabotCommand extends CommandExecutor
 				session = bot.createSession();
 				event.getChannel().sendMessage(String.format("%s ➤ Pandora-Bot session created for the server.", event.getAuthor().getAsMention()));
 			}
-
+			
 			String input = StringUtils.join(args, " ");
-
+			
 			String output = session.think(input);
 			event.getChannel().sendMessage("**[PandoraBot]** ─ `" + output + "`");
 		}

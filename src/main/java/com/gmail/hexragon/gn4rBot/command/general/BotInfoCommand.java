@@ -16,7 +16,7 @@ public class BotInfoCommand extends CommandExecutor
 		super(manager);
 		setDescription("Show information about Gn4r-Bot.");
 	}
-
+	
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
 		int textChannels = 0;
@@ -26,9 +26,9 @@ public class BotInfoCommand extends CommandExecutor
 		int offline = 0;
 		int online = 0;
 		int inactive = 0;
-
+		
 		JDA jda = event.getJDA();
-
+		
 		for (Guild g : jda.getGuilds())
 		{
 			for (User u : g.getUsers())
@@ -46,13 +46,13 @@ public class BotInfoCommand extends CommandExecutor
 						break;
 				}
 			}
-
+			
 			servers++;
 			users += g.getUsers().size();
 			textChannels += g.getTextChannels().size();
 			voiceChannels += g.getVoiceChannels().size();
 		}
-
+		
 		StringJoiner joiner = new StringJoiner("\n");
 		joiner.add("[Usage Statistics]");
 		joiner.add("   ├─[Servers]              " + servers);
@@ -69,9 +69,9 @@ public class BotInfoCommand extends CommandExecutor
 		joiner.add("   ├─[Language]             Java 8");
 		joiner.add("   ├─[Library]              Javacord");
 		joiner.add("   └─[GitHub]               https://github.com/DankBots/GN4R");
-
+		
 		event.getChannel().sendMessage(String.format("%s ➤ Here is all of my information.", event.getAuthor().getAsMention()));
-
+		
 		event.getChannel().sendMessage("```xl\n" + joiner.toString() + "```\n");
-}
+	}
 }

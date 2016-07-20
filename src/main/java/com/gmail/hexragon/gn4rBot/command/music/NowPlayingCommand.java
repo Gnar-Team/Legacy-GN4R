@@ -30,13 +30,13 @@ public class NowPlayingCommand extends MusicCommandExecutor
 			{
 				event.getChannel().sendMessage(
 						"```\nPlaying:  " + info.getTitle() + "\n" +
-							 "Time:     [" + currentTime.getTimestamp() + " / " + info.getDuration().getTimestamp() + "]\n```");
+								"Time:     [" + currentTime.getTimestamp() + " / " + info.getDuration().getTimestamp() + "]\n```");
 			}
 			else
 			{
 				event.getChannel().sendMessage(
 						"*```\nPlaying: Info Error. Known source: " + player.getCurrentAudioSource().getSource() + "\n" +
-							  "Time:    [" + currentTime.getTimestamp() + " / (N/A)]\n```");
+								"Time:    [" + currentTime.getTimestamp() + " / (N/A)]\n```");
 			}
 		}
 		else

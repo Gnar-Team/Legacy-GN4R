@@ -15,18 +15,18 @@ public class BanCommand extends CommandExecutor
 		setUsage("ban (user)");
 		setPermission(PermissionLevel.BOT_COMMANDER);
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
 		User target = event.getMessage().getMentionedUsers().get(0);
-
+		
 		if (target == null)
 		{
 			event.getChannel().sendMessage(String.format("%s ➤ You did mention a user.", event.getAuthor().getAsMention()));
 			return;
 		}
-
+		
 		getGnarGuild().ban(target, 0);
 		event.getChannel().sendMessage(String.format("%s ➤ You have banned %s.", event.getAuthor().getAsMention(), target.getAsMention()));
 	}

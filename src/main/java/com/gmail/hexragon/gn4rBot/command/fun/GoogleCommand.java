@@ -21,48 +21,55 @@ public class GoogleCommand extends CommandExecutor
 	{
 		super(manager);
 		setDescription("Because who needs browsers?");
+		setUsage("google (query)");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
+		if (args.length == 0)
+		{
+			event.getChannel().sendMessage(String.format("%s ➤ Gotta have a query to Google.", event.getAuthor().getAsMention()));
+			return;
+		}
+		
 		try
 		{
 			String query = StringUtils.join(args, " ");
 			Message msg = event.getChannel().sendMessage(String.format("%s ➤ Searching `%s`.", event.getAuthor().getAsMention(), query));
-
+			
 			String userAgent = "GN4R-Bot"; // Change this to your company's name and bot homepage!
-
+			
 			Elements links = Jsoup.connect(
 					String.format("http://www.google.com/search?q=%s", URLEncoder.encode(query, StandardCharsets.UTF_8.displayName())))
 					.userAgent(userAgent).get().select(".g>.r>a");
-
+			
 			StringJoiner joiner = new StringJoiner("\n");
-
+			
 			for (Element link : links)
 			{
 				String title = link.text();
 				String url = link.absUrl("href"); // Google returns URLs in format "http://www.google.com/url?q=<url>&sa=U&ei=<someKey>".
 				url = URLDecoder.decode(url.substring(url.indexOf('=') + 1, url.indexOf('&')), StandardCharsets.UTF_8.displayName());
-
+				
 				if (!url.startsWith("http"))
 				{
 					continue; // Ads/news/etc.
 				}
-
-				joiner.add("Title: **" + title +"**");
+				
+				joiner.add("Title: **" + title + "**");
 				joiner.add("URL: " + url);
-
+				
 				break;
 			}
-
-
+			
+			
 			if (!links.isEmpty()) msg.updateMessage(joiner.toString());
 			else msg.updateMessage(String.format("%s ➤ No results for `%s`.", event.getAuthor().getAsMention(), query));
 		}
 		catch (IOException e)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ Unable to Google stuff.", event.getAuthor().getAsMention()));
+			event.getChannel().sendMessage(event.getAuthor().getAsMention() + " ➤ Unable to Google stuff.");
 			e.printStackTrace();
 		}
 	}

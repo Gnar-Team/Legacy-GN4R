@@ -56,7 +56,7 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 		commandManager.builder("help", "guide").executor(HelpCommand.class);
 		commandManager.builder("info", "botinfo").executor(BotInfoCommand.class);
 		commandManager.builder("whois", "infoon", "infoof").executor(WhoIsCommand.class);
-		commandManager.builder("invitebot").executor(InviteBotCommand.class);
+		commandManager.builder("invite", "invitebot").executor(InviteBotCommand.class);
 
 		commandManager.builder("ban").executor(BanCommand.class);
 		commandManager.builder("mute").executor(MuteCommand.class);
@@ -66,7 +66,8 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 		commandManager.builder("pbot", "pandorabot").executor(PandorabotCommand.class);
 
 		commandManager.builder("xkcd").executor(xkcdCommand.class);
-		commandManager.builder("explosm", "c&h", "cyanideandhappiness").executor(ExplosmCommand.class);
+		commandManager.builder("c&h", "explosm", "cyanideandhappiness").executor(ExplosmCommand.class);
+		commandManager.builder("rcg").executor(ExplosmRCGCommand.class);
 		commandManager.builder("google").executor(GoogleCommand.class);
 		commandManager.builder("math").executor(MathCommand.class);
 		commandManager.builder("rand", "random", "rnd", "roll").executor(RollCommand.class);
@@ -79,6 +80,8 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
 //		commandManager.builder("kotlin_xkcd").executor(KOTLIN_xkcdCommand.class);
 //		commandManager.builder("test").executor(TestCommand.class);
+		commandManager.builder("googleyeyes").executor(AVALON_GoogleyEyesCommand.class);
+		commandManager.builder("youtube").executor(YoutubeCommand.class);
 		
 		commandManager.builder("joinchannel").executor(JoinChannelCommand.class);
 		commandManager.builder("queue").executor(QueueCommand.class);

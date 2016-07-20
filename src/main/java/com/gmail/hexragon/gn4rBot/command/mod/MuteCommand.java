@@ -15,18 +15,18 @@ public class MuteCommand extends CommandExecutor
 		setUsage("mute (user)");
 		setPermission(PermissionLevel.BOT_COMMANDER);
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
 		User target = event.getMessage().getMentionedUsers().get(0);
-
+		
 		if (target == null)
 		{
 			event.getChannel().sendMessage(String.format("%s ➤ You did not mention a user.", event.getAuthor().getAsMention()));
 			return;
 		}
-
+		
 		getGnarGuild().mute(target);
 		event.getChannel().sendMessage(String.format("%s ➤ You have muted %s.", event.getAuthor().getAsMention(), target.getAsMention()));
 	}

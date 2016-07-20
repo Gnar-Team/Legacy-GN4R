@@ -15,19 +15,19 @@ public class UnmuteCommand extends CommandExecutor
 		setUsage("unmute (user)");
 		setPermission(PermissionLevel.BOT_COMMANDER);
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
-
+		
 		User target = event.getMessage().getMentionedUsers().get(0);
-
+		
 		if (target == null)
 		{
 			event.getChannel().sendMessage(String.format("%s ➤ You did not mention a user.", event.getAuthor().getAsMention()));
 			return;
 		}
-
+		
 		getGnarGuild().unmute(target);
 		event.getChannel().sendMessage(String.format("%s ➤ You have unmuted %s.", event.getAuthor().getAsMention(), target.getAsMention()));
 	}

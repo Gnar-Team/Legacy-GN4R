@@ -15,10 +15,13 @@ import java.util.StringJoiner;
 
 public class QueueCommand extends MusicCommandExecutor
 {
+	private static final int DURATION_LIMIT = 600;
+	private static final int QUEUE_LIMIT = 20;
+	
 	public QueueCommand(CommandManager commandManager)
 	{
 		super(commandManager);
-		setUsage("queue (video url)");
+		setUsage("queue [youtube url]");
 		setDescription("Add music or show the current queue.");
 	}
 	
@@ -31,7 +34,7 @@ public class QueueCommand extends MusicCommandExecutor
 		{
 			StringJoiner joiner = new StringJoiner("\n");
 			
-			event.getChannel().sendMessage("**"+GnarQuotes.getRandomQuote() + "** Here's what's queued to be played!");
+			event.getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** Here's what's queued to be played!");
 			joiner.add("```xl");
 			
 			if (player.getAudioQueue().isEmpty()) joiner.add(" Empty.");
@@ -53,6 +56,12 @@ public class QueueCommand extends MusicCommandExecutor
 		
 		try
 		{
+			if (player.getAudioQueue().size() >= QUEUE_LIMIT)
+			{
+				event.getChannel().sendMessage(String.format("%s ➤ The music queue can only hold %d songs.", event.getAuthor().getAsMention(), QUEUE_LIMIT));
+				return;
+			}
+			
 			String url = args[0];
 			Playlist playlist = Playlist.getPlaylist(url);
 			List<AudioSource> sources = new LinkedList<>(playlist.getSources());
@@ -73,6 +82,11 @@ public class QueueCommand extends MusicCommandExecutor
 							List<AudioSource> queue = fPlayer.getAudioQueue();
 							if (info.getError() == null)
 							{
+								if (source.getInfo().getDuration().getTotalSeconds() > DURATION_LIMIT)
+								{
+									event.getChannel().sendMessage(String.format("%s ➤ Skipping the source `%s` as it exceeded the time limit.", event.getAuthor().getAsMention(), source.getInfo().getTitle()));
+									continue;
+								}
 								queue.add(source);
 							}
 							else
@@ -90,10 +104,16 @@ public class QueueCommand extends MusicCommandExecutor
 			{
 				AudioSource source = sources.get(0);
 				AudioInfo info = source.getInfo();
+				
 				if (info.getError() == null)
 				{
+					if (source.getInfo().getDuration().getTotalSeconds() > DURATION_LIMIT)
+					{
+						event.getChannel().sendMessage(String.format("%s ➤ The source `%s` exceeded the time limit.", event.getAuthor().getAsMention(), source.getInfo().getTitle()));
+						return;
+					}
 					player.getAudioQueue().add(source);
-					event.getChannel().sendMessage(String.format("%s ➤ **%s** The URL has been successfully added to the queue.", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote()));
+					event.getChannel().sendMessage(String.format("%s ➤ **%s** The song '%s' has been successfully added to the queue.", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote(), source.getInfo().getTitle()));
 				}
 				else
 				{

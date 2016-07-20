@@ -40,7 +40,7 @@ public class VolumeCommand extends MusicCommandExecutor
 				bar.setCharAt(i, '█');
 			}
 			
-			event.getChannel().sendMessage(":sound: `["+bar.toString()+"]`");
+			event.getChannel().sendMessage(":sound: `[" + bar.toString() + "]`");
 		}
 		catch (NumberFormatException e)
 		{

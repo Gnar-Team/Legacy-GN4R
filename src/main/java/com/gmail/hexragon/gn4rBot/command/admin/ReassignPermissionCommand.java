@@ -17,20 +17,20 @@ public class ReassignPermissionCommand extends CommandExecutor
 		setUsage("reassignperm (user) (perm)");
 		setPermission(PermissionLevel.SERVER_OWNER);
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
 		if (args.length >= 2)
 		{
 			User target = event.getMessage().getMentionedUsers().get(0);
-
+			
 			if (target == null || (target.isBot()))
 			{
-				event.getChannel().sendMessage(String.format("%s ➤ You did not mention a user.%s", event.getAuthor().getAsMention(), target!= null && target.isBot() ? " (Can't be a bot)" : ""));
+				event.getChannel().sendMessage(String.format("%s ➤ You did not mention a user.%s", event.getAuthor().getAsMention(), target != null && target.isBot() ? " (Can't be a bot)" : ""));
 				return;
 			}
-
+			
 			for (PermissionLevel permissionLevel : PermissionLevel.serverValues())
 			{
 				if (permissionLevel.toString().toLowerCase().equals(args[1].toLowerCase()))

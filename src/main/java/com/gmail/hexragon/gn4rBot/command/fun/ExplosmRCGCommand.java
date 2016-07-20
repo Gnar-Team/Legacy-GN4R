@@ -5,13 +5,12 @@ import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
-import java.util.Random;
 
-
-public class ExplosmCommand extends CommandExecutor
+public class ExplosmRCGCommand extends CommandExecutor
 {
-	public ExplosmCommand(CommandManager manager)
+	public ExplosmRCGCommand(CommandManager manager)
 	{
 		super(manager);
 		setDescription("We all need some satire.");
@@ -24,24 +23,21 @@ public class ExplosmCommand extends CommandExecutor
 		{
 			Document document;
 			
-			int min = 1500;
-			int max = 4300;
+			document = Jsoup.connect("http://explosm.net/rcg").get();
 			
-			int rand = min + new Random().nextInt(max - min);
-			
-			document = Jsoup.connect(String.format("http://explosm.net/comics/%d/", rand)).get();
+			Element element = document.getElementById("rcg-comic").getElementsByTag("img").get(0);
 			
 			String builder =
 					"Cyanide and Happiness" + "\n" +
-							"No: **" + rand + "**\n" +
-							"Link: " + document.getElementById("main-comic").absUrl("src");
+							"**Random Comic Generator**\n" +
+							"Link: " + element.absUrl("src");
 			
 			event.getChannel().sendMessage(builder);
 			
 		}
 		catch (Exception e)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ Unable to grab Cyanide and Happiness comic.", event.getAuthor().getAsMention()));
+			event.getChannel().sendMessage(String.format("%s ➤ Unable to grab random Cyanide and Happiness comic.", event.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

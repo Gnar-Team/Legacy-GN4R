@@ -10,17 +10,18 @@ import java.text.DecimalFormat;
 public class MathCommand extends CommandExecutor
 {
 	private final DecimalFormat formatter = new DecimalFormat();
+	
 	{
 		formatter.setDecimalSeparatorAlwaysShown(false);
 	}
-
+	
 	public MathCommand(CommandManager manager)
 	{
 		super(manager);
 		setDescription("Calculate fancy math stuff.");
 		setUsage("math (expression)");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
@@ -29,23 +30,23 @@ public class MathCommand extends CommandExecutor
 		event.getChannel().sendMessage(String.format("%s ➤ Expression `%s` evaluating.", event.getAuthor().getAsMention(), exp));
 		event.getChannel().sendMessage(String.format("%s ➤ Final answer: `%s`", event.getAuthor().getAsMention(), formatter.format(result)));
 	}
-
+	
 	private class MathConsumer
 	{
 		private final String exp;
 		int pos = -1;
 		int ch;
-
+		
 		MathConsumer(String exp)
 		{
 			this.exp = exp;
 		}
-
+		
 		void nextChar()
 		{
 			ch = (++pos < exp.length()) ? exp.charAt(pos) : -1;
 		}
-
+		
 		boolean eat(int charToEat)
 		{
 			while (ch == ' ') nextChar();
@@ -56,7 +57,7 @@ public class MathCommand extends CommandExecutor
 			}
 			return false;
 		}
-
+		
 		double parse()
 		{
 			nextChar();
@@ -64,13 +65,13 @@ public class MathCommand extends CommandExecutor
 			if (pos < exp.length()) throw new RuntimeException("Unexpected: " + (char) ch);
 			return x;
 		}
-
+		
 		// Grammar:
 		// expression = term | expression `+` term | expression `-` term
 		// term = factor | term `*` factor | term `/` factor
 		// factor = `+` factor | `-` factor | `(` expression `)`
 		//        | number | functionName factor | factor `^` factor
-
+		
 		double parseExpression()
 		{
 			double x = parseTerm();
@@ -81,7 +82,7 @@ public class MathCommand extends CommandExecutor
 				else return x;
 			}
 		}
-
+		
 		double parseTerm()
 		{
 			double x = parseFactor();
@@ -92,12 +93,12 @@ public class MathCommand extends CommandExecutor
 				else return x;
 			}
 		}
-
+		
 		double parseFactor()
 		{
 			if (eat('+')) return parseFactor(); // unary plus
 			if (eat('-')) return -parseFactor(); // unary minus
-
+			
 			double x;
 			int startPos = this.pos;
 			if (eat('('))
@@ -143,9 +144,9 @@ public class MathCommand extends CommandExecutor
 			{
 				throw new RuntimeException("Unexpected: " + (char) ch);
 			}
-
+			
 			if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
-
+			
 			return x;
 		}
 	}

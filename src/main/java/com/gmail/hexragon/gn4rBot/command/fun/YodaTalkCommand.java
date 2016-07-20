@@ -14,9 +14,9 @@ public class YodaTalkCommand extends CommandExecutor
 	{
 		super(manager);
 		setDescription("Learn to speak like yoda, you will.");
-		setUsage("yodatalk (string)");
+		setUsage("yodatalk (sentence)");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
@@ -24,7 +24,7 @@ public class YodaTalkCommand extends CommandExecutor
 		{
 			String sentence = StringUtils.join(args, "+");
 			
-			HttpResponse<String> response = Unirest.get("https://yoda.p.mashape.com/yoda?sentence="+sentence)
+			HttpResponse<String> response = Unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + sentence)
 					.header("X-Mashape-Key", "dw1mYrC2ssmsh2WkFGHaherCtl48p1wtuHWjsnYbP3Y7q8y6M5")
 					.header("Accept", "text/plain")
 					.asString();

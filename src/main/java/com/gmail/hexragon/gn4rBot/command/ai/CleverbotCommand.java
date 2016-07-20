@@ -14,17 +14,18 @@ public class CleverbotCommand extends CommandExecutor
 	ChatterBotFactory factory = null;
 	ChatterBot bot = null;
 	ChatterBotSession session = null;
-
+	
 	public CleverbotCommand(CommandManager manager)
 	{
 		super(manager);
 		setDescription("Talk to Clever-Bot.");
+		setUsage("cbot (query)");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
-
+		
 		try
 		{
 			if (factory == null)
@@ -34,9 +35,9 @@ public class CleverbotCommand extends CommandExecutor
 				session = bot.createSession();
 				event.getChannel().sendMessage(String.format("%s ➤ Clever-Bot session created for the server.", event.getAuthor().getAsMention()));
 			}
-
+			
 			String input = StringUtils.join(args, " ");
-
+			
 			String output = session.think(input);
 			event.getChannel().sendMessage("**[CleverBot]** ─ `" + output + "`");
 		}

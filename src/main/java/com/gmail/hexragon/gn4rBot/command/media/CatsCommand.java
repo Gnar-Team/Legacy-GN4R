@@ -14,21 +14,21 @@ public class CatsCommand extends CommandExecutor
 	public CatsCommand(CommandManager manager)
 	{
 		super(manager);
-		setDescription("They are evil, I tell you.");
+		setDescription("Get cats! What more do you want!?");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
 		try
 		{
 			String apiKey = "MTAyODkw";
-
-
+			
+			
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc;
-
+			
 			if (args.length >= 1 && args[0] != null)
 			{
 				switch (args[0])
@@ -47,10 +47,10 @@ public class CatsCommand extends CommandExecutor
 			{
 				doc = db.parse(new URL(String.format("http://thecatapi.com/api/images/get?format=xml&api_key=%s&results_per_page=1", apiKey)).openStream());
 			}
-
+			
 			String catURL = doc.getElementsByTagName("url").item(0).getTextContent();
-
-			event.getChannel().sendMessage("Random Cat Pictures\nLink: "+catURL);
+			
+			event.getChannel().sendMessage("Random Cat Pictures\nLink: " + catURL);
 		}
 		catch (Exception e)
 		{

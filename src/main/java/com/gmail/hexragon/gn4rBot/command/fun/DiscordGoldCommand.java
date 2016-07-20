@@ -11,7 +11,7 @@ public class DiscordGoldCommand extends CommandExecutor
 		super(manager);
 		setDescription("Tilts dumb people.");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{

@@ -21,7 +21,7 @@ public class HelpCommand extends CommandExecutor
 		super(manager);
 		setDescription("Display GN4R's list of commands.");
 	}
-
+	
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
 		if (args.length >= 1)
@@ -37,6 +37,7 @@ public class HelpCommand extends CommandExecutor
 		}
 		else
 		{
+			
 			List<String> commands = new ArrayList<>(getCommandManager().getUniqueCommandRegistry().keySet());
 			StringBuilder builder = new StringBuilder();
 			
@@ -48,6 +49,8 @@ public class HelpCommand extends CommandExecutor
 					.append(guild != null ? guild.getName() : getGnarGuild().getAccessID())
 					.append("'")
 					.append(".```\n");
+			
+			builder.append("```\n[Bot Commander] commands requires you to have a role named exactly 'Bot Commander'.```\n");
 			
 			
 			Arrays.stream(PermissionLevel.values()).forEach(permissionLevel ->

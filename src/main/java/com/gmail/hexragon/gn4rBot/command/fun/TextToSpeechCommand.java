@@ -11,15 +11,16 @@ public class TextToSpeechCommand extends CommandExecutor
 	{
 		super(manager);
 		setDescription("Text to speech fun.");
+		setUsage("tts (sentence)");
 	}
-
+	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{
 		MessageBuilder builder = new MessageBuilder();
 		builder.setTTS(true);
-		builder.appendString(event.getMessage().getContent().replaceFirst(getCommandManager().getToken()+"tts ", ""));
-
+		builder.appendString(event.getMessage().getContent().replaceFirst(getCommandManager().getToken() + "tts ", ""));
+		
 		event.getChannel().sendMessage(builder.build());
 	}
 }
