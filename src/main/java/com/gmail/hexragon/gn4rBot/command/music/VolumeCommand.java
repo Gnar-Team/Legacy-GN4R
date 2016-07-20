@@ -34,8 +34,8 @@ public class VolumeCommand extends MusicCommandExecutor
 					String.format("%s ➤ **%s** Volume has been changed to %d",
 							event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote(), displayVol));
 			
-			StringBuilder bar = new StringBuilder("                                                  ");
-			for (int i = 0; i < displayVol / 2; i++)
+			StringBuilder bar = new StringBuilder("                    ");
+			for (int i = 0; i < displayVol / 5; i++)
 			{
 				bar.setCharAt(i, '█');
 			}
