@@ -76,6 +76,8 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 		commandManager.builder("getimage", "getmedia", "getshit").executor(GetMediaCommand.class);
 		commandManager.builder("listimage", "listmedia", "listshit").executor(ListMediaCommand.class);
 		commandManager.builder("cats", "cat", "getmecats").executor(CatsCommand.class);
+		commandManager.builder("eyes").executor(GoogleyEyesCommand.class);
+		commandManager.builder("lol").executor(LeagueLookupCommand.class);
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
 //		commandManager.builder("kotlin_xkcd").executor(KOTLIN_xkcdCommand.class);

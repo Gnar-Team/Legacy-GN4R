@@ -17,9 +17,10 @@ import java.util.List;
 public class GnarBot
 {
 	@SuppressWarnings("FieldCanBeLocal")
-	private static String TOKEN = new FileIOManager("_DATA/testtoken").readString();
+	private static String TOKEN = new FileIOManager("_DATA/token").readString();
 	public static List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
-	
+	public static final String lolToken = new FileIOManager("_DATA/loltoken").readString();
+
 	private static GnarBot instance;
 
 	public static void main(String[] args) throws Exception
