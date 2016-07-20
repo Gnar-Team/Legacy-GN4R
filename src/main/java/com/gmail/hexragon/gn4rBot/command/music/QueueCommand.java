@@ -70,8 +70,10 @@ public class QueueCommand extends MusicCommandExecutor
 				return;
 			}
 			
-			//check if it is url
+			
 			String url = args[0];
+			
+			//check if it is url
 			try
 			{
 				new URL(url);

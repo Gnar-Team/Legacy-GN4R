@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class AVALON_GoogleyEyesCommand extends CommandExecutor
+public class GoogleyEyesCommand extends CommandExecutor
 {
-	public AVALON_GoogleyEyesCommand(CommandManager manager)
+	public GoogleyEyesCommand(CommandManager manager)
 	{
 		super(manager);
 		showInHelp(false);

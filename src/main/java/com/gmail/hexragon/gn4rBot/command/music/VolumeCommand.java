@@ -31,7 +31,7 @@ public class VolumeCommand extends MusicCommandExecutor
 			player.setVolume(volume / 100f);
 			
 			event.getChannel().sendMessage(
-					String.format("%s ➤ **%s** Volume has been changed to %d",
+					String.format("%s ➤ **%s** Volume has been changed to %d.",
 							event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote(), displayVol));
 			
 			StringBuilder bar = new StringBuilder("                    ");
@@ -42,9 +42,9 @@ public class VolumeCommand extends MusicCommandExecutor
 			
 			event.getChannel().sendMessage(":sound: `[" + bar.toString() + "]`");
 		}
-		catch (NumberFormatException e)
+		catch (Exception e)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ You didn't enter a proper number! [0-100] :cry:", event.getAuthor().getAsMention()));
+			event.getChannel().sendMessage(String.format("%s ➤ You didn't enter a proper number! `[0-100]` :cry:", event.getAuthor().getAsMention()));
 		}
 	}
 	
