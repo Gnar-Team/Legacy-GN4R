@@ -11,13 +11,13 @@ import java.util.Map;
 /*
  * Handles multiinstances of Guilds.
  */
-public class GuildManager
+public class ServerManagers
 {
 	private final MediaCache mediaCache;
 	
 	private final Map<String, GnarGuild> serverMap;
 
-	public GuildManager()
+	public ServerManagers()
 	{
 		this.serverMap = new LinkedHashMap<>();
 		this.mediaCache = new MediaCache();

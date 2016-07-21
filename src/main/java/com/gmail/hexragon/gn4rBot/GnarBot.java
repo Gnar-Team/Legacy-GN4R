@@ -1,7 +1,8 @@
 package com.gmail.hexragon.gn4rBot;
 
-import com.gmail.hexragon.gn4rBot.managers.servers.GuildManager;
+import com.gmail.hexragon.gn4rBot.managers.servers.ServerManagers;
 import com.gmail.hexragon.gn4rBot.util.FileIOManager;
+import com.gmail.hexragon.gn4rBot.util.PropertiesManager;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.JDABuilder;
@@ -16,13 +17,9 @@ import java.util.List;
 
 public class GnarBot
 {
-	@SuppressWarnings("FieldCanBeLocal")
-	private static String TOKEN = new FileIOManager("_DATA/token").readString();
-	public static List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
-	public static final String lolToken = new FileIOManager("_DATA/loltoken").readString();
-
-	private static GnarBot instance;
-
+	public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
+	public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
+	
 	public static void main(String[] args) throws Exception
 	{
 		File dataFolder = new File("_DATA");
@@ -31,15 +28,16 @@ public class GnarBot
 			System.out.println("[ERROR] - Folder '_DATA' not found.");
 			return;
 		}
-
-		instance = new GnarBot(TOKEN);
+		
+		new GnarBot(TOKENS.get("beta-bot"));
 	}
 
 	private GnarBot(String token)
 	{
-		GuildManager guildManager = new GuildManager();
+		ServerManagers serverManagers = new ServerManagers();
 
 		File f = new File("_DATA/images/pics/");
+		//noinspection ResultOfMethodCallIgnored
 		f.mkdirs();
 		f.deleteOnExit();
 
@@ -59,7 +57,7 @@ public class GnarBot
 				{
 					try
 					{
-						if (!event.getAuthor().isBot()) guildManager.messageEvent(event);
+						if (!event.getAuthor().isBot()) serverManagers.messageEvent(event);
 					}
 					catch (Exception e)
 					{
@@ -85,10 +83,5 @@ public class GnarBot
 			e.printStackTrace();
 		}
 
-	}
-
-	public static GnarBot getInstance()
-	{
-		return instance;
 	}
 }

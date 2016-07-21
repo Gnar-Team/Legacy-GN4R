@@ -1,6 +1,7 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.mashape.unirest.http.HttpResponse;
@@ -53,7 +54,7 @@ public class GoogleyEyesCommand extends CommandExecutor
 			String encodedStr = URLEncoder.encode(urlStr, StandardCharsets.UTF_8.displayName());
 			
 			HttpResponse<JsonNode> response = Unirest.get("https://apicloud-facerect.p.mashape.com/process-url.json?features=true&url=" + encodedStr)
-					.header("X-Mashape-Key", "SrKRceX2hQmshTs1Ngl6C8MdLPCkp1DGpPPjsnSfF2IDI8aMqL")
+					.header("X-Mashape-Key", GnarBot.TOKENS.get("mashape"))
 					.header("Accept", "application/json")
 					.asJson();
 			
@@ -112,6 +113,7 @@ public class GoogleyEyesCommand extends CommandExecutor
 			}
 			finally
 			{
+				//noinspection ResultOfMethodCallIgnored
 				outputFile.delete();
 			}
 			

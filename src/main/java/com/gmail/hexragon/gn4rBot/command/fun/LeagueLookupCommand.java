@@ -3,15 +3,11 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.MessageBuilder;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.*;
-import java.net.URL;
-import java.nio.charset.Charset;
 
 public class LeagueLookupCommand extends CommandExecutor
 {
@@ -26,8 +22,8 @@ public class LeagueLookupCommand extends CommandExecutor
     {
         MessageBuilder mb = new MessageBuilder();
         try {
-            JSONObject jso = readJsonFromUrl("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/"
-                    + args[0] + "?api_key=" + GnarBot.lolToken);
+            JSONObject jso = Utils.readJsonFromUrl("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/"
+                    + args[0] + "?api_key=" + GnarBot.TOKENS.get("leauge"));
             JSONObject info = (JSONObject) jso.get(args[0]);
             mb.appendString("League Of Legends Account Info: \n")
                     .appendString("Season: SEASON2016 \n\n")
@@ -37,7 +33,7 @@ public class LeagueLookupCommand extends CommandExecutor
                     .appendString("Icon ID: " + info.get("profileIconId") + "\n");
 
             try {
-                JSONObject jso2 = readJsonFromUrl(
+                JSONObject jso2 = Utils.readJsonFromUrl(
                         "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/" + info.get("id")
                                 + "/summary?season=SEASON2016&api_key=RGAPI-4A230644-F1D8-40B7-A81E-4566E145BA1C");
                 JSONArray j = (JSONArray) jso2.get("playerStatSummaries");
@@ -71,27 +67,6 @@ public class LeagueLookupCommand extends CommandExecutor
                 event.getChannel().sendMessage(mb.build());
             } catch (Exception ex) { e.printStackTrace();}
             e.printStackTrace();
-        }
-    }
-
-    private static String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
-    }
-
-    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
         }
     }
 }

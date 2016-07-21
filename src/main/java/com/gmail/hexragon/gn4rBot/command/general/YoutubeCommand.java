@@ -1,5 +1,6 @@
-package com.gmail.hexragon.gn4rBot.command.fun;
+package com.gmail.hexragon.gn4rBot.command.general;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.util.Utils;
@@ -34,7 +35,7 @@ public class YoutubeCommand extends CommandExecutor
 			
 			query = query.replace(" ", "+");
 			
-			String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=" + query + "&key=AIzaSyCSLbKyledFh7iRDH3jPzk-C92gXgMN5H4";
+			String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=" + query + "&key="+ GnarBot.TOKENS.get("youtube");
 			
 			JSONObject jsonObject = Utils.readJsonFromUrl(url);
 			

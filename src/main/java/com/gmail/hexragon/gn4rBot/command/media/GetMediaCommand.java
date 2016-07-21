@@ -28,7 +28,7 @@ public class GetMediaCommand extends CommandExecutor
 		
 		String greeting = String.format("%s ➤ **%s** Here's your stuff!", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
 		
-		MediaCache mediaCache = getGnarGuild().getGuildManager().getMediaCache();
+		MediaCache mediaCache = getGnarGuild().getServerManager().getMediaCache();
 		
 		if (mediaCache.getImgFileCache().containsKey(args[0]))
 		{

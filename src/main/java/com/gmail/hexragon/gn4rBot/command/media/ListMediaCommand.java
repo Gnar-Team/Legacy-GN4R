@@ -26,7 +26,7 @@ public class ListMediaCommand extends CommandExecutor
 		
 		String greeting = String.format("%s ➤ **%s** Here's what I got in my stash!", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
 		
-		MediaCache mediaCache = getGnarGuild().getGuildManager().getMediaCache();
+		MediaCache mediaCache = getGnarGuild().getServerManager().getMediaCache();
 		StringBuilder builder = new StringBuilder();
 		
 		switch (args[0])

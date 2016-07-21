@@ -6,10 +6,7 @@ import com.gmail.hexragon.gn4rBot.command.admin.ReassignTokenCommand;
 import com.gmail.hexragon.gn4rBot.command.ai.CleverbotCommand;
 import com.gmail.hexragon.gn4rBot.command.ai.PandorabotCommand;
 import com.gmail.hexragon.gn4rBot.command.fun.*;
-import com.gmail.hexragon.gn4rBot.command.general.BotInfoCommand;
-import com.gmail.hexragon.gn4rBot.command.general.HelpCommand;
-import com.gmail.hexragon.gn4rBot.command.general.InviteBotCommand;
-import com.gmail.hexragon.gn4rBot.command.general.WhoIsCommand;
+import com.gmail.hexragon.gn4rBot.command.general.*;
 import com.gmail.hexragon.gn4rBot.command.media.CatsCommand;
 import com.gmail.hexragon.gn4rBot.command.media.GetMediaCommand;
 import com.gmail.hexragon.gn4rBot.command.media.ListMediaCommand;
@@ -21,20 +18,21 @@ import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.managers.GuildManager;
 
 import java.io.File;
 
-public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
+public class GnarGuild extends GuildManager
 {
 	private final String accessID;
 	private final UserManager userManager;
 	private final CommandManager commandManager;
-	private final GuildManager manager;
+	private final ServerManagers manager;
 
 	private final String basePath;
 	private final File baseFile;
 	
-	public GnarGuild(String accessID, GuildManager manager, Guild guild)
+	public GnarGuild(String accessID, ServerManagers manager, Guild guild)
 	{
 		super(guild);
 
@@ -48,7 +46,6 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 
 		this.userManager = new UserManager(this);
 		this.commandManager = new CommandManager(this);
-		//NOTE: you need to create base folder before server
 	}
 
 	public void defaultSetup()
@@ -119,7 +116,7 @@ public class GnarGuild extends net.dv8tion.jda.managers.GuildManager
 	}
 
 	
-	public GuildManager getGuildManager()
+	public ServerManagers getServerManager()
 	{
 		return manager;
 	}
