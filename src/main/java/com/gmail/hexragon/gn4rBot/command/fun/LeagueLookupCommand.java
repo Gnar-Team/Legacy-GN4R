@@ -14,6 +14,8 @@ public class LeagueLookupCommand extends CommandExecutor
     public LeagueLookupCommand(CommandManager manager)
     {
         super(manager);
+        setDescription("Look up Leauge of Legends statistics.");
+        setUsage("leauge (LoL username)");
         showInHelp(true);
     }
 
@@ -24,7 +26,7 @@ public class LeagueLookupCommand extends CommandExecutor
         try {
             JSONObject jso = Utils.readJsonFromUrl("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/"
                     + args[0] + "?api_key=" + GnarBot.TOKENS.get("leauge"));
-            JSONObject info = (JSONObject) jso.get(args[0]);
+            JSONObject info = jso.getJSONObject(args[0]);
             mb.appendString("League Of Legends Account Info: \n")
                     .appendString("Season: SEASON2016 \n\n")
                     .appendString("Current Name: " + info.get("name") + "\n")
@@ -36,8 +38,8 @@ public class LeagueLookupCommand extends CommandExecutor
                 JSONObject jso2 = Utils.readJsonFromUrl(
                         "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/" + info.get("id")
                                 + "/summary?season=SEASON2016&api_key=RGAPI-4A230644-F1D8-40B7-A81E-4566E145BA1C");
-                JSONArray j = (JSONArray) jso2.get("playerStatSummaries");
-                JSONObject fin = (JSONObject) j.get(0);
+                JSONArray j = jso2.getJSONArray("playerStatSummaries");
+                JSONObject fin = j.getJSONObject(0);
 
                 mb.appendString("Wins: " + fin.get("wins"));
 

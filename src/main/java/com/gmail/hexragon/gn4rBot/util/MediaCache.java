@@ -26,7 +26,7 @@ public class MediaCache
 		this.vineCache = new LinkedHashMap<>();
 		
 		load();
-		store();
+		//store();
 	}
 	
 	public synchronized void cacheImage(String id, String url, String extension)

@@ -5,8 +5,7 @@ import java.util.Random;
 
 public class GnarQuotes
 {
-	
-	private static String[] quotes =
+	private static final String[] quotes =
 			{
 					"Gnar gada!",
 					"Gnar!",

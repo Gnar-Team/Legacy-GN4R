@@ -34,7 +34,7 @@ public abstract class CommandExecutor
 		this.permission = permission;
 	}
 
-	public PermissionLevel getPermission()
+	public PermissionLevel permissionLevel()
 	{
 		return permission;
 	}

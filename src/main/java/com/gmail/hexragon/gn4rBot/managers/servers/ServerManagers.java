@@ -5,7 +5,7 @@ import com.gmail.hexragon.gn4rBot.util.MediaCache;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 /*
@@ -19,7 +19,7 @@ public class ServerManagers
 
 	public ServerManagers()
 	{
-		this.serverMap = new LinkedHashMap<>();
+		this.serverMap = new HashMap<>();
 		this.mediaCache = new MediaCache();
 	}
 
