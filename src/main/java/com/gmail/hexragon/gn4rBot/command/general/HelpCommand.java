@@ -71,7 +71,7 @@ public class HelpCommand extends CommandExecutor
 				{
 					CommandExecutor cmd = getCommandManager().getCommand(cmdString);
 					
-					if (cmd.getPermission() != permissionLevel || !cmd.isShownInHelp()) continue;
+					if (cmd.permissionLevel() != permissionLevel || !cmd.isShownInHelp()) continue;
 					else cmdCount++;
 					
 					String usage = cmd.getUsage();

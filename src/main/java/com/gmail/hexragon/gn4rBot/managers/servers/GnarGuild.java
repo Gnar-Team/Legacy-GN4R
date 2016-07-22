@@ -1,6 +1,7 @@
 package com.gmail.hexragon.gn4rBot.managers.servers;
 
 import com.gmail.hexragon.gn4rBot.command.admin.JavascriptCommand;
+import com.gmail.hexragon.gn4rBot.command.admin.MemoryReportCommand;
 import com.gmail.hexragon.gn4rBot.command.admin.ReassignPermissionCommand;
 import com.gmail.hexragon.gn4rBot.command.admin.ReassignTokenCommand;
 import com.gmail.hexragon.gn4rBot.command.ai.CleverbotCommand;
@@ -20,8 +21,6 @@ import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.managers.GuildManager;
 
-import java.io.File;
-
 public class GnarGuild extends GuildManager
 {
 	private final String accessID;
@@ -30,7 +29,7 @@ public class GnarGuild extends GuildManager
 	private final ServerManagers manager;
 
 	private final String basePath;
-	private final File baseFile;
+	//private final File baseFile;
 	
 	public GnarGuild(String accessID, ServerManagers manager, Guild guild)
 	{
@@ -40,9 +39,9 @@ public class GnarGuild extends GuildManager
 		this.basePath = String.format("_DATA/servers/%s/", accessID);
 		this.manager = manager;
 
-		baseFile = new File(basePath);
-		if (!baseFile.exists()) //noinspection ResultOfMethodCallIgnored
-			baseFile.mkdirs();
+//		baseFile = new File(basePath);
+//		if (!baseFile.exists()) //noinspection ResultOfMethodCallIgnored
+//			baseFile.mkdirs();
 
 		this.userManager = new UserManager(this);
 		this.commandManager = new CommandManager(this);
@@ -74,7 +73,7 @@ public class GnarGuild extends GuildManager
 		commandManager.builder("listimage", "listmedia", "listshit").executor(ListMediaCommand.class);
 		commandManager.builder("cats", "cat", "getmecats").executor(CatsCommand.class);
 		commandManager.builder("googleyeyes", "eyes").executor(GoogleyEyesCommand.class);
-		commandManager.builder("lol").executor(LeagueLookupCommand.class);
+		commandManager.builder("league","lol").executor(LeagueLookupCommand.class);
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
 //		commandManager.builder("kotlin_xkcd").executor(KOTLIN_xkcdCommand.class);
@@ -96,6 +95,7 @@ public class GnarGuild extends GuildManager
 		commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
 		commandManager.builder("runjs", "javascript").executor(JavascriptCommand.class);
 		commandManager.builder("reassignperm", "changeperm", "reassignpermission").executor(ReassignPermissionCommand.class);
+		commandManager.builder("memory").executor(MemoryReportCommand.class);
 	}
 	
 	public CommandManager getCommandManager()
@@ -127,11 +127,11 @@ public class GnarGuild extends GuildManager
 		getCommandManager().callCommand(event);
 	}
 
-	
-	public File getBaseFile()
-	{
-		return baseFile;
-	}
+//
+//	public File getBaseFile()
+//	{
+//		return baseFile;
+//	}
 
 	
 	public String getBasePath()

@@ -108,9 +108,9 @@ public class CommandManager
 					// Calling the command class.
 					CommandExecutor cmd = commandRegistry.get(regCommand);
 
-					if (cmd.getPermission().value > server.getUserManager().getGnarUser(event.getAuthor()).getPermission().value)
+					if (cmd.permissionLevel().value > server.getUserManager().getGnarUser(event.getAuthor()).getPermission().value)
 					{
-						event.getChannel().sendMessage(String.format("%s ➤ You need to be %s or higher to use this command.", event.getAuthor().getAsMention(), cmd.getPermission().toString()));
+						event.getChannel().sendMessage(String.format("%s ➤ You need to be %s or higher to use this command.", event.getAuthor().getAsMention(), cmd.permissionLevel().toString()));
 						return;
 					}
 
@@ -169,27 +169,41 @@ public class CommandManager
 	{
 		try
 		{
-			if (!commandRegistry.isEmpty())
+			CommandExecutor cmd = null;
+			for (CommandExecutor entry : commandRegistry.values())
 			{
-				for (String command : commandRegistry.keySet())
+				if (entry.getClass() == cls)
 				{
-					if (label.equals(command))
-					{
-						System.out.println("Command is already registered.");
-						return;
-					}
+					cmd = entry;
 				}
 			}
-			CommandExecutor cmd = cls.getDeclaredConstructor(this.getClass()).newInstance(this);
+			if (cmd == null) cmd = cls.getDeclaredConstructor(this.getClass()).newInstance(this);
 
-			commandRegistry.put(label, cmd);
+			registerCommand(label, cmd);
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-
+	
+	private void registerCommand(String label, CommandExecutor cmd)
+	{
+		if (!commandRegistry.isEmpty())
+		{
+			for (String command : commandRegistry.keySet())
+			{
+				if (label.equals(command))
+				{
+					System.out.println("Command is already registered.");
+					return;
+				}
+			}
+		}
+		commandRegistry.put(label, cmd);
+	}
+	
+	
 	public void unregisterCommand(String s)
 	{
 		if (!commandRegistry.isEmpty())
@@ -211,7 +225,7 @@ public class CommandManager
 		final String[] aliases;
 		private Class<? extends CommandExecutor> executor;
 
-		protected CommandBuilder(String... aliases)
+		CommandBuilder(String... aliases)
 		{
 			this.aliases = aliases;
 		}
