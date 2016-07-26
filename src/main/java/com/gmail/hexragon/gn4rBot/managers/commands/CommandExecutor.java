@@ -8,7 +8,7 @@ public abstract class CommandExecutor
 {
 	private final CommandManager manager;
 	private String description =  "No descriptions provided.";
-	private String usage;
+	private String usage = null;
 	private PermissionLevel permission = PermissionLevel.SERVER_USER;
 	private boolean showInHelp = true;
 

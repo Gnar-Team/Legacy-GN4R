@@ -14,7 +14,6 @@ import com.gmail.hexragon.gn4rBot.command.media.ListMediaCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.BanCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.MuteCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.UnmuteCommand;
-import com.gmail.hexragon.gn4rBot.command.music.*;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import net.dv8tion.jda.entities.Guild;
@@ -53,6 +52,10 @@ public class GnarGuild extends GuildManager
 		commandManager.builder("info", "botinfo").executor(BotInfoCommand.class);
 		commandManager.builder("whois", "infoon", "infoof").executor(WhoIsCommand.class);
 		commandManager.builder("invite", "invitebot").executor(InviteBotCommand.class);
+		commandManager.builder("uptime").executor(UptimeCommand.class);
+		
+		commandManager.builder("google").executor(GoogleCommand.class);
+		commandManager.builder("youtube").executor(YoutubeCommand.class);
 
 		commandManager.builder("ban").executor(BanCommand.class);
 		commandManager.builder("mute").executor(MuteCommand.class);
@@ -64,7 +67,6 @@ public class GnarGuild extends GuildManager
 		commandManager.builder("xkcd").executor(xkcdCommand.class);
 		commandManager.builder("c&h", "explosm", "cyanideandhappiness").executor(ExplosmCommand.class);
 		commandManager.builder("rcg").executor(ExplosmRCGCommand.class);
-		commandManager.builder("google").executor(GoogleCommand.class);
 		commandManager.builder("math").executor(MathCommand.class);
 		commandManager.builder("rand", "random", "rnd", "roll").executor(RollCommand.class);
 		commandManager.builder("discordgold").executor(DiscordGoldCommand.class);
@@ -73,24 +75,29 @@ public class GnarGuild extends GuildManager
 		commandManager.builder("listimage", "listmedia", "listshit").executor(ListMediaCommand.class);
 		commandManager.builder("cats", "cat", "getmecats").executor(CatsCommand.class);
 		commandManager.builder("googleyeyes", "eyes").executor(GoogleyEyesCommand.class);
+		commandManager.builder("goodshit").executor(GoodShitCommand.class);
+		commandManager.builder("8ball").executor(EightBallCommand.class);
+		commandManager.builder("coinflip", "flip").executor(CoinFlipCommand.class);
+		
 		commandManager.builder("league","lol").executor(LeagueLookupCommand.class);
+		
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
 //		commandManager.builder("kotlin_xkcd").executor(KOTLIN_xkcdCommand.class);
 //		commandManager.builder("test").executor(TestCommand.class);
-		commandManager.builder("youtube").executor(YoutubeCommand.class);
 		
-		commandManager.builder("joinchannel").executor(JoinChannelCommand.class);
-		commandManager.builder("queue").executor(QueueCommand.class);
-		commandManager.builder("volume").executor(VolumeCommand.class);
-		commandManager.builder("play", "resume").executor(PlayCommand.class);
-		commandManager.builder("leavechannel").executor(LeaveChannelCommand.class);
-		commandManager.builder("nowplaying").executor(NowPlayingCommand.class);
-		commandManager.builder("repeat").executor(RepeatCommand.class);
-		commandManager.builder("skip").executor(SkipCommand.class);
-		commandManager.builder("stop").executor(StopCommand.class);
-		commandManager.builder("restart").executor(RestartCommand.class);
-		commandManager.builder("resetmusic").executor(ResetCommand.class);
+		
+//		commandManager.builder("joinchannel").executor(JoinChannelCommand.class);
+//		commandManager.builder("queue").executor(QueueCommand.class);
+//		commandManager.builder("volume").executor(VolumeCommand.class);
+//		commandManager.builder("play", "resume").executor(PlayCommand.class);
+//		commandManager.builder("leavechannel").executor(LeaveChannelCommand.class);
+//		commandManager.builder("nowplaying").executor(NowPlayingCommand.class);
+//		commandManager.builder("repeat").executor(RepeatCommand.class);
+//		commandManager.builder("skip").executor(SkipCommand.class);
+//		commandManager.builder("stop").executor(StopCommand.class);
+//		commandManager.builder("restart").executor(RestartCommand.class);
+//		commandManager.builder("resetmusic").executor(ResetCommand.class);
 		
 		commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
 		commandManager.builder("runjs", "javascript").executor(JavascriptCommand.class);
