@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.JDA;
@@ -68,7 +69,7 @@ public class BotInfoCommand extends CommandExecutor
 		joiner.add("   ├─[# of Commands]        " + getCommandManager().getUniqueCommandRegistry().size());
 		joiner.add("   ├─[Language]             Java 8");
 		joiner.add("   ├─[Library]              Javacord");
-		joiner.add("   └─[GitHub]               https://github.com/DankBots/GN4R");
+		joiner.add("   └─[Uptime]               " + GnarBot.getUptimeStamp() + ".");
 		
 		event.getChannel().sendMessage(String.format("%s ➤ Here is all of my information.", event.getAuthor().getAsMention()));
 		

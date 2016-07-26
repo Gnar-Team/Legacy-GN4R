@@ -19,6 +19,7 @@ public class GnarBot
 {
 	public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
 	public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
+	private static final long startTime = System.currentTimeMillis();
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -83,5 +84,14 @@ public class GnarBot
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static String getUptimeStamp()
+	{
+		long seconds = (new Date().getTime() - startTime) / 1000;
+		long minutes = seconds / 60;
+		long hours = minutes / 60;
+		long days = hours / 24;
+		return days + " days, " + hours % 24 + " hours, " + minutes % 60 + " minutes and " + seconds % 60 + " seconds";
 	}
 }

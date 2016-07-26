@@ -11,9 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class PandorabotCommand extends CommandExecutor
 {
-	ChatterBotFactory factory = null;
-	ChatterBot bot = null;
-	ChatterBotSession session = null;
+	private ChatterBotFactory factory = null;
+	private ChatterBot bot = null;
+	private ChatterBotSession session = null;
 	
 	public PandorabotCommand(CommandManager manager)
 	{

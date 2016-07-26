@@ -7,12 +7,11 @@ import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class HelpCommand extends CommandExecutor
 {
@@ -33,7 +32,22 @@ public class HelpCommand extends CommandExecutor
 				return;
 			}
 			
-			event.getChannel().sendMessage(String.format("%s ➤ The command `%s`'s description is `%s`.", event.getAuthor().getAsMention(), args[0], cmd.getDescription()));
+			List<String> aliases = getCommandManager().getCommandRegistry().entrySet().stream()
+					.filter(entry -> entry.getValue() == cmd && !entry.getKey().equals(args[0]))
+					.map(Map.Entry::getKey)
+					.collect(Collectors.toList());
+			
+			StringJoiner joiner = new StringJoiner("\n");
+			joiner.add(String.format("%s ➤ This is the information for the command `%s`:", event.getAuthor().getAsMention(), args[0]));
+			joiner.add("```");
+			joiner.add("Description:   " + cmd.getDescription());
+			
+			
+			joiner.add("Usage:         " + getCommandManager().getToken() + (cmd.getUsage() == null ? args[0].toLowerCase() : cmd.getUsage()));
+			if (!aliases.isEmpty()) joiner.add("Aliases:       ["+StringUtils.join(aliases, ", ")+"]");
+			joiner.add("```");
+			
+			event.getChannel().sendMessage(joiner.toString());
 		}
 		else
 		{
@@ -77,7 +91,7 @@ public class HelpCommand extends CommandExecutor
 					String usage = cmd.getUsage();
 					
 					subBuilder.append(cmd instanceof MusicCommandExecutor ? "♪ " : "  ").append(getCommandManager().getToken());
-					subBuilder.append((usage != null ? usage : cmdString)).append("\n");
+					subBuilder.append(usage != null ? usage : cmdString).append("\n");
 					
 					//subBuilder.append("    ").append(cmd.getDescription()).append("\n");
 				}
@@ -86,6 +100,8 @@ public class HelpCommand extends CommandExecutor
 				
 				if (cmdCount != 0) builder.append(subBuilder.toString());
 			});
+			
+			builder.append("```\nNOTICE: Music capabilities will have to be removed for now until we get a better server, sorry for the inconveniences!```\n");
 			
 			event.getChannel().sendMessage(String.format("%s ➤ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", event.getAuthor().getAsMention()));
 			
