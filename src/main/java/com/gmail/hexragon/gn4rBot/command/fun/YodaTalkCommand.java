@@ -22,9 +22,9 @@ public class YodaTalkCommand extends CommandExecutor
 	{
 		try
 		{
-			String sentence = StringUtils.join(args, "+");
+			String query = StringUtils.join(args, "+");
 			
-			HttpResponse<String> response = Unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + sentence)
+			HttpResponse<String> response = Unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + query)
 					.header("X-Mashape-Key", "dw1mYrC2ssmsh2WkFGHaherCtl48p1wtuHWjsnYbP3Y7q8y6M5")
 					.header("Accept", "text/plain")
 					.asString();

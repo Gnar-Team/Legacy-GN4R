@@ -37,6 +37,7 @@ public class EightBallCommand extends CommandExecutor
 	{
 		super(manager);
 		setDescription("Test your luck!");
+		setUsage("8ball (question)");
 	}
 	
 	@Override
@@ -44,7 +45,7 @@ public class EightBallCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ At least put something in there =|", event.getAuthor().getAsMention()));
+			event.getChannel().sendMessage(String.format("%s ➤ At ask 8-ball something. `=[`", event.getAuthor().getAsMention()));
 			return;
 		}
 		event.getChannel().sendMessage(String.format("%s ➤ `%s`.", event.getAuthor().getAsMention(), responses[random.nextInt(responses.length)]));

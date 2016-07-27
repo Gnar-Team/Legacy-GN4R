@@ -1,4 +1,4 @@
-package com.gmail.hexragon.gn4rBot.command.fun;
+package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;

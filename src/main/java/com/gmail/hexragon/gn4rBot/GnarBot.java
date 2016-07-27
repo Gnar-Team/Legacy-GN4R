@@ -36,12 +36,7 @@ public class GnarBot
 	private GnarBot(String token)
 	{
 		ServerManagers serverManagers = new ServerManagers();
-
-		File f = new File("_DATA/images/pics/");
-		//noinspection ResultOfMethodCallIgnored
-		f.mkdirs();
-		f.deleteOnExit();
-
+		
 		try
 		{
 			final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
@@ -51,6 +46,8 @@ public class GnarBot
 
 			jda.setAutoReconnect(true);
 
+			
+			
 			jda.addEventListener(new ListenerAdapter()
 			{
 				@Override

@@ -30,6 +30,7 @@ public class GoogleyEyesCommand extends CommandExecutor
 	{
 		super(manager);
 		showInHelp(false);
+		setUsage("eyes (image url)");
 	}
 	
 	private static BufferedImage resize(BufferedImage img, int newW, int newH)

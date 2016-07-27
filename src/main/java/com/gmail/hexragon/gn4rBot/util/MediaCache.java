@@ -25,6 +25,12 @@ public class MediaCache
 		this.gifCache = new LinkedHashMap<>();
 		this.vineCache = new LinkedHashMap<>();
 		
+		File f = new File("_DATA/images/pics/");
+		//noinspection ResultOfMethodCallIgnored
+		f.mkdirs();
+		f.deleteOnExit();
+		
+		
 		load();
 		//store();
 	}

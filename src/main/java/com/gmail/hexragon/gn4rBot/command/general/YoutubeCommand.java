@@ -16,7 +16,7 @@ public class YoutubeCommand extends CommandExecutor
 	{
 		super(manager);
 		setDescription("Because who needs browsers?");
-		setUsage("google (query)");
+		setUsage("youtube (query)");
 	}
 	
 	@Override

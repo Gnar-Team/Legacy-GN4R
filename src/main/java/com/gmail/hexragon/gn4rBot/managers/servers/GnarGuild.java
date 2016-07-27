@@ -7,10 +7,11 @@ import com.gmail.hexragon.gn4rBot.command.admin.ReassignTokenCommand;
 import com.gmail.hexragon.gn4rBot.command.ai.CleverbotCommand;
 import com.gmail.hexragon.gn4rBot.command.ai.PandorabotCommand;
 import com.gmail.hexragon.gn4rBot.command.fun.*;
+import com.gmail.hexragon.gn4rBot.command.games.GameLookupCommand;
+import com.gmail.hexragon.gn4rBot.command.games.LeagueLookupCommand;
+import com.gmail.hexragon.gn4rBot.command.games.OverwatchLookupCommand;
 import com.gmail.hexragon.gn4rBot.command.general.*;
-import com.gmail.hexragon.gn4rBot.command.media.CatsCommand;
-import com.gmail.hexragon.gn4rBot.command.media.GetMediaCommand;
-import com.gmail.hexragon.gn4rBot.command.media.ListMediaCommand;
+import com.gmail.hexragon.gn4rBot.command.media.*;
 import com.gmail.hexragon.gn4rBot.command.mod.BanCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.MuteCommand;
 import com.gmail.hexragon.gn4rBot.command.mod.UnmuteCommand;
@@ -53,6 +54,11 @@ public class GnarGuild extends GuildManager
 		commandManager.builder("whois", "infoon", "infoof").executor(WhoIsCommand.class);
 		commandManager.builder("invite", "invitebot").executor(InviteBotCommand.class);
 		commandManager.builder("uptime").executor(UptimeCommand.class);
+		commandManager.builder("math").executor(MathCommand.class);
+		
+		commandManager.builder("rand", "random", "rnd", "roll").executor(RollCommand.class);
+		commandManager.builder("coinflip", "flip").executor(CoinFlipCommand.class);
+		commandManager.builder("8ball").executor(EightBallCommand.class);
 		
 		commandManager.builder("google").executor(GoogleCommand.class);
 		commandManager.builder("youtube").executor(YoutubeCommand.class);
@@ -60,26 +66,27 @@ public class GnarGuild extends GuildManager
 		commandManager.builder("ban").executor(BanCommand.class);
 		commandManager.builder("mute").executor(MuteCommand.class);
 		commandManager.builder("unmute").executor(UnmuteCommand.class);
+		
 
 		commandManager.builder("cbot", "cleverbot").executor(CleverbotCommand.class);
 		commandManager.builder("pbot", "pandorabot").executor(PandorabotCommand.class);
+		commandManager.builder("tts", "texttospeech").executor(TextToSpeechCommand.class);
 
 		commandManager.builder("xkcd").executor(xkcdCommand.class);
 		commandManager.builder("c&h", "explosm", "cyanideandhappiness").executor(ExplosmCommand.class);
-		commandManager.builder("rcg").executor(ExplosmRCGCommand.class);
-		commandManager.builder("math").executor(MathCommand.class);
-		commandManager.builder("rand", "random", "rnd", "roll").executor(RollCommand.class);
-		commandManager.builder("discordgold").executor(DiscordGoldCommand.class);
-		commandManager.builder("tts", "texttospeech").executor(TextToSpeechCommand.class);
 		commandManager.builder("getimage", "getmedia", "getshit").executor(GetMediaCommand.class);
 		commandManager.builder("listimage", "listmedia", "listshit").executor(ListMediaCommand.class);
 		commandManager.builder("cats", "cat", "getmecats").executor(CatsCommand.class);
 		commandManager.builder("googleyeyes", "eyes").executor(GoogleyEyesCommand.class);
-		commandManager.builder("goodshit").executor(GoodShitCommand.class);
-		commandManager.builder("8ball").executor(EightBallCommand.class);
-		commandManager.builder("coinflip", "flip").executor(CoinFlipCommand.class);
+		commandManager.builder("rcg").executor(ExplosmRCGCommand.class);
 		
-		commandManager.builder("league","lol").executor(LeagueLookupCommand.class);
+		commandManager.builder("discordgold").executor(DiscordGoldCommand.class);
+		commandManager.builder("goodshit").executor(GoodShitCommand.class);
+		
+		
+		commandManager.builder("gamelookup", "game").executor(GameLookupCommand.class);
+		commandManager.builder("league", "lol").executor(LeagueLookupCommand.class);
+		commandManager.builder("overwatch", "ow").executor(OverwatchLookupCommand.class);
 		
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
