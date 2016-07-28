@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 
 public class HelpCommand extends CommandExecutor
 {
-	public HelpCommand(CommandManager manager)
+	public HelpCommand()
 	{
-		super(manager);
+		
 		setDescription("Display GN4R's list of commands.");
 	}
 	
@@ -42,8 +42,9 @@ public class HelpCommand extends CommandExecutor
 			joiner.add("```");
 			joiner.add("Description:   " + cmd.getDescription());
 			
+			String usage = cmd.getUsage();
 			
-			joiner.add("Usage:         " + getCommandManager().getToken() + (cmd.getUsage() == null ? args[0].toLowerCase() : cmd.getUsage()));
+			joiner.add("Usage:         " + getCommandManager().getToken() + args[0].toLowerCase() + (usage == null ? "" : " " + usage));
 			if (!aliases.isEmpty()) joiner.add("Aliases:       ["+StringUtils.join(aliases, ", ")+"]");
 			joiner.add("```");
 			
@@ -91,7 +92,7 @@ public class HelpCommand extends CommandExecutor
 					String usage = cmd.getUsage();
 					
 					subBuilder.append(cmd instanceof MusicCommandExecutor ? "♪ " : "  ").append(getCommandManager().getToken());
-					subBuilder.append(usage != null ? usage : cmdString).append("\n");
+					subBuilder.append(cmdString).append(usage == null ? "" : " " + usage).append("\n");
 					
 					//subBuilder.append("    ").append(cmd.getDescription()).append("\n");
 				}
@@ -101,7 +102,7 @@ public class HelpCommand extends CommandExecutor
 				if (cmdCount != 0) builder.append(subBuilder.toString());
 			});
 			
-			builder.append("```\nNOTICE: Music capabilities will have to be removed for now until we get a better server, sorry for the inconveniences!```\n");
+			builder.append("```\nNOTICE: Music capabilities will have to be disabled for now until we get a better server, sorry for the inconveniences!```\n");
 			
 			event.getChannel().sendMessage(String.format("%s ➤ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", event.getAuthor().getAsMention()));
 			

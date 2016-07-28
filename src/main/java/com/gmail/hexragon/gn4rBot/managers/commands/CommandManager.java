@@ -7,6 +7,7 @@ import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -164,7 +165,42 @@ public class CommandManager
 			}
 		}
 	}
-
+	
+	public void registerCommand(Class<? extends CommandExecutor> cls) throws IllegalStateException
+	{
+		try
+		{
+			CommandExecutor cmd = cls.newInstance();
+			
+			Command meta = cls.getAnnotation(Command.class);
+			
+			if (meta == null)
+			{
+				throw new IllegalStateException(cls + ": @Command annotation not found.");
+			}
+			
+			cmd.setDescription(meta.description());
+			cmd.setPermission(meta.permissionRequired());
+			cmd.showInHelp(meta.showInHelp());
+			cmd.setUsage(meta.usage());
+			
+			for (Field field : cmd.getClass().getSuperclass().getDeclaredFields())
+			{
+				if (field.getType() == this.getClass())
+				{
+					field.setAccessible(true);
+					field.set(cmd, this);
+				}
+			}
+			
+			Arrays.stream(meta.aliases()).forEach(s -> registerCommand(s, cmd));
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	private void registerCommand(String label, Class<? extends CommandExecutor> cls)
 	{
 		try
@@ -177,7 +213,29 @@ public class CommandManager
 					cmd = entry;
 				}
 			}
-			if (cmd == null) cmd = cls.getDeclaredConstructor(this.getClass()).newInstance(this);
+			if (cmd == null)
+			{
+				cmd = cls.newInstance();
+				
+				Command meta = cls.getAnnotation(Command.class);
+				
+				if (meta != null)
+				{
+					cmd.setDescription(meta.description());
+					cmd.setPermission(meta.permissionRequired());
+					cmd.showInHelp(meta.showInHelp());
+					cmd.setUsage(meta.usage());
+				}
+				
+				for (Field field : cmd.getClass().getSuperclass().getDeclaredFields())
+				{
+					if (field.getType() == this.getClass())
+					{
+						field.setAccessible(true);
+						field.set(cmd, this);
+					}
+				}
+			}
 
 			registerCommand(label, cmd);
 		}
@@ -214,7 +272,7 @@ public class CommandManager
 		System.out.println("Command isn't registered.");
 	}
 
-
+	@Deprecated
 	public CommandBuilder builder(String... aliases)
 	{
 		return new CommandBuilder(aliases);
@@ -229,7 +287,7 @@ public class CommandManager
 		{
 			this.aliases = aliases;
 		}
-
+		
 		public void executor(Class<? extends CommandExecutor> executor)
 		{
 			this.executor = executor;

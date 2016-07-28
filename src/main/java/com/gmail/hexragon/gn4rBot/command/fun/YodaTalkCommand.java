@@ -10,11 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 
 public class YodaTalkCommand extends CommandExecutor
 {
-	public YodaTalkCommand(CommandManager manager)
+	public YodaTalkCommand()
 	{
-		super(manager);
+		
 		setDescription("Learn to speak like yoda, you will.");
-		setUsage("yodatalk (sentence)");
+		setUsage("(sentence)");
 	}
 	
 	@Override

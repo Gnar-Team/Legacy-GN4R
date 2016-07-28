@@ -15,11 +15,11 @@ public class CleverbotCommand extends CommandExecutor
 	private ChatterBot bot = null;
 	private ChatterBotSession session = null;
 	
-	public CleverbotCommand(CommandManager manager)
+	public CleverbotCommand()
 	{
-		super(manager);
+		
 		setDescription("Talk to Clever-Bot.");
-		setUsage("cbot (query)");
+		setUsage("(query)");
 	}
 	
 	@Override

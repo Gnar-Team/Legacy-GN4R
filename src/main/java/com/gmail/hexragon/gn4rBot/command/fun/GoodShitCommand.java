@@ -1,17 +1,15 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
+@Command(
+		aliases = {"goodshit"},
+		description = "go౦ԁ sHit\uD83D\uDC4C."
+)
 public class GoodShitCommand extends CommandExecutor
 {
-	public GoodShitCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("go౦ԁ sHit\uD83D\uDC4C.");
-	}
-	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{

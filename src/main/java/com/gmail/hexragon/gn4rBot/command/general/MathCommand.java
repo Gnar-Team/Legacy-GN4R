@@ -11,15 +11,12 @@ public class MathCommand extends CommandExecutor
 {
 	private final DecimalFormat formatter = new DecimalFormat();
 	
+	public MathCommand()
 	{
+		
 		formatter.setDecimalSeparatorAlwaysShown(false);
-	}
-	
-	public MathCommand(CommandManager manager)
-	{
-		super(manager);
 		setDescription("Calculate fancy math stuff.");
-		setUsage("math (expression)");
+		setUsage("(expression)");
 	}
 	
 	@Override

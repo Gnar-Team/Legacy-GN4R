@@ -8,11 +8,11 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public class BanCommand extends CommandExecutor
 {
-	public BanCommand(CommandManager manager)
+	public BanCommand()
 	{
-		super(manager);
+		
 		setDescription("Ban users from the server.");
-		setUsage("ban (user)");
+		setUsage("(@user)");
 		setPermission(PermissionLevel.BOT_COMMANDER);
 	}
 	

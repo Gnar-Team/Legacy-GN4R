@@ -2,8 +2,8 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -24,15 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Command(
+		aliases = {"eyes", "googleyeyes"},
+		description = "Put weird eyes on people!"
+)
 public class GoogleyEyesCommand extends CommandExecutor
 {
-	public GoogleyEyesCommand(CommandManager manager)
-	{
-		super(manager);
-		showInHelp(false);
-		setUsage("eyes (image url)");
-	}
-	
 	private static BufferedImage resize(BufferedImage img, int newW, int newH)
 	{
 		Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);

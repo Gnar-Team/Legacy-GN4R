@@ -17,11 +17,11 @@ import java.util.StringJoiner;
 
 public class GoogleCommand extends CommandExecutor
 {
-	public GoogleCommand(CommandManager manager)
+	public GoogleCommand()
 	{
-		super(manager);
+		
 		setDescription("Because who needs browsers?");
-		setUsage("google (query)");
+		setUsage("(query)");
 	}
 	
 	@Override

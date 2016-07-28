@@ -8,11 +8,11 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public class ReassignTokenCommand extends CommandExecutor
 {
-	public ReassignTokenCommand(CommandManager manager)
+	public ReassignTokenCommand()
 	{
-		super(manager);
+		
 		setDescription("Changes Gn4r-Bot's command token.");
-		setUsage("reassigntoken (string)");
+		setUsage("(string)");
 		setPermission(PermissionLevel.SERVER_OWNER);
 	}
 	

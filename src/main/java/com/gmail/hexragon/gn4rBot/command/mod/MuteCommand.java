@@ -8,11 +8,11 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public class MuteCommand extends CommandExecutor
 {
-	public MuteCommand(CommandManager manager)
+	public MuteCommand()
 	{
-		super(manager);
+		
 		setDescription("Mute/silence users from chat.");
-		setUsage("mute (user)");
+		setUsage("(@user)");
 		setPermission(PermissionLevel.BOT_COMMANDER);
 	}
 	

@@ -8,9 +8,9 @@ import java.util.Random;
 
 public class CoinFlipCommand extends CommandExecutor
 {
-	public CoinFlipCommand(CommandManager manager)
+	public CoinFlipCommand()
 	{
-		super(manager);
+		
 		setDescription("Heads or Tails?");
 	}
 	

@@ -9,10 +9,10 @@ import java.util.StringJoiner;
 
 public class WhoIsCommand extends CommandExecutor
 {
-	public WhoIsCommand(CommandManager manager)
+	public WhoIsCommand()
 	{
-		super(manager);
-		setUsage("whois (user)");
+		
+		setUsage("(@user)");
 		setDescription("Get information on a user.");
 	}
 	

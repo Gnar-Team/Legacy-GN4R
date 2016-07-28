@@ -10,11 +10,11 @@ import java.util.Arrays;
 
 public class ReassignPermissionCommand extends CommandExecutor
 {
-	public ReassignPermissionCommand(CommandManager manager)
+	public ReassignPermissionCommand()
 	{
-		super(manager);
+		
 		setDescription("Change user's Gn4r-Bot permission.");
-		setUsage("reassignperm (user) (perm)");
+		setUsage("(@user) (perm)");
 		setPermission(PermissionLevel.SERVER_OWNER);
 	}
 	

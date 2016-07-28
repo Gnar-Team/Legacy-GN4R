@@ -7,11 +7,11 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public class TextToSpeechCommand extends CommandExecutor
 {
-	public TextToSpeechCommand(CommandManager manager)
+	public TextToSpeechCommand()
 	{
-		super(manager);
+		
 		setDescription("Text to speech fun.");
-		setUsage("tts (sentence)");
+		setUsage("(sentence)");
 	}
 	
 	@Override

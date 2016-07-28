@@ -1,7 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.admin;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.apache.commons.lang3.StringUtils;
@@ -12,9 +11,8 @@ import javax.script.ScriptException;
 
 public class JavascriptCommand extends CommandExecutor
 {
-	public JavascriptCommand(CommandManager manager)
+	public JavascriptCommand()
 	{
-		super(manager);
 		setPermission(PermissionLevel.BOT_MASTER);
 		showInHelp(false);
 	}

@@ -12,11 +12,11 @@ import org.json.JSONObject;
 
 public class YoutubeCommand extends CommandExecutor
 {
-	public YoutubeCommand(CommandManager manager)
+	public YoutubeCommand()
 	{
-		super(manager);
+		
 		setDescription("Because who needs browsers?");
-		setUsage("youtube (query)");
+		setUsage("(query)");
 	}
 	
 	@Override

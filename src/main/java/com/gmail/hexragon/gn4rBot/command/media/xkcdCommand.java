@@ -1,18 +1,22 @@
 package com.gmail.hexragon.gn4rBot.command.media;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.json.JSONObject;
 
 import java.util.Random;
 
+@Command(
+		aliases = {"c&h", "explosm"},
+		description = "We all need some satire."
+)
 public class xkcdCommand extends CommandExecutor
 {
-	public xkcdCommand(CommandManager manager)
+	public xkcdCommand()
 	{
-		super(manager);
+		
 		setDescription("Hey kid, want some programmer humor?");
 	}
 	

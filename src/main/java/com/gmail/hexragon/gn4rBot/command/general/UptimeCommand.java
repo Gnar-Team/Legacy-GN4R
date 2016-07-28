@@ -7,9 +7,9 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public class UptimeCommand extends CommandExecutor
 {
-	public UptimeCommand(CommandManager manager)
+	public UptimeCommand()
 	{
-		super(manager);
+		
 		setDescription("Show bot's uptime.");
 	}
 	

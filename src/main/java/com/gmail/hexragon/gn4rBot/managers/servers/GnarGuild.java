@@ -72,14 +72,16 @@ public class GnarGuild extends GuildManager
 		commandManager.builder("pbot", "pandorabot").executor(PandorabotCommand.class);
 		commandManager.builder("tts", "texttospeech").executor(TextToSpeechCommand.class);
 
-		commandManager.builder("xkcd").executor(xkcdCommand.class);
-		commandManager.builder("c&h", "explosm", "cyanideandhappiness").executor(ExplosmCommand.class);
-		commandManager.builder("getimage", "getmedia", "getshit").executor(GetMediaCommand.class);
-		commandManager.builder("listimage", "listmedia", "listshit").executor(ListMediaCommand.class);
-		commandManager.builder("cats", "cat", "getmecats").executor(CatsCommand.class);
-		commandManager.builder("googleyeyes", "eyes").executor(GoogleyEyesCommand.class);
-		commandManager.builder("rcg").executor(ExplosmRCGCommand.class);
+		commandManager.registerCommand(xkcdCommand.class);
+		commandManager.registerCommand(ExplosmCommand.class);
+		commandManager.registerCommand(ExplosmRCGCommand.class);
+		commandManager.registerCommand(GarfieldCommand.class);
+		commandManager.registerCommand(GetMediaCommand.class);
+		commandManager.registerCommand(ListMediaCommand.class);
+		commandManager.registerCommand(CatsCommand.class);
 		
+		
+		commandManager.builder("googleyeyes", "eyes").executor(GoogleyEyesCommand.class);
 		commandManager.builder("discordgold").executor(DiscordGoldCommand.class);
 		commandManager.builder("goodshit").executor(GoodShitCommand.class);
 		

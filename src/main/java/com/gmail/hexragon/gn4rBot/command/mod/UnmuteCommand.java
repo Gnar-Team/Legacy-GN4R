@@ -8,11 +8,11 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public class UnmuteCommand extends CommandExecutor
 {
-	public UnmuteCommand(CommandManager manager)
+	public UnmuteCommand()
 	{
-		super(manager);
+		
 		setDescription("Allow users to use chat again.");
-		setUsage("unmute (user)");
+		setUsage("(@user)");
 		setPermission(PermissionLevel.BOT_COMMANDER);
 	}
 	

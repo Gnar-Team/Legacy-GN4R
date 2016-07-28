@@ -2,7 +2,6 @@ package com.gmail.hexragon.gn4rBot.command.games;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.MessageBuilder;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
@@ -11,11 +10,11 @@ import org.json.JSONObject;
 
 public class LeagueLookupCommand extends CommandExecutor
 {
-	public LeagueLookupCommand(CommandManager manager)
+	public LeagueLookupCommand()
 	{
-		super(manager);
+		
 		setDescription("Look up Leauge of Legends statistics.");
-		setUsage("leauge (LoL username)");
+		setUsage("(LoL username)");
 	}
 	
 	@Override

@@ -15,7 +15,7 @@ public abstract class MusicCommandExecutor extends CommandExecutor
 	
 	MusicCommandExecutor(CommandManager commandManager)
 	{
-		super(commandManager);
+		
 	}
 	
 	@Override

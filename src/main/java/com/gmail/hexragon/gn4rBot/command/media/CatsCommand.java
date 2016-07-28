@@ -1,22 +1,19 @@
 package com.gmail.hexragon.gn4rBot.command.media;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
-
+@Command(
+		aliases = {"cats", "caaaaaaaaats"},
+		description = "Get cats! What more do you want!?"
+)
 public class CatsCommand extends CommandExecutor
 {
-	public CatsCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("Get cats! What more do you want!?");
-	}
-	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{

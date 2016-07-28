@@ -15,11 +15,11 @@ public class PandorabotCommand extends CommandExecutor
 	private ChatterBot bot = null;
 	private ChatterBotSession session = null;
 	
-	public PandorabotCommand(CommandManager manager)
+	public PandorabotCommand()
 	{
-		super(manager);
+		
 		setDescription("Talk to Pandora-Bot.");
-		setUsage("pbot (query)");
+		setUsage("(query)");
 	}
 	
 	@Override

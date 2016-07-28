@@ -6,9 +6,9 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public class DiscordGoldCommand extends CommandExecutor
 {
-	public DiscordGoldCommand(CommandManager manager)
+	public DiscordGoldCommand()
 	{
-		super(manager);
+		
 		setDescription("Tilts dumb people.");
 	}
 	

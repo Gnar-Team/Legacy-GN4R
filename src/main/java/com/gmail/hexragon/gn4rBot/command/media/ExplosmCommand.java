@@ -1,19 +1,22 @@
 package com.gmail.hexragon.gn4rBot.command.media;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.Random;
 
-
+@Command(
+		aliases = {"c&h", "explosm"},
+		description = "Shit-posts from Explosm."
+)
 public class ExplosmCommand extends CommandExecutor
 {
-	public ExplosmCommand(CommandManager manager)
+	public ExplosmCommand()
 	{
-		super(manager);
+		
 		setDescription("We all need some satire.");
 	}
 	

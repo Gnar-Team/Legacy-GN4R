@@ -1,22 +1,20 @@
 package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 import java.io.File;
 
+@Command(
+		aliases = {"getmedia", "getimage", "getshit"},
+		description = "Get a png/jpg/gif/vine from GN4R's database.",
+		usage = "(id)"
+)
 public class GetMediaCommand extends CommandExecutor
 {
-	public GetMediaCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("Get a png/jpg/gif/vine from GN4R's database.");
-		setUsage("getmedia (id)");
-	}
-	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{

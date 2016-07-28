@@ -8,11 +8,11 @@ import java.util.Random;
 
 public class RollCommand extends CommandExecutor
 {
-	public RollCommand(CommandManager manager)
+	public RollCommand()
 	{
-		super(manager);
+		
 		setDescription("Roll a random number from 0 to arg-1.");
-		setUsage("rand (integer)");
+		setUsage("(integer)");
 	}
 	
 	@Override

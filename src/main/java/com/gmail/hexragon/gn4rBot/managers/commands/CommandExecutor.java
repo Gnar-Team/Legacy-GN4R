@@ -6,16 +6,15 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public abstract class CommandExecutor
 {
-	private final CommandManager manager;
-	private String description =  "No descriptions provided.";
+	//injected by CommandManager
+	private CommandManager manager;
+	
+	private String description = "No descriptions provided.";
 	private String usage = null;
 	private PermissionLevel permission = PermissionLevel.USER;
 	private boolean showInHelp = true;
 
-	protected CommandExecutor(CommandManager manager)
-	{
-		this.manager = manager;
-	}
+	protected CommandExecutor() {}
 
 	public abstract void execute(MessageReceivedEvent event, String[] args);
 

@@ -1,7 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 import java.util.Random;
@@ -33,11 +32,10 @@ public class EightBallCommand extends CommandExecutor
 					"Very doubtful"
 			};
 	
-	public EightBallCommand(CommandManager manager)
+	public EightBallCommand()
 	{
-		super(manager);
 		setDescription("Test your luck!");
-		setUsage("8ball (question)");
+		setUsage("(question)");
 	}
 	
 	@Override

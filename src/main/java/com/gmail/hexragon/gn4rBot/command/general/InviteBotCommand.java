@@ -7,9 +7,9 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public class InviteBotCommand extends CommandExecutor
 {
-	public InviteBotCommand(CommandManager manager)
+	public InviteBotCommand()
 	{
-		super(manager);
+		
 		setDescription("Get a link to invite GN4R to your server.");
 	}
 	

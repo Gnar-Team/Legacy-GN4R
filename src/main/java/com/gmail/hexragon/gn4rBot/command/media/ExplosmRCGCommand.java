@@ -1,21 +1,18 @@
 package com.gmail.hexragon.gn4rBot.command.media;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-
+@Command(
+		aliases = {"rcg"},
+		description = "Random shit-post generation!"
+)
 public class ExplosmRCGCommand extends CommandExecutor
 {
-	public ExplosmRCGCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("We all need some satire.");
-	}
-	
 	@Override
 	public void execute(MessageReceivedEvent event, String[] args)
 	{

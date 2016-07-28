@@ -12,9 +12,9 @@ import java.util.StringJoiner;
 
 public class BotInfoCommand extends CommandExecutor
 {
-	public BotInfoCommand(CommandManager manager)
+	public BotInfoCommand()
 	{
-		super(manager);
+		
 		setDescription("Show information about Gn4r-Bot.");
 	}
 	

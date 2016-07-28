@@ -1,7 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.games;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,11 +11,11 @@ import static com.gmail.hexragon.gn4rBot.util.Utils.readJsonFromUrl;
 
 public class OverwatchLookupCommand extends CommandExecutor
 {
-	public OverwatchLookupCommand(CommandManager manager)
+	public OverwatchLookupCommand()
 	{
-		super(manager);
+		
 		setDescription("Look up Overwatch information.");
-		setUsage("overwatch (Battle Tag)");
+		setUsage("(Battle Tag)");
 	}
 	
 	@Override

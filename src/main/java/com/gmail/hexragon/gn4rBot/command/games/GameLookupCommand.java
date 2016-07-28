@@ -16,11 +16,11 @@ import java.util.StringJoiner;
 
 public class GameLookupCommand extends CommandExecutor
 {
-    public GameLookupCommand(CommandManager manager)
+    public GameLookupCommand()
     {
-        super(manager);
+        
 	    setDescription("Look up information about a game.");
-        setUsage("gamelookup (query)");
+        setUsage("(query)");
     }
 
     @Override
