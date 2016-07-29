@@ -1,21 +1,19 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 
+@Command(
+		aliases = {"discordgold"},
+		description = "Tilts dumb people."
+)
 public class DiscordGoldCommand extends CommandExecutor
 {
-	public DiscordGoldCommand()
-	{
-		
-		setDescription("Tilts dumb people.");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
-		event.getMessage().deleteMessage();
-		event.getChannel().sendMessage("```xl\nDiscord Gold is required to view this message.\n```");
+		message.deleteMessage();
+		message.getChannel().sendMessage("```xl\nDiscord Gold is required to view this message.\n```");
 	}
 }

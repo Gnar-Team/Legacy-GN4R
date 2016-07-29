@@ -1,29 +1,27 @@
 package com.gmail.hexragon.gn4rBot.command.ai;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 
+@Command(
+		aliases = {"cbot", "cleverbot"},
+		usage = "(query)",
+		description = "Talk to Clever-Bot."
+)
 public class CleverbotCommand extends CommandExecutor
 {
 	private ChatterBotFactory factory = null;
 	private ChatterBot bot = null;
 	private ChatterBotSession session = null;
 	
-	public CleverbotCommand()
-	{
-		
-		setDescription("Talk to Clever-Bot.");
-		setUsage("(query)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		
 		try
@@ -33,17 +31,17 @@ public class CleverbotCommand extends CommandExecutor
 				factory = new ChatterBotFactory();
 				bot = factory.create(ChatterBotType.CLEVERBOT);
 				session = bot.createSession();
-				event.getChannel().sendMessage(String.format("%s ➤ Clever-Bot session created for the server.", event.getAuthor().getAsMention()));
+				message.getChannel().sendMessage(String.format("%s ➤ Clever-Bot session created for the server.", message.getAuthor().getAsMention()));
 			}
 			
 			String input = StringUtils.join(args, " ");
 			
 			String output = session.think(input);
-			event.getChannel().sendMessage("**[CleverBot]** ─ `" + output + "`");
+			message.getChannel().sendMessage("**[CleverBot]** ─ `" + output + "`");
 		}
 		catch (Exception e)
 		{
-			event.getChannel().sendMessage("CleverBot has encountered an exception. Resetting CleverBot.");
+			message.getChannel().sendMessage("CleverBot has encountered an exception. Resetting CleverBot.");
 			factory = null;
 		}
 	}

@@ -3,25 +3,19 @@ package com.gmail.hexragon.gn4rBot.command.media;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.util.Utils;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.json.JSONObject;
 
 import java.util.Random;
 
 @Command(
-		aliases = {"c&h", "explosm"},
-		description = "We all need some satire."
+		aliases = "xkcd",
+		description = "Ey keed, want some programmer hum0r?."
 )
 public class xkcdCommand extends CommandExecutor
 {
-	public xkcdCommand()
-	{
-		
-		setDescription("Hey kid, want some programmer humor?");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		try
 		{
@@ -43,13 +37,13 @@ public class xkcdCommand extends CommandExecutor
 									"No: **" + randJSON.get("num") + "**\n" +
 									"Link: " + ((String) randJSON.get("img")).replaceAll("\\\\/", "/");
 					
-					event.getChannel().sendMessage(builder);
+					message.getChannel().sendMessage(builder);
 					
 					return;
 				}
 			}
 			
-			event.getChannel().sendMessage(String.format("%s ➤ Unable to grab xkcd comic.", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ Unable to grab xkcd comic.", message.getAuthor().getAsMention()));
 		}
 		catch (Exception e)
 		{

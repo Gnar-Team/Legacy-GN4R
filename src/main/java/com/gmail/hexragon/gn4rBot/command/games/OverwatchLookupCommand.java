@@ -1,7 +1,8 @@
 package com.gmail.hexragon.gn4rBot.command.games;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,27 +10,25 @@ import java.util.StringJoiner;
 
 import static com.gmail.hexragon.gn4rBot.util.Utils.readJsonFromUrl;
 
+@Command(
+		aliases = {"overwatch", "ow"},
+		usage = "(Battle Tag)",
+		description = "Look up Overwatch information about a player."
+)
 public class OverwatchLookupCommand extends CommandExecutor
 {
-	public OverwatchLookupCommand()
-	{
-		
-		setDescription("Look up Overwatch information.");
-		setUsage("(Battle Tag)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ You need to provide a BattleTag.", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ You need to provide a BattleTag.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
 		if (!args[0].matches("[a-zA-Z1-9]+#\\d+"))
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ You did not enter a valid BattleTag.", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ You did not enter a valid BattleTag.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
@@ -41,7 +40,7 @@ public class OverwatchLookupCommand extends CommandExecutor
 			
 			if (jso == null)
 			{
-				event.getChannel().sendMessage(String.format("%s ➤ Unable to find Overwatch Player `%s`", event.getAuthor().getAsMention(), args[0]));
+				message.getChannel().sendMessage(String.format("%s ➤ Unable to find Overwatch Player `%s`", message.getAuthor().getAsMention(), args[0]));
 				return;
 			}
 			
@@ -90,7 +89,7 @@ public class OverwatchLookupCommand extends CommandExecutor
 			joiner.add("Total Damage: **" + (int) gameStats.getDouble("damage_done") + "**");
 			joiner.add("Cards: **" + (int) gameStats.getDouble("cards") + "**");
 
-			event.getChannel().sendMessage(joiner.toString());
+			message.getChannel().sendMessage(joiner.toString());
 		}
 		catch (Exception e)
 		{

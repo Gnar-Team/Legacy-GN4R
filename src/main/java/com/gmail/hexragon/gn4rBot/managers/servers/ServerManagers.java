@@ -30,11 +30,11 @@ public class ServerManagers
 		serverMap.put(server.getId(), gServer);
 	}
 
-	public void messageEvent(MessageReceivedEvent event)
+	public void handleMessageEvent(MessageReceivedEvent event)
 	{
 		if (event.isPrivate())
 		{
-			event.getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** I only respond on a server. :cry:");
+			event.getMessage().getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** I only respond on a server. :cry:");
 			return;
 		}
 
@@ -42,7 +42,7 @@ public class ServerManagers
 
 		GnarGuild server = serverMap.get(event.getGuild().getId());
 
-		server.messageEvent(event);
+		server.handleMessageEvent(event);
 	}
 
 	public GnarGuild getGnarGuildByID(String accessID)

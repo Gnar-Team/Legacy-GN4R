@@ -1,24 +1,23 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.entities.Guild;
+import net.dv8tion.jda.entities.Message;
 import net.dv8tion.jda.entities.User;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 import java.util.StringJoiner;
 
+@Command(
+		aliases = {"info", "botinfo"},
+		description = "Show information about GN4R-BOT."
+)
 public class BotInfoCommand extends CommandExecutor
 {
-	public BotInfoCommand()
-	{
-		
-		setDescription("Show information about Gn4r-Bot.");
-	}
 	
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		int textChannels = 0;
 		int voiceChannels = 0;
@@ -28,7 +27,7 @@ public class BotInfoCommand extends CommandExecutor
 		int online = 0;
 		int inactive = 0;
 		
-		JDA jda = event.getJDA();
+		JDA jda = message.getJDA();
 		
 		for (Guild g : jda.getGuilds())
 		{
@@ -54,6 +53,11 @@ public class BotInfoCommand extends CommandExecutor
 			voiceChannels += g.getVoiceChannels().size();
 		}
 		
+		int commandSize = getCommandManager().getUniqueCommandRegistry()//.values().stream()
+				//.filter(CommandExecutor::isShownInHelp)
+				//.collect(Collectors.toList())
+				.size();
+		
 		StringJoiner joiner = new StringJoiner("\n");
 		joiner.add("[Usage Statistics]");
 		joiner.add("   ├─[Servers]              " + servers);
@@ -66,13 +70,13 @@ public class BotInfoCommand extends CommandExecutor
 		joiner.add("");
 		joiner.add("[Credits]");
 		joiner.add("   ├─[Creator]              Avalon & Maeyrl");
-		joiner.add("   ├─[# of Commands]        " + getCommandManager().getUniqueCommandRegistry().size());
+		joiner.add("   ├─[# of Commands]        " + commandSize);
 		joiner.add("   ├─[Language]             Java 8");
 		joiner.add("   ├─[Library]              Javacord");
 		joiner.add("   └─[Uptime]               " + GnarBot.getUptimeStamp() + ".");
 		
-		event.getChannel().sendMessage(String.format("%s ➤ Here is all of my information.", event.getAuthor().getAsMention()));
+		message.getChannel().sendMessage(String.format("%s ➤ Here is all of my information.", message.getAuthor().getAsMention()));
 		
-		event.getChannel().sendMessage("```xl\n" + joiner.toString() + "```\n");
+		message.getChannel().sendMessage("```xl\n" + joiner.toString() + "```\n");
 	}
 }

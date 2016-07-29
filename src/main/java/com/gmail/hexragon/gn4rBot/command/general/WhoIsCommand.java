@@ -1,35 +1,34 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import net.dv8tion.jda.entities.Message;
 import net.dv8tion.jda.entities.User;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 import java.util.StringJoiner;
 
+@Command(
+		aliases = {"whois", "infoof", "infoon"},
+		usage = "(@user)",
+		description = "Get information on a user."
+)
 public class WhoIsCommand extends CommandExecutor
 {
-	public WhoIsCommand()
-	{
-		
-		setUsage("(@user)");
-		setDescription("Get information on a user.");
-	}
 	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			event.getChannel().sendMessage("You did not mention a valid user.");
+			message.getChannel().sendMessage("You did not mention a valid user.");
 			return;
 		}
 		
-		User user = event.getMessage().getMentionedUsers().get(0);
+		User user = message.getMentionedUsers().get(0);
 		
 		if (user == null)
 		{
-			event.getChannel().sendMessage("You did not mention a valid user.");
+			message.getChannel().sendMessage("You did not mention a valid user.");
 			return;
 		}
 		
@@ -42,7 +41,14 @@ public class WhoIsCommand extends CommandExecutor
 		metaBuilder.add("   ├─[Name]                 " + user.getUsername());
 		metaBuilder.add("   ├─[Nickname]             " + getGnarGuild().getGuild().getNicknameForUser(user));
 		metaBuilder.add("   ├─[Game]                 " + user.getCurrentGame().getName());
-		metaBuilder.add("   ├─[Avatar]               " + user.getAvatarUrl());
+		try
+		{
+			metaBuilder.add("   ├─[Avatar]               " + user.getAvatarUrl());
+		}
+		catch (Exception e)
+		{
+			metaBuilder.add("   ├─[Avatar]               " + user.getDefaultAvatarUrl());
+		}
 		metaBuilder.add("   ├─[Discriminator]        " + user.getDiscriminator());
 		//metaBuilder.add("   ├─[Hashcode]             "+String.valueOf(user.hashCode()));
 		metaBuilder.add("   ├─[Bot Status]           " + String.valueOf(user.isBot()).toUpperCase());
@@ -64,6 +70,6 @@ public class WhoIsCommand extends CommandExecutor
 		
 		mainBuilder.append("   |\n   └─[Gn4r Perm]            ").append(getCommandManager().getUserManager().getGnarUser(user).getPermission().toString().replaceAll("_", " "));
 		
-		event.getChannel().sendMessage("```xl\n" + mainBuilder.toString().replaceAll("null", "None") + "```");
+		message.getChannel().sendMessage("```xl\n" + mainBuilder.toString().replaceAll("null", "None") + "```");
 	}
 }

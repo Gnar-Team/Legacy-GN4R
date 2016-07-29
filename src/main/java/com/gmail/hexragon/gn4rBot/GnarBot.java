@@ -53,7 +53,7 @@ public class GnarBot
 				{
 					try
 					{
-						if (!event.getAuthor().isBot()) serverManagers.messageEvent(event);
+						if (!event.getAuthor().isBot()) serverManagers.handleMessageEvent(event);
 					}
 					catch (Exception e)
 					{

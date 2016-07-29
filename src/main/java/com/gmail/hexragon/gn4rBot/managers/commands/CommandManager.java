@@ -118,7 +118,8 @@ public class CommandManager
 					// execute command
 					try
 					{
-						cmd.execute(event, args);
+					
+						cmd.execute(event.getMessage(), args);
 					}
 					catch (Exception e)
 					{
@@ -253,6 +254,7 @@ public class CommandManager
 			{
 				if (label.equals(command))
 				{
+					System.out.println(label);
 					System.out.println("Command is already registered.");
 					return;
 				}

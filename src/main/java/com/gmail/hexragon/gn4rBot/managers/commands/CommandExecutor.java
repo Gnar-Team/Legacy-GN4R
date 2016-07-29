@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.managers.commands;
 
 import com.gmail.hexragon.gn4rBot.managers.servers.GnarGuild;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 
 public abstract class CommandExecutor
 {
@@ -16,7 +16,7 @@ public abstract class CommandExecutor
 
 	protected CommandExecutor() {}
 
-	public abstract void execute(MessageReceivedEvent event, String[] args);
+	public abstract void execute(Message message, String[] args);
 
 	public void setDescription(String description)
 	{
@@ -37,12 +37,7 @@ public abstract class CommandExecutor
 	{
 		return permission;
 	}
-
-	public CommandManager getCommandManager()
-	{
-		return manager;
-	}
-
+	
 	public void setUsage(String usage)
 	{
 		this.usage = usage;
@@ -66,5 +61,10 @@ public abstract class CommandExecutor
 	public GnarGuild getGnarGuild()
 	{
 		return getCommandManager().getGnarGuild();
+	}
+	
+	public CommandManager getCommandManager()
+	{
+		return manager;
 	}
 }

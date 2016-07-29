@@ -1,8 +1,7 @@
 package com.gmail.hexragon.gn4rBot.command.music;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import net.dv8tion.jda.managers.AudioManager;
 import net.dv8tion.jda.player.MusicPlayer;
 
@@ -13,15 +12,10 @@ public abstract class MusicCommandExecutor extends CommandExecutor
 	protected AudioManager manager;
 	MusicPlayer player;
 	
-	MusicCommandExecutor(CommandManager commandManager)
-	{
-		
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
-		manager = event.getGuild().getAudioManager();
+		manager = getGnarGuild().getGuild().getAudioManager();
 		
 		if (manager.getSendingHandler() == null)
 		{

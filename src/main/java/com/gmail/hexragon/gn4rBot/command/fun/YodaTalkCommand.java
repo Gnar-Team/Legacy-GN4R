@@ -1,25 +1,29 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 
+@Command(
+		aliases = {"yodatalk"},
+		usage = "(sentence)",
+		description = "Learn to speak like Yoda, you will."
+)
 public class YodaTalkCommand extends CommandExecutor
 {
-	public YodaTalkCommand()
-	{
-		
-		setDescription("Learn to speak like yoda, you will.");
-		setUsage("(sentence)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
+		if (args.length == 0)
+		{
+			message.getChannel().sendMessage(String.format("%s ➤ At least put something. `=[`", message.getAuthor().getAsMention()));
+			return;
+		}
+		
 		try
 		{
 			String query = StringUtils.join(args, "+");
@@ -31,7 +35,7 @@ public class YodaTalkCommand extends CommandExecutor
 			
 			String result = response.getBody();
 			
-			event.getChannel().sendMessage(result);
+			message.getChannel().sendMessage(result);
 		}
 		catch (UnirestException e)
 		{

@@ -1,12 +1,12 @@
 package com.gmail.hexragon.gn4rBot.command.games;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,17 +14,15 @@ import org.json.JSONObject;
 
 import java.util.StringJoiner;
 
+@Command(
+        aliases = {"game", "gamelookup"},
+        usage = "(query)",
+        description = "Look up information about a game."
+)
 public class GameLookupCommand extends CommandExecutor
 {
-    public GameLookupCommand()
-    {
-        
-	    setDescription("Look up information about a game.");
-        setUsage("(query)");
-    }
-
     @Override
-    public void execute(MessageReceivedEvent event, String[] args)
+    public void execute(Message message, String[] args)
     {
         try
         {
@@ -39,7 +37,7 @@ public class GameLookupCommand extends CommandExecutor
             
             if (jsa.length() == 0)
             {
-                event.getChannel().sendMessage(String.format("%s ➤ No game found with that title.", event.getAuthor().getAsMention()));
+                message.getChannel().sendMessage(String.format("%s ➤ No game found with that title.", message.getAuthor().getAsMention()));
                 return;
             }
     
@@ -61,7 +59,7 @@ public class GameLookupCommand extends CommandExecutor
             joiner.add("Thumbnail: " + jso.getString("thumb"));
             joiner.add("Description: **" + jso.getString("short_description") +"**");
             
-            event.getChannel().sendMessage(joiner.toString());
+            message.getChannel().sendMessage(joiner.toString());
         }
         catch (Exception e)
         {

@@ -1,9 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.servers;
 
-import com.gmail.hexragon.gn4rBot.command.admin.JavascriptCommand;
-import com.gmail.hexragon.gn4rBot.command.admin.MemoryReportCommand;
-import com.gmail.hexragon.gn4rBot.command.admin.ReassignPermissionCommand;
-import com.gmail.hexragon.gn4rBot.command.admin.ReassignTokenCommand;
+import com.gmail.hexragon.gn4rBot.command.admin.*;
 import com.gmail.hexragon.gn4rBot.command.ai.CleverbotCommand;
 import com.gmail.hexragon.gn4rBot.command.ai.PandorabotCommand;
 import com.gmail.hexragon.gn4rBot.command.fun.*;
@@ -12,9 +9,7 @@ import com.gmail.hexragon.gn4rBot.command.games.LeagueLookupCommand;
 import com.gmail.hexragon.gn4rBot.command.games.OverwatchLookupCommand;
 import com.gmail.hexragon.gn4rBot.command.general.*;
 import com.gmail.hexragon.gn4rBot.command.media.*;
-import com.gmail.hexragon.gn4rBot.command.mod.BanCommand;
-import com.gmail.hexragon.gn4rBot.command.mod.MuteCommand;
-import com.gmail.hexragon.gn4rBot.command.mod.UnmuteCommand;
+import com.gmail.hexragon.gn4rBot.command.mod.*;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import net.dv8tion.jda.entities.Guild;
@@ -49,28 +44,30 @@ public class GnarGuild extends GuildManager
 
 	public void defaultSetup()
 	{
-		commandManager.builder("help", "guide").executor(HelpCommand.class);
-		commandManager.builder("info", "botinfo").executor(BotInfoCommand.class);
-		commandManager.builder("whois", "infoon", "infoof").executor(WhoIsCommand.class);
-		commandManager.builder("invite", "invitebot").executor(InviteBotCommand.class);
-		commandManager.builder("uptime").executor(UptimeCommand.class);
-		commandManager.builder("math").executor(MathCommand.class);
+		commandManager.registerCommand(HelpCommand.class);
+		commandManager.registerCommand(BotInfoCommand.class);
+		commandManager.registerCommand(WhoIsCommand.class);
+		commandManager.registerCommand(InviteBotCommand.class);
+		commandManager.registerCommand(UptimeCommand.class);
+		commandManager.registerCommand(MathCommand.class);
+		commandManager.registerCommand(PingCommand.class);
 		
-		commandManager.builder("rand", "random", "rnd", "roll").executor(RollCommand.class);
-		commandManager.builder("coinflip", "flip").executor(CoinFlipCommand.class);
-		commandManager.builder("8ball").executor(EightBallCommand.class);
+		commandManager.registerCommand(RollCommand.class);
+		commandManager.registerCommand(CoinFlipCommand.class);
+		commandManager.registerCommand(EightBallCommand.class);
 		
-		commandManager.builder("google").executor(GoogleCommand.class);
-		commandManager.builder("youtube").executor(YoutubeCommand.class);
+		commandManager.registerCommand(GoogleCommand.class);
+		commandManager.registerCommand(YoutubeCommand.class);
 
-		commandManager.builder("ban").executor(BanCommand.class);
-		commandManager.builder("mute").executor(MuteCommand.class);
-		commandManager.builder("unmute").executor(UnmuteCommand.class);
-		
+		commandManager.registerCommand(BanCommand.class);
+		commandManager.registerCommand(UnbanCommand.class);
+		commandManager.registerCommand(MuteCommand.class);
+		commandManager.registerCommand(UnmuteCommand.class);
+		commandManager.registerCommand(DeleteMessagesCommand.class);
 
-		commandManager.builder("cbot", "cleverbot").executor(CleverbotCommand.class);
-		commandManager.builder("pbot", "pandorabot").executor(PandorabotCommand.class);
-		commandManager.builder("tts", "texttospeech").executor(TextToSpeechCommand.class);
+		commandManager.registerCommand(CleverbotCommand.class);
+		commandManager.registerCommand(PandorabotCommand.class);
+		commandManager.registerCommand(TextToSpeechCommand.class);
 
 		commandManager.registerCommand(xkcdCommand.class);
 		commandManager.registerCommand(ExplosmCommand.class);
@@ -81,14 +78,15 @@ public class GnarGuild extends GuildManager
 		commandManager.registerCommand(CatsCommand.class);
 		
 		
-		commandManager.builder("googleyeyes", "eyes").executor(GoogleyEyesCommand.class);
-		commandManager.builder("discordgold").executor(DiscordGoldCommand.class);
-		commandManager.builder("goodshit").executor(GoodShitCommand.class);
+		commandManager.registerCommand(GoogleyEyesCommand.class);
+		commandManager.registerCommand(DiscordGoldCommand.class);
+		commandManager.registerCommand(GoodShitCommand.class);
+		commandManager.registerCommand(YodaTalkCommand.class);
 		
 		
-		commandManager.builder("gamelookup", "game").executor(GameLookupCommand.class);
-		commandManager.builder("league", "lol").executor(LeagueLookupCommand.class);
-		commandManager.builder("overwatch", "ow").executor(OverwatchLookupCommand.class);
+		commandManager.registerCommand(GameLookupCommand.class);
+		commandManager.registerCommand(LeagueLookupCommand.class);
+		commandManager.registerCommand(OverwatchLookupCommand.class);
 		
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
@@ -108,10 +106,11 @@ public class GnarGuild extends GuildManager
 //		commandManager.builder("restart").executor(RestartCommand.class);
 //		commandManager.builder("resetmusic").executor(ResetCommand.class);
 		
-		commandManager.builder("reassigntoken", "rtoken").executor(ReassignTokenCommand.class);
-		commandManager.builder("runjs", "javascript").executor(JavascriptCommand.class);
-		commandManager.builder("reassignperm", "changeperm", "reassignpermission").executor(ReassignPermissionCommand.class);
-		commandManager.builder("memory").executor(MemoryReportCommand.class);
+		commandManager.registerCommand(ReassignTokenCommand.class);
+		commandManager.registerCommand(JavascriptCommand.class);
+		commandManager.registerCommand(ReassignPermissionCommand.class);
+		commandManager.registerCommand(DiagnosticsCommand.class);
+		commandManager.registerCommand(ArgsTestCommand.class);
 	}
 	
 	public CommandManager getCommandManager()
@@ -138,7 +137,7 @@ public class GnarGuild extends GuildManager
 	}
 
 	
-	public void messageEvent(MessageReceivedEvent event)
+	public void handleMessageEvent(MessageReceivedEvent event)
 	{
 		getCommandManager().callCommand(event);
 	}

@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,7 +14,7 @@ import org.jsoup.nodes.Element;
 public class ExplosmRCGCommand extends CommandExecutor
 {
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		try
 		{
@@ -29,12 +29,12 @@ public class ExplosmRCGCommand extends CommandExecutor
 							"**Random Comic Generator**\n" +
 							"Link: " + element.absUrl("src");
 			
-			event.getChannel().sendMessage(builder);
+			message.getChannel().sendMessage(builder);
 			
 		}
 		catch (Exception e)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ Unable to grab random Cyanide and Happiness comic.", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ Unable to grab random Cyanide and Happiness comic.", message.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

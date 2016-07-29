@@ -1,31 +1,29 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.DecimalFormat;
 
+@Command(
+		aliases = "math",
+		usage = "(expression)",
+		description = "Calculate fancy math expressions."
+)
 public class MathCommand extends CommandExecutor
 {
 	private final DecimalFormat formatter = new DecimalFormat();
-	
-	public MathCommand()
-	{
-		
-		formatter.setDecimalSeparatorAlwaysShown(false);
-		setDescription("Calculate fancy math stuff.");
-		setUsage("(expression)");
-	}
+	{formatter.setDecimalSeparatorAlwaysShown(false);}
 	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		String exp = StringUtils.join(args, " ");
 		double result = new MathConsumer(exp).parse();
-		event.getChannel().sendMessage(String.format("%s ➤ Expression `%s` evaluating.", event.getAuthor().getAsMention(), exp));
-		event.getChannel().sendMessage(String.format("%s ➤ Final answer: `%s`", event.getAuthor().getAsMention(), formatter.format(result)));
+		message.getChannel().sendMessage(String.format("%s ➤ Expression `%s` evaluating.", message.getAuthor().getAsMention(), exp));
+		message.getChannel().sendMessage(String.format("%s ➤ Final answer: `%s`", message.getAuthor().getAsMention(), formatter.format(result)));
 	}
 	
 	private class MathConsumer

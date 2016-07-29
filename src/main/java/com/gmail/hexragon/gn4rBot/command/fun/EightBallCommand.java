@@ -1,10 +1,16 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 
 import java.util.Random;
 
+@Command(
+		aliases = {"8ball"},
+		usage = "(question)",
+		description = "Test your wildest dreams!"
+)
 public class EightBallCommand extends CommandExecutor
 {
 	private final Random random = new Random();
@@ -32,20 +38,14 @@ public class EightBallCommand extends CommandExecutor
 					"Very doubtful"
 			};
 	
-	public EightBallCommand()
-	{
-		setDescription("Test your luck!");
-		setUsage("(question)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ At ask 8-ball something. `=[`", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ At ask 8-ball something. `=[`", message.getAuthor().getAsMention()));
 			return;
 		}
-		event.getChannel().sendMessage(String.format("%s ➤ `%s`.", event.getAuthor().getAsMention(), responses[random.nextInt(responses.length)]));
+		message.getChannel().sendMessage(String.format("%s ➤ `%s`.", message.getAuthor().getAsMention(), responses[random.nextInt(responses.length)]));
 	}
 }

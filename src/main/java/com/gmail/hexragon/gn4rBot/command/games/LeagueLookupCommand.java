@@ -1,24 +1,23 @@
 package com.gmail.hexragon.gn4rBot.command.games;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.MessageBuilder;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+@Command(
+		aliases = {"leauge", "lol"},
+		usage = "(LOL Username)",
+		description = "Look up Leauge of Legends statistics of a player."
+)
 public class LeagueLookupCommand extends CommandExecutor
 {
-	public LeagueLookupCommand()
-	{
-		
-		setDescription("Look up Leauge of Legends statistics.");
-		setUsage("(LoL username)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		MessageBuilder mb = new MessageBuilder();
 		try
@@ -51,16 +50,16 @@ public class LeagueLookupCommand extends CommandExecutor
 				mb.appendString("Neutral Minion Kills: **" + stats.get("totalNeutralMinionsKilled") + "**\n");
 				mb.appendString("Turrets Killed: **" + stats.get("totalTurretsKilled") + "**\n");
 				
-				event.getChannel().sendMessage(mb.build());
+				message.getChannel().sendMessage(mb.build());
 			}
 			catch (Exception e)
 			{
-				event.getChannel()
+				message.getChannel()
 						.sendMessage("Account not found or there was an error connecting to the LoL API\n"
 								+ "Here is what I was able to get: \n");
 				try
 				{
-					event.getChannel().sendMessage(mb.build());
+					message.getChannel().sendMessage(mb.build());
 				}
 				catch (Exception ex) {e.printStackTrace();}
 				e.printStackTrace();
@@ -68,12 +67,12 @@ public class LeagueLookupCommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
-			event.getChannel()
+			message.getChannel()
 					.sendMessage("Account not found or there was an error connecting to the LoL API\n"
 							+ "Here is what I was able to get: \n");
 			try
 			{
-				event.getChannel().sendMessage(mb.build());
+				message.getChannel().sendMessage(mb.build());
 			}
 			catch (Exception ex) { e.printStackTrace();}
 			e.printStackTrace();

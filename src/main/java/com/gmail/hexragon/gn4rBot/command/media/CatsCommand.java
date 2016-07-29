@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,7 +15,7 @@ import java.net.URL;
 public class CatsCommand extends CommandExecutor
 {
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		try
 		{
@@ -36,7 +36,7 @@ public class CatsCommand extends CommandExecutor
 						doc = db.parse(new URL(String.format("http://thecatapi.com/api/images/get?format=xml&type=%s&api_key=%s&results_per_page=1", args[0], apiKey)).openStream());
 						break;
 					default:
-						event.getChannel().sendMessage(String.format("%s ➤ Not a valid picture type. `[png, jpg, gif]`", event.getAuthor().getAsMention()));
+						message.getChannel().sendMessage(String.format("%s ➤ Not a valid picture type. `[png, jpg, gif]`", message.getAuthor().getAsMention()));
 						return;
 				}
 			}
@@ -47,11 +47,11 @@ public class CatsCommand extends CommandExecutor
 			
 			String catURL = doc.getElementsByTagName("url").item(0).getTextContent();
 			
-			event.getChannel().sendMessage("Random Cat Pictures\nLink: " + catURL);
+			message.getChannel().sendMessage("Random Cat Pictures\nLink: " + catURL);
 		}
 		catch (Exception e)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ Unable to find cats to sooth the darkness of your soul.", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ Unable to find cats to sooth the darkness of your soul.", message.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

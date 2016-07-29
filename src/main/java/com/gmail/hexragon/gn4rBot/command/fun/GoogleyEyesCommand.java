@@ -7,7 +7,7 @@ import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -43,9 +43,9 @@ public class GoogleyEyesCommand extends CommandExecutor
 	}
 	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
-		event.getChannel().sendMessage("Processing image...");
+		message.getChannel().sendMessage("Processing image...");
 		try
 		{
 			String urlStr = args[0];
@@ -102,7 +102,7 @@ public class GoogleyEyesCommand extends CommandExecutor
 				if (ImageIO.write(targetImg, "jpg", outputFile))
 				{
 					//send if success
-					event.getChannel().sendFile(outputFile, null);
+					message.getChannel().sendFile(outputFile, null);
 				}
 			}
 			catch (IOException e)

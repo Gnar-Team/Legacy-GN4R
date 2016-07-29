@@ -1,29 +1,27 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 
 import java.util.Random;
 
+@Command(
+		aliases = {"coinflip"},
+		description = "Heads or Tails?"
+)
 public class CoinFlipCommand extends CommandExecutor
 {
-	public CoinFlipCommand()
-	{
-		
-		setDescription("Heads or Tails?");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
 		if (new Random().nextInt(2) == 0)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ `Heads`!", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ `Heads`!", message.getAuthor().getAsMention()));
 		}
 		else
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ `Tails`!", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ `Tails`!", message.getAuthor().getAsMention()));
 		}
 	}
 }
