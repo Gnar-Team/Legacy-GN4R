@@ -2,15 +2,16 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.MessageBuilder;
+import com.gmail.hexragon.gn4rBot.util.ZalgoGenerator;
 import net.dv8tion.jda.entities.Message;
+import org.apache.commons.lang3.StringUtils;
 
 @Command(
-		aliases = {"tts"},
-		usage = "(string)",
-		description = "Text to speech fun."
+		aliases = {"zalgo"},
+		usage = "(query)",
+		description = "HE COMES."
 )
-public class TextToSpeechCommand extends CommandExecutor
+public class ZalgoCommand extends CommandExecutor
 {
 	@Override
 	public void execute(Message message, String[] args)
@@ -21,10 +22,8 @@ public class TextToSpeechCommand extends CommandExecutor
 			return;
 		}
 		
-		MessageBuilder builder = new MessageBuilder();
-		builder.setTTS(true);
-		builder.appendString(message.getContent().replaceFirst(getCommandManager().getToken() + "tts ", ""));
+		String query = StringUtils.join(args, " ");
 		
-		message.getChannel().sendMessage(builder.build());
+		message.getChannel().sendMessage(ZalgoGenerator.process(query, true, true, true));
 	}
 }

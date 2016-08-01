@@ -16,7 +16,6 @@ public class ExplosmCommand extends CommandExecutor
 {
 	public ExplosmCommand()
 	{
-		
 		setDescription("We all need some satire.");
 	}
 	

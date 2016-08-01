@@ -58,8 +58,14 @@ public class BotInfoCommand extends CommandExecutor
 				//.collect(Collectors.toList())
 				.size();
 		
+		int requests = getGnarGuild().getServerManager().getGnarGuilds().parallelStream()
+				.mapToInt(guild -> guild.getCommandManager().getRequests())
+				.sum();
+		
+		
 		StringJoiner joiner = new StringJoiner("\n");
 		joiner.add("[Usage Statistics]");
+		joiner.add("   ├─[Requests]             " + requests);
 		joiner.add("   ├─[Servers]              " + servers);
 		joiner.add("   ├─[Text Channels]        " + textChannels);
 		joiner.add("   ├─[Voice Channels]       " + voiceChannels);

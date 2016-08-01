@@ -19,6 +19,6 @@ public class PingCommand extends CommandExecutor
 		OffsetDateTime sentTime = message.getTime();
 		OffsetDateTime responseTime = OffsetDateTime.now();
 		
-		message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Response time: `"+ sentTime.until(responseTime, ChronoUnit.MILLIS) + "ms`.");
+		message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Response time: `"+ Math.abs(sentTime.until(responseTime, ChronoUnit.MILLIS)) + "ms`.");
 	}
 }

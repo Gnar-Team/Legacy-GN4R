@@ -5,7 +5,9 @@ import com.gmail.hexragon.gn4rBot.util.MediaCache;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -32,6 +34,10 @@ public class ServerManagers
 
 	public void handleMessageEvent(MessageReceivedEvent event)
 	{
+		if (event.getAuthor().isBot())
+		{
+			return;
+		}
 		if (event.isPrivate())
 		{
 			event.getMessage().getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** I only respond on a server. :cry:");
@@ -48,6 +54,11 @@ public class ServerManagers
 	public GnarGuild getGnarGuildByID(String accessID)
 	{
 		return serverMap.get(accessID);
+	}
+	
+	public List<GnarGuild> getGnarGuilds()
+	{
+		return new ArrayList<>(serverMap.values());
 	}
 	
 	public MediaCache getMediaCache()

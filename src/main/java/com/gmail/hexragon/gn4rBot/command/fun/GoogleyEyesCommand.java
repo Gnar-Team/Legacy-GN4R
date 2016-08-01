@@ -26,6 +26,7 @@ import java.util.Random;
 
 @Command(
 		aliases = {"eyes", "googleyeyes"},
+		usage = "(image url)",
 		description = "Put weird eyes on people!"
 )
 public class GoogleyEyesCommand extends CommandExecutor
@@ -45,7 +46,12 @@ public class GoogleyEyesCommand extends CommandExecutor
 	@Override
 	public void execute(Message message, String[] args)
 	{
-		message.getChannel().sendMessage("Processing image...");
+		if (args.length == 0)
+		{
+			message.getChannel().sendMessage(String.format("%s ➤ Provide an image link.", message.getAuthor().getAsMention()));
+			return;
+		}
+		
 		try
 		{
 			String urlStr = args[0];
@@ -60,23 +66,33 @@ public class GoogleyEyesCommand extends CommandExecutor
 			
 			JSONObject j = new JSONObject(response.getBody().toString());
 			
-			//MessageBuilder mb = new MessageBuilder();
-			
 			List<JSONObject> eyesJSON = new ArrayList<>();
 			
 			JSONArray j2 = (JSONArray) j.get("faces");
-			for (int in = 0; in < j2.length(); in++)
+			
+			try
 			{
-				JSONObject j3 = (JSONObject) j2.get(in);
-				JSONObject j4 = (JSONObject) j3.get("features");
-				JSONArray j5 = (JSONArray) j4.get("eyes");
-				
-				for (int i = 0; i < j5.length(); i++)
+				for (int in = 0; in < j2.length(); in++)
 				{
-					//mb.appendString(j5.get(i).toString() + "\n");
+					JSONObject j3 = (JSONObject) j2.get(in);
+					JSONObject j4 = (JSONObject) j3.get("features");
+					JSONArray j5 = (JSONArray) j4.get("eyes");
 					
-					//parse and add JSONObjects to a list.
-					eyesJSON.add(new JSONObject(j5.get(i).toString()));
+					for (int i = 0; i < j5.length(); i++)
+					{
+						//mb.appendString(j5.get(i).toString() + "\n");
+						
+						//parse and add JSONObjects to a list.
+						eyesJSON.add(new JSONObject(j5.get(i).toString()));
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				if (eyesJSON.isEmpty())
+				{
+					message.getChannel().sendMessage(String.format("%s ➤ The API did not detect any eyes/facial features.", message.getAuthor().getAsMention()));
+					return;
 				}
 			}
 			
@@ -119,6 +135,7 @@ public class GoogleyEyesCommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
+			message.getChannel().sendMessage(String.format("%s ➤ An unexpected error occurred, did you provide a proper link?", message.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

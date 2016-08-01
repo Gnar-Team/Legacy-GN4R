@@ -47,7 +47,7 @@ public class WhoIsCommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
-			metaBuilder.add("   ├─[Avatar]               " + user.getDefaultAvatarUrl());
+			metaBuilder.add("   ├─[Avatar]               ERROR");
 		}
 		metaBuilder.add("   ├─[Discriminator]        " + user.getDiscriminator());
 		//metaBuilder.add("   ├─[Hashcode]             "+String.valueOf(user.hashCode()));

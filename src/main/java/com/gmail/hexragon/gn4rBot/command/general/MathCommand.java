@@ -14,25 +14,30 @@ import java.text.DecimalFormat;
 )
 public class MathCommand extends CommandExecutor
 {
-	private final DecimalFormat formatter = new DecimalFormat();
-	{formatter.setDecimalSeparatorAlwaysShown(false);}
+	private final DecimalFormat formatter = new DecimalFormat() {{setDecimalSeparatorAlwaysShown(false);}};
 	
 	@Override
 	public void execute(Message message, String[] args)
 	{
+		if (args.length == 0)
+		{
+			message.getChannel().sendMessage(String.format("%s ➤ Please provide a math expression.", message.getAuthor().getAsMention()));
+			return;
+		}
+		
 		String exp = StringUtils.join(args, " ");
-		double result = new MathConsumer(exp).parse();
+		double result = new Expression(exp).eval();
 		message.getChannel().sendMessage(String.format("%s ➤ Expression `%s` evaluating.", message.getAuthor().getAsMention(), exp));
 		message.getChannel().sendMessage(String.format("%s ➤ Final answer: `%s`", message.getAuthor().getAsMention(), formatter.format(result)));
 	}
 	
-	private class MathConsumer
+	private class Expression
 	{
 		private final String exp;
 		int pos = -1;
 		int ch;
 		
-		MathConsumer(String exp)
+		Expression(String exp)
 		{
 			this.exp = exp;
 		}
@@ -53,7 +58,7 @@ public class MathCommand extends CommandExecutor
 			return false;
 		}
 		
-		double parse()
+		double eval()
 		{
 			nextChar();
 			double x = parseExpression();
@@ -124,6 +129,15 @@ public class MathCommand extends CommandExecutor
 						break;
 					case "tan":
 						x = Math.tan(x);
+						break;
+					case "asin":
+						x = Math.asin(x);
+						break;
+					case "acos":
+						x = Math.acos(x);
+						break;
+					case "atan":
+						x = Math.atan(x);
 						break;
 					case "log":
 						x = Math.log10(x);

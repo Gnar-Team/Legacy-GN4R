@@ -25,13 +25,10 @@ public class JavascriptCommand extends CommandExecutor
 		
 		engine.put("jda", message.getJDA());
 		
-		engine.put("messageEvent", message);
 		engine.put("message", message);
-		
 		
 		engine.put("guild", getGnarGuild().getGuild());
 		engine.put("channel", message.getChannel());
-		
 		
 		String script = StringUtils.join(args, " ");
 		
@@ -59,7 +56,5 @@ public class JavascriptCommand extends CommandExecutor
 				message.getChannel().sendMessage(String.format("%s ➤ Result is `%s`.", message.getAuthor().getAsMention(), result));
 			}
 		}
-		//
-		
 	}
 }

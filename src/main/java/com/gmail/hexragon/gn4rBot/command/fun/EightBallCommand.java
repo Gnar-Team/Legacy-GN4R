@@ -46,6 +46,7 @@ public class EightBallCommand extends CommandExecutor
 			message.getChannel().sendMessage(String.format("%s ➤ At ask 8-ball something. `=[`", message.getAuthor().getAsMention()));
 			return;
 		}
+		
 		message.getChannel().sendMessage(String.format("%s ➤ `%s`.", message.getAuthor().getAsMention(), responses[random.nextInt(responses.length)]));
 	}
 }

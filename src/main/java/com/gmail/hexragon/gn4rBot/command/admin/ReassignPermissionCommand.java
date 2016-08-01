@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 
 @Command(
-		aliases = {"reassignperm", "reassignpermission"},
+		aliases = {"assignperm", "reassignperm", "reassignpermission"},
 		usage = "(@user) (perm)",
 		description = "Change user's Gn4r-Bot permission.",
 		permissionRequired = PermissionLevel.SERVER_OWNER
@@ -48,7 +48,7 @@ public class ReassignPermissionCommand extends CommandExecutor
 		}
 		else
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Insufficient amount of arguments.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Insufficient amount of arguments.");
 		}
 	}
 }

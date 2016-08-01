@@ -15,6 +15,6 @@ public class InviteBotCommand extends CommandExecutor
 	public void execute(Message message, String[] args)
 	{
 		message.deleteMessage();
-		message.getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** Want some GN4R?! https://discordapp.com/oauth2/authorize?client_id=201492375653056512&scope=bot&permissions=32014");
+		message.getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** Want some GN4R on your server?!\n**0Auth Link:** https://discordapp.com/oauth2/authorize?client_id=201492375653056512&scope=bot&permissions=32014");
 	}
 }

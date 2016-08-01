@@ -1,6 +1,5 @@
 package com.gmail.hexragon.gn4rBot.command.admin;
 
-
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import net.dv8tion.jda.entities.Message;
@@ -8,7 +7,7 @@ import net.dv8tion.jda.entities.Message;
 import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.SERVER_OWNER;
 
 @Command(
-		aliases = {"reassigntoken", "rtoken"},
+		aliases = {"asigntoken", "reassigntoken", "rtoken"},
 		usage = "(string)",
 		description = "Changes Gn4r-Bot's command token.",
 		permissionRequired = SERVER_OWNER
