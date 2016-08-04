@@ -2,8 +2,8 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.MessageBuilder;
-import net.dv8tion.jda.entities.Message;
 
 @Command(
 		aliases = {"tts"},
@@ -13,11 +13,11 @@ import net.dv8tion.jda.entities.Message;
 public class TextToSpeechCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ Please provide a query.", message.getAuthor().getAsMention()));
+			message.reply("%s ➜ Please provide a query.");
 			return;
 		}
 		

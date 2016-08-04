@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,7 +15,7 @@ import java.net.URL;
 public class CatsCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		try
 		{
@@ -46,11 +46,11 @@ public class CatsCommand extends CommandExecutor
 			
 			String catURL = doc.getElementsByTagName("url").item(0).getTextContent();
 			
-			message.getChannel().sendMessage("Random Cat Pictures\nLink: " + catURL);
+			message.replyRaw("Random Cat Pictures\nLink: " + catURL);
 		}
 		catch (Exception e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ Unable to find cats to sooth the darkness of your soul.", message.getAuthor().getAsMention()));
+			message.reply("Unable to find cats to sooth the darkness of your soul.");
 			e.printStackTrace();
 		}
 	}

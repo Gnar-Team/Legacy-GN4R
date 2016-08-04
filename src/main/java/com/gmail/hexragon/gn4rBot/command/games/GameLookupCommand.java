@@ -3,10 +3,10 @@ package com.gmail.hexragon.gn4rBot.command.games;
 import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +22,7 @@ import java.util.StringJoiner;
 public class GameLookupCommand extends CommandExecutor
 {
     @Override
-    public void execute(Message message, String[] args)
+    public void execute(GnarMessage message, String[] args)
     {
         try
         {

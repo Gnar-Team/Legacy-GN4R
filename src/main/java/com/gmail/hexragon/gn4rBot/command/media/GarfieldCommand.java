@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -13,7 +13,7 @@ import org.jsoup.nodes.Document;
 public class GarfieldCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		try
 		{
@@ -27,12 +27,12 @@ public class GarfieldCommand extends CommandExecutor
 					"Garfield" + "\n" +
 							"Date: **" + link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf(".")) + "**\n" +
 							"Link: " + link;
-			message.getChannel().sendMessage(builder);
+			message.replyRaw(builder);
 			
 		}
 		catch (Exception e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ Unable to grab Garfield comic.", message.getAuthor().getAsMention()));
+			message.reply("Unable to grab Garfield comic.");
 			e.printStackTrace();
 		}
 	}

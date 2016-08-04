@@ -3,6 +3,7 @@ package com.gmail.hexragon.gn4rBot.command.general;
 import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
@@ -17,18 +18,18 @@ import org.json.JSONObject;
 public class YoutubeCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ Gotta have a query to YouTube.", message.getAuthor().getAsMention()));
+			message.reply("Gotta have a query to YouTube.");
 			return;
 		}
 		
 		try
 		{
 			String query = StringUtils.join(args, " ");
-			Message msg = message.getChannel().sendMessage(String.format("%s ➜ Searching `%s`.", message.getAuthor().getAsMention(), query));
+			Message msg = message.reply("Searching `"+ query +"`.");
 			
 			query = query.replace(" ", "+");
 			
@@ -39,11 +40,10 @@ public class YoutubeCommand extends CommandExecutor
 			String videoID = jsonObject.getJSONArray("items").getJSONObject(0).getJSONObject("id").getString("videoId");
 			message.getChannel().sendMessage("https://www.youtube.com/watch?v=" + videoID);
 			msg.deleteMessage();
-			
 		}
 		catch (JSONException | NullPointerException e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ Unable to get YouTube results.", message.getAuthor().getAsMention()));
+			message.reply("Unable to get YouTube results.");
 			e.printStackTrace();
 		}
 	}

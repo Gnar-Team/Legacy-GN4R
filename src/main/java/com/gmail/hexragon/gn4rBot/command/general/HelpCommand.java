@@ -5,8 +5,8 @@ import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Guild;
-import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -21,14 +21,14 @@ import java.util.stream.Collectors;
 )
 public class HelpCommand extends CommandExecutor
 {
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length >= 1)
 		{
 			CommandExecutor cmd = getCommandManager().getCommand(args[0]);
 			if (cmd == null)
 			{
-				message.getChannel().sendMessage(String.format("%s ➜ There is no command by that name. :cry:", message.getAuthor().getAsMention()));
+				message.reply("There is no command by that name. :cry:");
 				return;
 			}
 			

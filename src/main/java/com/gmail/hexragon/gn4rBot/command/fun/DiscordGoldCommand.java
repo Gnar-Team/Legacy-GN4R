@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 
 @Command(
 		aliases = {"discordgold"},
@@ -11,9 +11,13 @@ import net.dv8tion.jda.entities.Message;
 public class DiscordGoldCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
-		message.deleteMessage();
-		message.getChannel().sendMessage("```xl\nDiscord Gold is required to view this message.\n```");
+		try
+		{
+			message.deleteMessage();
+		}
+		catch (Exception ignore) {}
+		message.replyRaw("```xl\nDiscord Gold is required to view this message.\n```");
 	}
 }

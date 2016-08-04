@@ -2,8 +2,8 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.ZalgoGenerator;
-import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 
 @Command(
@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ZalgoCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
@@ -24,6 +24,6 @@ public class ZalgoCommand extends CommandExecutor
 		
 		String query = StringUtils.join(args, " ");
 		
-		message.getChannel().sendMessage(ZalgoGenerator.process(query, true, true, true));
+		message.reply(ZalgoGenerator.process(query, true, true, true));
 	}
 }

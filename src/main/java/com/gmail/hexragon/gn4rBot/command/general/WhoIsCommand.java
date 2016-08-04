@@ -2,8 +2,8 @@ package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Game;
-import net.dv8tion.jda.entities.Message;
 import net.dv8tion.jda.entities.User;
 
 import java.util.StringJoiner;
@@ -17,11 +17,11 @@ public class WhoIsCommand extends CommandExecutor
 {
 	
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage("You did not mention a valid user.");
+			message.reply("You did not mention a valid user.");
 			return;
 		}
 		
@@ -29,7 +29,7 @@ public class WhoIsCommand extends CommandExecutor
 		
 		if (user == null)
 		{
-			message.getChannel().sendMessage("You did not mention a valid user.");
+			message.reply("You did not mention a valid user.");
 			return;
 		}
 		
@@ -59,6 +59,6 @@ public class WhoIsCommand extends CommandExecutor
 				.filter(role -> !mainBuilder.toString().contains(role.getId()))
 				.forEach(role -> mainBuilder.append("\u258C  - ").append(role.getName()).append('\n'));
 		
-		message.getChannel().sendMessage("```xl\n" + mainBuilder.toString().replaceAll("null", "None") + "```");
+		message.replyRaw("```xl\n" + mainBuilder.toString().replaceAll("null", "None") + "```");
 	}
 }

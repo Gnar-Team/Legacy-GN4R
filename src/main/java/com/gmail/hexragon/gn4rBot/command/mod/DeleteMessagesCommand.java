@@ -3,9 +3,11 @@ package com.gmail.hexragon.gn4rBot.command.mod;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.MessageHistory;
 import net.dv8tion.jda.entities.Message;
 import net.dv8tion.jda.entities.TextChannel;
+import net.dv8tion.jda.exceptions.PermissionException;
 
 import java.util.List;
 import java.util.Set;
@@ -20,11 +22,11 @@ import java.util.stream.Collectors;
 public class DeleteMessagesCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Insufficient amount of arguments.");
+			message.reply("Insufficient amount of arguments.");
 			return;
 		}
 		
@@ -35,7 +37,7 @@ public class DeleteMessagesCommand extends CommandExecutor
 		
 		if (amount < 2)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ You need to delete 2 or more messages to use this command.");
+			message.reply("You need to delete 2 or more messages to use this command.");
 			return;
 		}
 		
@@ -48,8 +50,15 @@ public class DeleteMessagesCommand extends CommandExecutor
 				String targetWord = args[1].replaceFirst("-content:","");
 				Set<Message> removeSet = messages.stream().filter(msg -> msg.getContent().toLowerCase().contains(targetWord.toLowerCase())).collect(Collectors.toSet());
 				
-				((TextChannel) message.getChannel()).deleteMessages(removeSet);
-				message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Attempted to delete `" + removeSet.size() + "` messages with the word `"+targetWord+"`.");
+				try
+				{
+					((TextChannel) message.getChannel()).deleteMessages(removeSet);
+				}
+				catch (PermissionException e)
+				{
+					message.reply("GN4R does not have sufficient permission to delete messages.");
+				}
+				message.reply("Attempted to delete `" + removeSet.size() + "` messages with the word `"+targetWord+"`.");
 				return;
 			}
 		}

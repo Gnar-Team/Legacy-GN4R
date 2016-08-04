@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -21,7 +21,7 @@ public class ExplosmCommand extends CommandExecutor
 	}
 	
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		try
 		{
@@ -41,7 +41,7 @@ public class ExplosmCommand extends CommandExecutor
 					
 					if (input > max || input < 0)
 					{
-						message.getChannel().sendMessage(String.format("%s ➜ xkcd does not have a comic for that number.", message.getAuthor().getAsMention()));
+						message.reply("Explosm does not have a comic for that number.");
 					}
 					
 					rand = String.valueOf(input);
@@ -54,7 +54,7 @@ public class ExplosmCommand extends CommandExecutor
 					}
 					else
 					{
-						message.getChannel().sendMessage(String.format("%s ➜ You didn't enter a proper number.", message.getAuthor().getAsMention()));
+						message.reply("You didn't enter a proper number.");
 						return;
 					}
 				}
@@ -75,7 +75,7 @@ public class ExplosmCommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ Unable to grab Cyanide and Happiness comic.", message.getAuthor().getAsMention()));
+			message.reply("Unable to grab Cyanide and Happiness comic.");
 			e.printStackTrace();
 		}
 	}

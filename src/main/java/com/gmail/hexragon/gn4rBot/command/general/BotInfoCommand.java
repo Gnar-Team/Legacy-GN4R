@@ -1,11 +1,12 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.entities.Guild;
-import net.dv8tion.jda.entities.Message;
 import net.dv8tion.jda.entities.User;
 
 import java.util.StringJoiner;
@@ -17,7 +18,7 @@ import java.util.StringJoiner;
 public class BotInfoCommand extends CommandExecutor
 {
 	
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		int channels = 0;
 		int textChannels = 0;
@@ -100,7 +101,7 @@ public class BotInfoCommand extends CommandExecutor
 		joiner.add("\u258C Library _____ JDA");
 		joiner.add("\u258C Uptime ______ " + GnarBot.getShortUptimeStamp() + ".");
 		
-		message.getChannel().sendMessage(String.format("%s ➜ Here is all of my information.", message.getAuthor().getAsMention()));
+		message.reply("**" + GnarQuotes.getRandomQuote() + "** Here is all of my information!");
 		
 		message.getChannel().sendMessage("```xl\n" + joiner.toString() + "```\n");
 	}

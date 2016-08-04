@@ -46,7 +46,7 @@ public class GnarBot
 			final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
 
 			jda.getAccountManager().setUsername("GN4R");
-			jda.getAccountManager().setGame("Fluff Ball");
+			jda.getAccountManager().setGame("_help | _invite");
 
 			jda.setAutoReconnect(true);
 			

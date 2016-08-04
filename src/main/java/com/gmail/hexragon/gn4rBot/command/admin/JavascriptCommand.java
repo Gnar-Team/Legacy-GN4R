@@ -3,7 +3,7 @@ package com.gmail.hexragon.gn4rBot.command.admin;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.script.ScriptEngine;
@@ -19,7 +19,7 @@ import javax.script.ScriptException;
 public class JavascriptCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		ScriptEngine engine = new ScriptEngineManager().getEngineByName("javascript");
 		
@@ -32,7 +32,7 @@ public class JavascriptCommand extends CommandExecutor
 		
 		String script = StringUtils.join(args, " ");
 		
-		message.getChannel().sendMessage(String.format("%s ➜ Running `%s`.", message.getAuthor().getAsMention(), script));
+		message.reply("Running `"+script+"`.");
 		
 		Object result;
 		
@@ -42,7 +42,7 @@ public class JavascriptCommand extends CommandExecutor
 		}
 		catch (ScriptException e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ The error `%s` occurred while attempting to execute JavaScript.", message.getAuthor().getAsMention(), e.toString()));
+			message.reply("The error `"+e.toString()+"` occurred while executing the JavaScript statement.");
 			return;
 		}
 		
@@ -53,7 +53,7 @@ public class JavascriptCommand extends CommandExecutor
 					|| result.getClass() == String.class
 					|| result.getClass() == Boolean.class)
 			{
-				message.getChannel().sendMessage(String.format("%s ➜ Result is `%s`.", message.getAuthor().getAsMention(), result));
+				message.reply("The result is `"+result+"`.");
 			}
 		}
 	}

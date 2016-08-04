@@ -2,6 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -22,18 +23,18 @@ import java.util.StringJoiner;
 public class GoogleCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ Gotta have a query to Google.", message.getAuthor().getAsMention()));
+			message.reply("Gotta have a query to Google.");
 			return;
 		}
 		
 		try
 		{
 			String query = StringUtils.join(args, " ");
-			Message msg = message.getChannel().sendMessage(String.format("%s ➜ Searching `%s`.", message.getAuthor().getAsMention(), query));
+			Message msg = message.reply("Searching `"+ query +"`.");
 			
 			String userAgent = "GN4R-Bot"; // Change this to your company's name and bot homepage!
 			
@@ -66,7 +67,7 @@ public class GoogleCommand extends CommandExecutor
 		}
 		catch (IOException e)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Unable to Google stuff.");
+			message.reply("Caught an exception while trying to Google stuff.");
 			e.printStackTrace();
 		}
 	}

@@ -3,6 +3,7 @@ package com.gmail.hexragon.gn4rBot.managers.commands;
 import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.servers.GnarGuild;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
@@ -101,14 +102,14 @@ public class CommandManager
 
 					if (cmd.permissionLevel().value > server.getUserManager().getGnarUser(event.getAuthor()).getPermission().value)
 					{
-						event.getChannel().sendMessage(String.format("%s ➤ You need to be %s or higher to use this command.", event.getAuthor().getAsMention(), cmd.permissionLevel().toString()));
+						event.getChannel().sendMessage(String.format("%s ➜ You need to be %s or higher to use this command.", event.getAuthor().getAsMention(), cmd.permissionLevel().toString()));
 						return;
 					}
 
 					// execute command
 					try
 					{
-						cmd.execute(event.getMessage(), args);
+						cmd.execute(new GnarMessage(event.getMessage()), args);
 						requests++;
 					}
 					catch (Exception e)

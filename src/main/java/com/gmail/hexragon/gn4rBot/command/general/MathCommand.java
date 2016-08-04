@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.DecimalFormat;
@@ -17,18 +17,18 @@ public class MathCommand extends CommandExecutor
 	private final DecimalFormat formatter = new DecimalFormat() {{setDecimalSeparatorAlwaysShown(false);}};
 	
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ Please provide a math expression.", message.getAuthor().getAsMention()));
+			message.reply("Please provide a math expression.");
 			return;
 		}
 		
 		String exp = StringUtils.join(args, " ");
 		double result = new Expression(exp).eval();
-		message.getChannel().sendMessage(String.format("%s ➜ Expression `%s` evaluating.", message.getAuthor().getAsMention(), exp));
-		message.getChannel().sendMessage(String.format("%s ➜ Final answer: `%s`", message.getAuthor().getAsMention(), formatter.format(result)));
+		message.reply("Expression `"+exp+"` evaluating.");
+		message.reply("Final answer: `"+formatter.format(result)+"`");
 	}
 	
 	private class Expression

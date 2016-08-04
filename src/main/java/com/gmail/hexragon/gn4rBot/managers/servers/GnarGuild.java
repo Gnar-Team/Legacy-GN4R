@@ -109,7 +109,7 @@ public class GnarGuild extends GuildManager
 //		commandManager.builder("restart").executor(RestartCommand.class);
 //		commandManager.builder("resetmusic").executor(ResetCommand.class);
 		
-		commandManager.registerCommand(ReassignTokenCommand.class);
+		//commandManager.registerCommand(ReassignTokenCommand.class);
 		commandManager.registerCommand(JavascriptCommand.class);
 		commandManager.registerCommand(ReassignPermissionCommand.class);
 		commandManager.registerCommand(DiagnosticsCommand.class);

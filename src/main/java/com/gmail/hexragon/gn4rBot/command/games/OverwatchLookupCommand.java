@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.games;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,17 +18,17 @@ import static com.gmail.hexragon.gn4rBot.util.Utils.readJsonFromUrl;
 public class OverwatchLookupCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ You need to provide a BattleTag.", message.getAuthor().getAsMention()));
+			message.reply("%s ➜ You need to provide a BattleTag.");
 			return;
 		}
 		
 		if (!args[0].matches("[a-zA-Z1-9]+#\\d+"))
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ You did not enter a valid BattleTag.", message.getAuthor().getAsMention()));
+			message.reply("You did not enter a valid BattleTag.");
 			return;
 		}
 		
@@ -40,7 +40,7 @@ public class OverwatchLookupCommand extends CommandExecutor
 			
 			if (jso == null)
 			{
-				message.getChannel().sendMessage(String.format("%s ➜ Unable to find Overwatch Player `%s`", message.getAuthor().getAsMention(), args[0]));
+				message.reply("Unable to find Overwatch Player `"+args[0]+"`.");
 				return;
 			}
 			
@@ -89,7 +89,7 @@ public class OverwatchLookupCommand extends CommandExecutor
 			joiner.add("Total Damage: **" + (int) gameStats.getDouble("damage_done") + "**");
 			joiner.add("Cards: **" + (int) gameStats.getDouble("cards") + "**");
 
-			message.getChannel().sendMessage(joiner.toString());
+			message.replyRaw(joiner.toString());
 		}
 		catch (Exception e)
 		{

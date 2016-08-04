@@ -3,7 +3,7 @@ package com.gmail.hexragon.gn4rBot.command.mod;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
 
 import java.util.List;
@@ -17,11 +17,11 @@ import java.util.List;
 public class UnbanCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Insufficient amount of arguments.");
+			message.reply("You did not provide a user ID.");
 			return;
 		}
 		
@@ -39,11 +39,11 @@ public class UnbanCommand extends CommandExecutor
 		
 		if (target == null)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ That is not a valid user ID.");
+			message.reply("That is not a valid user ID.");
 			return;
 		}
 		
 		getGnarGuild().unBan(target);
-		message.getChannel().sendMessage(String.format("%s ➜ You have unbanned %s.", message.getAuthor().getAsMention(), target.getAsMention()));
+		message.reply("You have unbanned "+target.getAsMention()+".");
 	}
 }

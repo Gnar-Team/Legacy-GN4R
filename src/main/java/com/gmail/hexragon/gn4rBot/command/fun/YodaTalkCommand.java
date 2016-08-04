@@ -2,10 +2,10 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 
 @Command(
@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 public class YodaTalkCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
@@ -35,7 +35,7 @@ public class YodaTalkCommand extends CommandExecutor
 			
 			String result = response.getBody();
 			
-			message.getChannel().sendMessage(result);
+			message.reply("`"+result+"`.");
 		}
 		catch (UnirestException e)
 		{

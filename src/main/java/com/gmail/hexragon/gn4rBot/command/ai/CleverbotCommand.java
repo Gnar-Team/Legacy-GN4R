@@ -2,11 +2,11 @@ package com.gmail.hexragon.gn4rBot.command.ai;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
-import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 
 @Command(
@@ -21,7 +21,7 @@ public class CleverbotCommand extends CommandExecutor
 	private ChatterBotSession session = null;
 	
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		
 		try
@@ -31,17 +31,17 @@ public class CleverbotCommand extends CommandExecutor
 				factory = new ChatterBotFactory();
 				bot = factory.create(ChatterBotType.CLEVERBOT);
 				session = bot.createSession();
-				message.getChannel().sendMessage(String.format("%s ➜ Clever-Bot session created for the server.", message.getAuthor().getAsMention()));
+			    message.reply("%s ➜ Clever-Bot session created for the server.");
 			}
 			
 			String input = StringUtils.join(args, " ");
 			
 			String output = session.think(input);
-			message.getChannel().sendMessage("**[CleverBot]** ─ `" + output + "`");
+			message.replyRaw("**[CleverBot]** ─ `" + output + "`");
 		}
 		catch (Exception e)
 		{
-			message.getChannel().sendMessage("CleverBot has encountered an exception. Resetting CleverBot.");
+			message.reply("CleverBot has encountered an exception. Resetting CleverBot.");
 			factory = null;
 		}
 	}

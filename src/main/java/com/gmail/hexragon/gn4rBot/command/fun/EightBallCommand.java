@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 
 import java.util.Random;
 
@@ -39,7 +39,7 @@ public class EightBallCommand extends CommandExecutor
 			};
 	
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
@@ -47,6 +47,6 @@ public class EightBallCommand extends CommandExecutor
 			return;
 		}
 		
-		message.getChannel().sendMessage(String.format("%s ➜ `%s`.", message.getAuthor().getAsMention(), responses[random.nextInt(responses.length)]));
+		message.reply("`"+responses[random.nextInt(responses.length)]+"`.");
 	}
 }

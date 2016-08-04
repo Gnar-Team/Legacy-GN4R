@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class LeetifyCommand extends CommandExecutor
 	}};
 	
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		String s = StringUtils.join(args, " ");
 		
@@ -35,6 +35,6 @@ public class LeetifyCommand extends CommandExecutor
 			s = s.replaceAll(entry.getKey(), entry.getValue());
 		}
 		
-		message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ `" + s + "`.");
+		message.reply("`" + s + "`.");
 	}
 }

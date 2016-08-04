@@ -3,7 +3,7 @@ package com.gmail.hexragon.gn4rBot.command.admin;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
-import net.dv8tion.jda.entities.Message;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
 
 import java.util.Arrays;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class ReassignPermissionCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length >= 2)
 		{
@@ -26,7 +26,7 @@ public class ReassignPermissionCommand extends CommandExecutor
 			
 			if (target == null || (target.isBot()))
 			{
-				message.getChannel().sendMessage(String.format("%s ➜ You did not mention a user.%s", message.getAuthor().getAsMention(), target != null && target.isBot() ? " (Can't be a bot)" : ""));
+				message.reply("You did not mention a user. *(Can not be a bot either)*");
 				return;
 			}
 			
@@ -36,7 +36,7 @@ public class ReassignPermissionCommand extends CommandExecutor
 				{
 					if (getGnarGuild().getUserManager().getGnarUser(message.getAuthor()).getPermission().value < permissionLevel.value)
 					{
-						message.getChannel().sendMessage(String.format("%s ➜ You need to be `%s` to assign that permission.", message.getAuthor().getAsMention(), permissionLevel.toString()));
+						message.reply("You need to be `"+permissionLevel.toString()+"` to assign that permission.");
 						return;
 					}
 					getGnarGuild().getUserManager().getGnarUser(message.getAuthor()).setGnarPermission(permissionLevel);
@@ -48,7 +48,7 @@ public class ReassignPermissionCommand extends CommandExecutor
 		}
 		else
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Insufficient amount of arguments.");
+			message.reply("Insufficient amount of arguments.");
 		}
 	}
 }

@@ -3,8 +3,8 @@ package com.gmail.hexragon.gn4rBot.command.media;
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;
-import net.dv8tion.jda.entities.Message;
 
 import java.io.File;
 
@@ -16,7 +16,7 @@ import java.io.File;
 public class GetMediaCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{

@@ -2,8 +2,8 @@ package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.Utils;
-import net.dv8tion.jda.entities.Message;
 import org.json.JSONObject;
 
 import java.util.Random;
@@ -16,7 +16,7 @@ import java.util.Random;
 public class xkcdCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		try
 		{
@@ -37,7 +37,7 @@ public class xkcdCommand extends CommandExecutor
 						
 						if (input > max || input < 0)
 						{
-							message.getChannel().sendMessage(String.format("%s ➜ xkcd does not have a comic for that number.", message.getAuthor().getAsMention()));
+							message.reply("xkcd does not have a comic for that number.");
 						}
 						
 						rand = input;
@@ -50,7 +50,7 @@ public class xkcdCommand extends CommandExecutor
 						}
 						else
 						{
-							message.getChannel().sendMessage(String.format("%s ➜ You didn't enter a proper number.", message.getAuthor().getAsMention()));
+							message.reply("You didn't enter a proper number.");
 							return;
 						}
 					}
@@ -69,13 +69,13 @@ public class xkcdCommand extends CommandExecutor
 									"No: **" + randJSON.getInt("num") + "**\n" +
 									"Link: " + randJSON.getString("img").replaceAll("\\\\/", "/");
 					
-					message.getChannel().sendMessage(builder);
+					message.replyRaw(builder);
 					
 					return;
 				}
 			}
 			
-			message.getChannel().sendMessage(String.format("%s ➜ Unable to grab xkcd comic.", message.getAuthor().getAsMention()));
+			message.reply("Unable to grab xkcd comic.");
 		}
 		catch (Exception e)
 		{

@@ -3,8 +3,8 @@ package com.gmail.hexragon.gn4rBot.command.media;
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;
-import net.dv8tion.jda.entities.Message;
 
 @Command(
 		aliases = {"listmedia", "listimage", "listshit"},
@@ -14,11 +14,11 @@ import net.dv8tion.jda.entities.Message;
 public class ListMediaCommand extends CommandExecutor
 {
 	@Override
-	public void execute(Message message, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➜ What kind of media? `[img, gif, vine, all]`", message.getAuthor().getAsMention()));
+			message.reply("What kind of media? `[img, gif, vine, all]`");
 			return;
 		}
 		
@@ -60,11 +60,11 @@ public class ListMediaCommand extends CommandExecutor
 				break;
 			
 			default:
-				message.getChannel().sendMessage(String.format("%s ➜ Invalid media type. `[img, gif, vine, all]`", message.getAuthor().getAsMention()));
+				message.reply("Invalid media type. `[img, gif, vine, all]`");
 		}
 		
 		message.getAuthor().getPrivateChannel().sendMessage(greeting + builder.toString());
 		
-		message.getChannel().sendMessage(String.format("%s ➜ **" + GnarQuotes.getRandomQuote() + "** Sent you my list of available media.", message.getAuthor().getAsMention()));
+		message.reply("**" + GnarQuotes.getRandomQuote() + "** Sent you my list of available media.");
 	}
 }
