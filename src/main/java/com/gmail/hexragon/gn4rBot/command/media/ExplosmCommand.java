@@ -39,7 +39,7 @@ public class ExplosmCommand extends CommandExecutor
 				{
 					input = Integer.valueOf(args[0]);
 					
-					if (input > max || input < 0)
+					if (input > max || input < 100)
 					{
 						message.reply("Explosm does not have a comic for that number.");
 					}

@@ -8,7 +8,6 @@ public class PlayCommand extends MusicCommandExecutor
 {
 	public PlayCommand(CommandManager commandManager)
 	{
-		
 		setDescription("Play music or resume playback.");
 	}
 	

@@ -1,6 +1,5 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
-import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
@@ -11,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Command(
@@ -107,20 +105,9 @@ public class HelpCommand extends CommandExecutor
 			builder.append("```\nNOTICE: Music capabilities will have to be disabled for now until we get a better server, sorry for the inconveniences!```\n");
 			
 			builder.append("```\nTo view a command's description, do '").append(getCommandManager().getToken()).append("help (command)'.```");
-			
-			try
-			{
-				message.getAuthor().getPrivateChannel().sendMessage(builder.toString());
-				message.getChannel().sendMessage(String.format("%s ➜ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", message.getAuthor().getAsMention()));
-			}
-			catch (Exception e)
-			{
-				GnarBot.scheduler.schedule(() ->
-				{
-					message.getAuthor().getPrivateChannel().sendMessage(builder.toString());
-					message.getChannel().sendMessage(String.format("%s ➜ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", message.getAuthor().getAsMention()));
-				}, 1 , TimeUnit.SECONDS);
-			}
+
+			message.getAuthor().getPrivateChannel().sendMessage(builder.toString());
+			message.getChannel().sendMessage(String.format("%s ➜ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", message.getAuthor().getAsMention()));
 		}
 	}
 }

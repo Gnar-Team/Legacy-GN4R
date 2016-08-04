@@ -35,7 +35,7 @@ public class xkcdCommand extends CommandExecutor
 					{
 						input = Integer.valueOf(args[0]);
 						
-						if (input > max || input < 0)
+						if (input > max || input < 1)
 						{
 							message.reply("xkcd does not have a comic for that number.");
 						}
