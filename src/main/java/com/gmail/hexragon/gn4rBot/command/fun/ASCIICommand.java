@@ -24,7 +24,7 @@ public class ASCIICommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Please provide a query.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Please provide a query.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
@@ -45,7 +45,7 @@ public class ASCIICommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Unable to generate ASCII banner.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Unable to generate ASCII banner.", message.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

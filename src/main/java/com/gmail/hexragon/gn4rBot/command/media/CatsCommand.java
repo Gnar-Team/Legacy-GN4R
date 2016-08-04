@@ -21,7 +21,6 @@ public class CatsCommand extends CommandExecutor
 		{
 			String apiKey = "MTAyODkw";
 			
-			
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc;
@@ -36,7 +35,7 @@ public class CatsCommand extends CommandExecutor
 						doc = db.parse(new URL(String.format("http://thecatapi.com/api/images/get?format=xml&type=%s&api_key=%s&results_per_page=1", args[0], apiKey)).openStream());
 						break;
 					default:
-						message.getChannel().sendMessage(String.format("%s ➤ Not a valid picture type. `[png, jpg, gif]`", message.getAuthor().getAsMention()));
+						message.getChannel().sendMessage(String.format("%s ➜ Not a valid picture type. `[png, jpg, gif]`", message.getAuthor().getAsMention()));
 						return;
 				}
 			}
@@ -51,7 +50,7 @@ public class CatsCommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Unable to find cats to sooth the darkness of your soul.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Unable to find cats to sooth the darkness of your soul.", message.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

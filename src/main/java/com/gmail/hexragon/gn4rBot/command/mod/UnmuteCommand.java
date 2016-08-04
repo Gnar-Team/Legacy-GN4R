@@ -22,11 +22,11 @@ public class UnmuteCommand extends CommandExecutor
 		
 		if (target == null)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ You did not mention a user.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ You did not mention a user.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
 		getGnarGuild().unmute(target);
-		message.getChannel().sendMessage(String.format("%s ➤ You have unmuted %s.", message.getAuthor().getAsMention(), target.getAsMention()));
+		message.getChannel().sendMessage(String.format("%s ➜ You have unmuted %s.", message.getAuthor().getAsMention(), target.getAsMention()));
 	}
 }

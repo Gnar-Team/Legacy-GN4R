@@ -17,7 +17,7 @@ public class TextToSpeechCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Please provide a query.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Please provide a query.", message.getAuthor().getAsMention()));
 			return;
 		}
 		

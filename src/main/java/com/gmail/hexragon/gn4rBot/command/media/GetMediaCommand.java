@@ -20,11 +20,11 @@ public class GetMediaCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Gotta provide the media ID. `%s`", message.getAuthor().getAsMention(), getCommandManager().getToken() + "listmedia"));
+			message.getChannel().sendMessage(String.format("%s ➜ Gotta provide the media ID. `%s`", message.getAuthor().getAsMention(), getCommandManager().getToken() + "listmedia"));
 			return;
 		}
 		
-		String greeting = String.format("%s ➤ **%s** Here's your stuff!", message.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
+		String greeting = String.format("%s ➜ **%s** Here's your stuff!", message.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
 		
 		MediaCache mediaCache = getGnarGuild().getServerManager().getMediaCache();
 		

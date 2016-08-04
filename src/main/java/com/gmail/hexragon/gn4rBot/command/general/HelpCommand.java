@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Command(
@@ -26,7 +28,7 @@ public class HelpCommand extends CommandExecutor
 			CommandExecutor cmd = getCommandManager().getCommand(args[0]);
 			if (cmd == null)
 			{
-				message.getChannel().sendMessage(String.format("%s ➤ There is no command by that name. :cry:", message.getAuthor().getAsMention()));
+				message.getChannel().sendMessage(String.format("%s ➜ There is no command by that name. :cry:", message.getAuthor().getAsMention()));
 				return;
 			}
 			
@@ -36,7 +38,7 @@ public class HelpCommand extends CommandExecutor
 					.collect(Collectors.toList());
 			
 			StringJoiner joiner = new StringJoiner("\n");
-			joiner.add(String.format("%s ➤ This is the information for the command `%s`:", message.getAuthor().getAsMention(), args[0]));
+			joiner.add(String.format("%s ➜ This is the information for the command `%s`:", message.getAuthor().getAsMention(), args[0]));
 			joiner.add("```");
 			joiner.add("Description:   " + cmd.getDescription());
 			
@@ -104,10 +106,21 @@ public class HelpCommand extends CommandExecutor
 			
 			builder.append("```\nNOTICE: Music capabilities will have to be disabled for now until we get a better server, sorry for the inconveniences!```\n");
 			
-			message.getChannel().sendMessage(String.format("%s ➤ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", message.getAuthor().getAsMention()));
-			
 			builder.append("```\nTo view a command's description, do '").append(getCommandManager().getToken()).append("help (command)'.```");
-			message.getAuthor().getPrivateChannel().sendMessage(builder.toString());
+			
+			try
+			{
+				message.getAuthor().getPrivateChannel().sendMessage(builder.toString());
+				message.getChannel().sendMessage(String.format("%s ➜ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", message.getAuthor().getAsMention()));
+			}
+			catch (Exception e)
+			{
+				GnarBot.scheduler.schedule(() ->
+				{
+					message.getAuthor().getPrivateChannel().sendMessage(builder.toString());
+					message.getChannel().sendMessage(String.format("%s ➜ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", message.getAuthor().getAsMention()));
+				}, 1 , TimeUnit.SECONDS);
+			}
 		}
 	}
 }

@@ -21,11 +21,11 @@ public class BanCommand extends CommandExecutor
 		
 		if (target == null)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ You did mention a user.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ You did mention a user.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
 		getGnarGuild().ban(target, 0);
-		message.getChannel().sendMessage(String.format("%s ➤ You have banned %s.", message.getAuthor().getAsMention(), target.getAsMention()));
+		message.getChannel().sendMessage(String.format("%s ➜ You have banned %s.", message.getAuthor().getAsMention(), target.getAsMention()));
 	}
 }

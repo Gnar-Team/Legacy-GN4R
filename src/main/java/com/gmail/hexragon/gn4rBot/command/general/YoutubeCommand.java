@@ -21,14 +21,14 @@ public class YoutubeCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Gotta have a query to YouTube.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Gotta have a query to YouTube.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
 		try
 		{
 			String query = StringUtils.join(args, " ");
-			Message msg = message.getChannel().sendMessage(String.format("%s ➤ Searching `%s`.", message.getAuthor().getAsMention(), query));
+			Message msg = message.getChannel().sendMessage(String.format("%s ➜ Searching `%s`.", message.getAuthor().getAsMention(), query));
 			
 			query = query.replace(" ", "+");
 			
@@ -43,7 +43,7 @@ public class YoutubeCommand extends CommandExecutor
 		}
 		catch (JSONException | NullPointerException e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Unable to get YouTube results.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Unable to get YouTube results.", message.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

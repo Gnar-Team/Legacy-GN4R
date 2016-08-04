@@ -32,7 +32,7 @@ public class GarfieldCommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Unable to grab Garfield comic.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Unable to grab Garfield comic.", message.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

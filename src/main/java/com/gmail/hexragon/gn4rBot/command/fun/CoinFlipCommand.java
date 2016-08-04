@@ -17,11 +17,11 @@ public class CoinFlipCommand extends CommandExecutor
 	{
 		if (new Random().nextInt(2) == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ `Heads`!", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ `Heads`!", message.getAuthor().getAsMention()));
 		}
 		else
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ `Tails`!", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ `Tails`!", message.getAuthor().getAsMention()));
 		}
 	}
 }

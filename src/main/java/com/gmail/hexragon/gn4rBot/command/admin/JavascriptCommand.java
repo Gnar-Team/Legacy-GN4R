@@ -32,7 +32,7 @@ public class JavascriptCommand extends CommandExecutor
 		
 		String script = StringUtils.join(args, " ");
 		
-		message.getChannel().sendMessage(String.format("%s ➤ Running `%s`.", message.getAuthor().getAsMention(), script));
+		message.getChannel().sendMessage(String.format("%s ➜ Running `%s`.", message.getAuthor().getAsMention(), script));
 		
 		Object result;
 		
@@ -42,7 +42,7 @@ public class JavascriptCommand extends CommandExecutor
 		}
 		catch (ScriptException e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ The error `%s` occurred while attempting to execute JavaScript.", message.getAuthor().getAsMention(), e.toString()));
+			message.getChannel().sendMessage(String.format("%s ➜ The error `%s` occurred while attempting to execute JavaScript.", message.getAuthor().getAsMention(), e.toString()));
 			return;
 		}
 		
@@ -53,7 +53,7 @@ public class JavascriptCommand extends CommandExecutor
 					|| result.getClass() == String.class
 					|| result.getClass() == Boolean.class)
 			{
-				message.getChannel().sendMessage(String.format("%s ➤ Result is `%s`.", message.getAuthor().getAsMention(), result));
+				message.getChannel().sendMessage(String.format("%s ➜ Result is `%s`.", message.getAuthor().getAsMention(), result));
 			}
 		}
 	}

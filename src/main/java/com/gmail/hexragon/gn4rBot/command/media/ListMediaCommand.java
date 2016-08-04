@@ -18,11 +18,11 @@ public class ListMediaCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ What kind of media? `[img, gif, vine, all]`", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ What kind of media? `[img, gif, vine, all]`", message.getAuthor().getAsMention()));
 			return;
 		}
 		
-		String greeting = String.format("%s ➤ **%s** Here's what I got in my stash!", message.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
+		String greeting = String.format("%s ➜ **%s** Here's what I got in my stash!", message.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
 		
 		MediaCache mediaCache = getGnarGuild().getServerManager().getMediaCache();
 		StringBuilder builder = new StringBuilder();
@@ -60,11 +60,11 @@ public class ListMediaCommand extends CommandExecutor
 				break;
 			
 			default:
-				message.getChannel().sendMessage(String.format("%s ➤ Invalid media type. `[img, gif, vine, all]`", message.getAuthor().getAsMention()));
+				message.getChannel().sendMessage(String.format("%s ➜ Invalid media type. `[img, gif, vine, all]`", message.getAuthor().getAsMention()));
 		}
 		
 		message.getAuthor().getPrivateChannel().sendMessage(greeting + builder.toString());
 		
-		message.getChannel().sendMessage(String.format("%s ➤ **" + GnarQuotes.getRandomQuote() + "** Sent you my list of available media.", message.getAuthor().getAsMention()));
+		message.getChannel().sendMessage(String.format("%s ➜ **" + GnarQuotes.getRandomQuote() + "** Sent you my list of available media.", message.getAuthor().getAsMention()));
 	}
 }

@@ -20,7 +20,7 @@ public class YodaTalkCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ At least put something. `=[`", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ At least put something. `=[`", message.getAuthor().getAsMention()));
 			return;
 		}
 		

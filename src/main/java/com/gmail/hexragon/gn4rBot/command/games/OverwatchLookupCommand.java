@@ -22,13 +22,13 @@ public class OverwatchLookupCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ You need to provide a BattleTag.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ You need to provide a BattleTag.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
 		if (!args[0].matches("[a-zA-Z1-9]+#\\d+"))
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ You did not enter a valid BattleTag.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ You did not enter a valid BattleTag.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
@@ -40,7 +40,7 @@ public class OverwatchLookupCommand extends CommandExecutor
 			
 			if (jso == null)
 			{
-				message.getChannel().sendMessage(String.format("%s ➤ Unable to find Overwatch Player `%s`", message.getAuthor().getAsMention(), args[0]));
+				message.getChannel().sendMessage(String.format("%s ➜ Unable to find Overwatch Player `%s`", message.getAuthor().getAsMention(), args[0]));
 				return;
 			}
 			

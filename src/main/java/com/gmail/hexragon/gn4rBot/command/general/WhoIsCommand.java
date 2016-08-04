@@ -2,6 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import net.dv8tion.jda.entities.Game;
 import net.dv8tion.jda.entities.Message;
 import net.dv8tion.jda.entities.User;
 
@@ -35,40 +36,28 @@ public class WhoIsCommand extends CommandExecutor
 		StringBuilder mainBuilder = new StringBuilder();
 		
 		
+		String nickname = getGnarGuild().getGuild().getNicknameForUser(user);
+		Game game = user.getCurrentGame();
+		String avatarID = user.getAvatarId();
+		String avatarURL = user.getAvatarUrl();
+		
 		StringJoiner metaBuilder = new StringJoiner("\n");
-		metaBuilder.add("[Main Information]");
-		metaBuilder.add("   ├─[ID]                   " + user.getId());
-		metaBuilder.add("   ├─[Name]                 " + user.getUsername());
-		metaBuilder.add("   ├─[Nickname]             " + getGnarGuild().getGuild().getNicknameForUser(user));
-		metaBuilder.add("   ├─[Game]                 " + user.getCurrentGame().getName());
-		try
-		{
-			metaBuilder.add("   ├─[Avatar]               " + user.getAvatarUrl());
-		}
-		catch (Exception e)
-		{
-			metaBuilder.add("   ├─[Avatar]               ERROR");
-		}
-		metaBuilder.add("   ├─[Discriminator]        " + user.getDiscriminator());
-		//metaBuilder.add("   ├─[Hashcode]             "+String.valueOf(user.hashCode()));
-		metaBuilder.add("   ├─[Bot Status]           " + String.valueOf(user.isBot()).toUpperCase());
-		metaBuilder.add("   |");
+		metaBuilder.add("\u258C ID _________ " + user.getId());
+		metaBuilder.add("\u258C Name _______ " + user.getUsername());
+		metaBuilder.add("\u258C Nickname ___ " + (nickname != null ? nickname : "None"));
+		metaBuilder.add("\u258C Game _______ " + (game != null ? game.getName() : "None"));
+		metaBuilder.add("\u258C Avatar _____ " + (avatarID != null ? avatarID : "Error"));
+		metaBuilder.add("\u258C Disc. ______ " + user.getDiscriminator());
+		metaBuilder.add("\u258C Bot ________ " + String.valueOf(user.isBot()).toUpperCase());
+		metaBuilder.add("\u258C Gn4r Perm __ " + getUserManager().getGnarUser(user).getPermission().toString().replaceAll("_", " "));
+		metaBuilder.add("\u258C \n");
 		
-		mainBuilder.append(metaBuilder.toString()).append("\n");
+		mainBuilder.append(metaBuilder.toString());
 		
-		mainBuilder.append("   ├─[Roles]\n");
-		
-		StringBuilder rolesBuilder = new StringBuilder();
+		mainBuilder.append("\u258C Roles ______ ").append(getGnarGuild().getGuild().getRolesForUser(user).size()).append('\n');
 		getGnarGuild().getGuild().getRolesForUser(user).stream()
-				.filter(role -> !rolesBuilder.toString().contains(role.getId()))
-				.forEach(role -> rolesBuilder.append("   |    ├─[").append(role.getName()).append("]\n"));
-		
-		int lastIndex = rolesBuilder.toString().lastIndexOf("├");
-		if (lastIndex >= 0) rolesBuilder.replace(lastIndex, lastIndex + 1, "└");
-		
-		mainBuilder.append(rolesBuilder.toString());
-		
-		mainBuilder.append("   |\n   └─[Gn4r Perm]            ").append(getCommandManager().getUserManager().getGnarUser(user).getPermission().toString().replaceAll("_", " "));
+				.filter(role -> !mainBuilder.toString().contains(role.getId()))
+				.forEach(role -> mainBuilder.append("\u258C  - ").append(role.getName()).append('\n'));
 		
 		message.getChannel().sendMessage("```xl\n" + mainBuilder.toString().replaceAll("null", "None") + "```");
 	}

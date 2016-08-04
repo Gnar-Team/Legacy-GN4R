@@ -10,6 +10,7 @@ import java.util.Random;
 
 @Command(
 		aliases = "xkcd",
+		usage = "[number|latest]",
 		description = "Ey keed, want some programmer hum0r?."
 )
 public class xkcdCommand extends CommandExecutor
@@ -24,18 +25,49 @@ public class xkcdCommand extends CommandExecutor
 			if (latestJSON != null)
 			{
 				int min = 500;
-				int max = (int) latestJSON.get("num");
+				int max = latestJSON.getInt("num");
 				
-				int rand = min + new Random().nextInt(max - min);
+				int rand;
+				if (args.length >= 1)
+				{
+					int input;
+					try
+					{
+						input = Integer.valueOf(args[0]);
+						
+						if (input > max || input < 0)
+						{
+							message.getChannel().sendMessage(String.format("%s ➜ xkcd does not have a comic for that number.", message.getAuthor().getAsMention()));
+						}
+						
+						rand = input;
+					}
+					catch (NumberFormatException e)
+					{
+						if (args[0].equalsIgnoreCase("latest"))
+						{
+							rand = max;
+						}
+						else
+						{
+							message.getChannel().sendMessage(String.format("%s ➜ You didn't enter a proper number.", message.getAuthor().getAsMention()));
+							return;
+						}
+					}
+				}
+				else
+				{
+					rand = min + new Random().nextInt(max - min);
+				}
 				
 				JSONObject randJSON = Utils.readJsonFromUrl(String.format("http://xkcd.com/%d/info.0.json", rand));
 				
 				if (randJSON != null)
 				{
 					String builder =
-							"XKCD **" + randJSON.get("title") + "**\n" +
-									"No: **" + randJSON.get("num") + "**\n" +
-									"Link: " + ((String) randJSON.get("img")).replaceAll("\\\\/", "/");
+							"XKCD **" + randJSON.getString("title") + "**\n" +
+									"No: **" + randJSON.getInt("num") + "**\n" +
+									"Link: " + randJSON.getString("img").replaceAll("\\\\/", "/");
 					
 					message.getChannel().sendMessage(builder);
 					
@@ -43,7 +75,7 @@ public class xkcdCommand extends CommandExecutor
 				}
 			}
 			
-			message.getChannel().sendMessage(String.format("%s ➤ Unable to grab xkcd comic.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Unable to grab xkcd comic.", message.getAuthor().getAsMention()));
 		}
 		catch (Exception e)
 		{

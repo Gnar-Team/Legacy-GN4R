@@ -20,11 +20,11 @@ public class ReassignTokenCommand extends CommandExecutor
 		if (args.length >= 1)
 		{
 			getCommandManager().setToken(args[0]);
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ GN4R-Bot's command token has been changed to `"+args[0]+"`.");
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ GN4R-Bot's command token has been changed to `"+args[0]+"`.");
 		}
 		else
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Insufficient amount of arguments.");
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Insufficient amount of arguments.");
 		}
 	}
 }

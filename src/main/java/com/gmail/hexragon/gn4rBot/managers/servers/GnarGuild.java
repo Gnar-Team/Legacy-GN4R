@@ -84,6 +84,7 @@ public class GnarGuild extends GuildManager
 		commandManager.registerCommand(YodaTalkCommand.class);
 		commandManager.registerCommand(ZalgoCommand.class);
 		commandManager.registerCommand(ASCIICommand.class);
+		commandManager.registerCommand(LeetifyCommand.class);
 		
 		
 		commandManager.registerCommand(GameLookupCommand.class);

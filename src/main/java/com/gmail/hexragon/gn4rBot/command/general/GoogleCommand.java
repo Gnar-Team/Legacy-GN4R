@@ -26,14 +26,14 @@ public class GoogleCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Gotta have a query to Google.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Gotta have a query to Google.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
 		try
 		{
 			String query = StringUtils.join(args, " ");
-			Message msg = message.getChannel().sendMessage(String.format("%s ➤ Searching `%s`.", message.getAuthor().getAsMention(), query));
+			Message msg = message.getChannel().sendMessage(String.format("%s ➜ Searching `%s`.", message.getAuthor().getAsMention(), query));
 			
 			String userAgent = "GN4R-Bot"; // Change this to your company's name and bot homepage!
 			
@@ -62,11 +62,11 @@ public class GoogleCommand extends CommandExecutor
 			
 			
 			if (!links.isEmpty()) msg.updateMessage(joiner.toString());
-			else msg.updateMessage(String.format("%s ➤ No results for `%s`.", message.getAuthor().getAsMention(), query));
+			else msg.updateMessage(String.format("%s ➜ No results for `%s`.", message.getAuthor().getAsMention(), query));
 		}
 		catch (IOException e)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Unable to Google stuff.");
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Unable to Google stuff.");
 			e.printStackTrace();
 		}
 	}

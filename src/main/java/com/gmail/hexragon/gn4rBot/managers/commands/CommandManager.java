@@ -116,13 +116,14 @@ public class CommandManager
 						if (GnarBot.ADMIN_IDS.contains(event.getAuthor().getId()))
 						{
 							event.getAuthor().getPrivateChannel().sendMessage(
-									String.format("Error occured on server **%s** at %s while executing statement `%s`",
+									String.format("Error ➜ Server: `%s` | Time: `%s` | Statement: `%s`",
 											event.getGuild().getName(),
 											new SimpleDateFormat("MMMM F, yyyy hh:mm:ss a").format(new Date()),
 											event.getMessage().getContent()));
 							event.getAuthor().getPrivateChannel().sendMessage(Utils.exceptionToString(e));
 						}
-						event.getChannel().sendMessage(String.format("%s ➤ A fatal error occured while executing this command.", event.getAuthor().getAsMention()));
+						event.getChannel().sendMessage(String.format("%s ➜ An exception occurred while executing this command.", event.getAuthor().getAsMention()));
+						e.printStackTrace();
 					}
 					
 					return;

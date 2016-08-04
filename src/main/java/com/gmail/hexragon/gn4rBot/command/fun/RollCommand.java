@@ -21,15 +21,15 @@ public class RollCommand extends CommandExecutor
 		{
 			if (!(Integer.valueOf(args[0]) > 0))
 			{
-				message.getChannel().sendMessage(String.format("%s ➤ Number need to be > 0", message.getAuthor().getAsMention()));
+				message.getChannel().sendMessage(String.format("%s ➜ Number need to be > 0", message.getAuthor().getAsMention()));
 				
 				return;
 			}
-			message.getChannel().sendMessage(String.format("%s ➤ You rolled `%d` from range `0 to %3$s`.", message.getAuthor().getAsMention(), new Random().nextInt(Integer.valueOf(args[0])), args[0]));
+			message.getChannel().sendMessage(String.format("%s ➜ You rolled `%d` from range `0 to %3$s`.", message.getAuthor().getAsMention(), new Random().nextInt(Integer.valueOf(args[0])), args[0]));
 		}
 		else
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Insufficient amount of arguments.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Insufficient amount of arguments.", message.getAuthor().getAsMention()));
 		}
 	}
 }

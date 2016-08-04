@@ -24,7 +24,7 @@ public class DeleteMessagesCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Insufficient amount of arguments.");
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Insufficient amount of arguments.");
 			return;
 		}
 		
@@ -35,7 +35,7 @@ public class DeleteMessagesCommand extends CommandExecutor
 		
 		if (amount < 2)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ You need to delete 2 or more messages to use this command.");
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ You need to delete 2 or more messages to use this command.");
 			return;
 		}
 		
@@ -49,12 +49,12 @@ public class DeleteMessagesCommand extends CommandExecutor
 				Set<Message> removeSet = messages.stream().filter(msg -> msg.getContent().toLowerCase().contains(targetWord.toLowerCase())).collect(Collectors.toSet());
 				
 				((TextChannel) message.getChannel()).deleteMessages(removeSet);
-				message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Attempted to delete `" + removeSet.size() + "` messages with the word `"+targetWord+"`.");
+				message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Attempted to delete `" + removeSet.size() + "` messages with the word `"+targetWord+"`.");
 				return;
 			}
 		}
 		
 		((TextChannel) message.getChannel()).deleteMessages(messages);
-		message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Attempted to delete `" + messages.size() + "` messages.");
+		message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Attempted to delete `" + messages.size() + "` messages.");
 	}
 }

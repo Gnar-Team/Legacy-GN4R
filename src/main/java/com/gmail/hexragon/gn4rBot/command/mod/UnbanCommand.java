@@ -21,7 +21,7 @@ public class UnbanCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Insufficient amount of arguments.");
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Insufficient amount of arguments.");
 			return;
 		}
 		
@@ -39,11 +39,11 @@ public class UnbanCommand extends CommandExecutor
 		
 		if (target == null)
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ That is not a valid user ID.");
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ That is not a valid user ID.");
 			return;
 		}
 		
 		getGnarGuild().unBan(target);
-		message.getChannel().sendMessage(String.format("%s ➤ You have unbanned %s.", message.getAuthor().getAsMention(), target.getAsMention()));
+		message.getChannel().sendMessage(String.format("%s ➜ You have unbanned %s.", message.getAuthor().getAsMention(), target.getAsMention()));
 	}
 }

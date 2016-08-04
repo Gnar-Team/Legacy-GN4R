@@ -43,10 +43,10 @@ public class EightBallCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ At ask 8-ball something. `=[`", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ At ask 8-ball something. `=[`", message.getAuthor().getAsMention()));
 			return;
 		}
 		
-		message.getChannel().sendMessage(String.format("%s ➤ `%s`.", message.getAuthor().getAsMention(), responses[random.nextInt(responses.length)]));
+		message.getChannel().sendMessage(String.format("%s ➜ `%s`.", message.getAuthor().getAsMention(), responses[random.nextInt(responses.length)]));
 	}
 }

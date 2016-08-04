@@ -14,6 +14,6 @@ public class UptimeCommand extends CommandExecutor
 	@Override
 	public void execute(Message message, String[] args)
 	{
-		message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ I've been up and awake for `"+ GnarBot.getUptimeStamp() + "`.");
+		message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ I've been up and awake for `"+ GnarBot.getUptimeStamp() + "`.");
 	}
 }

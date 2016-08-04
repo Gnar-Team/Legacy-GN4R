@@ -26,7 +26,7 @@ public class ReassignPermissionCommand extends CommandExecutor
 			
 			if (target == null || (target.isBot()))
 			{
-				message.getChannel().sendMessage(String.format("%s ➤ You did not mention a user.%s", message.getAuthor().getAsMention(), target != null && target.isBot() ? " (Can't be a bot)" : ""));
+				message.getChannel().sendMessage(String.format("%s ➜ You did not mention a user.%s", message.getAuthor().getAsMention(), target != null && target.isBot() ? " (Can't be a bot)" : ""));
 				return;
 			}
 			
@@ -36,19 +36,19 @@ public class ReassignPermissionCommand extends CommandExecutor
 				{
 					if (getGnarGuild().getUserManager().getGnarUser(message.getAuthor()).getPermission().value < permissionLevel.value)
 					{
-						message.getChannel().sendMessage(String.format("%s ➤ You need to be `%s` to assign that permission.", message.getAuthor().getAsMention(), permissionLevel.toString()));
+						message.getChannel().sendMessage(String.format("%s ➜ You need to be `%s` to assign that permission.", message.getAuthor().getAsMention(), permissionLevel.toString()));
 						return;
 					}
 					getGnarGuild().getUserManager().getGnarUser(message.getAuthor()).setGnarPermission(permissionLevel);
-					message.getChannel().sendMessage(String.format("%s ➤ You have set %s's Gn4r-Bot permission to `%s`.", message.getAuthor().getAsMention(), target.getAsMention(), permissionLevel.toString()));
+					message.getChannel().sendMessage(String.format("%s ➜ You have set %s's Gn4r-Bot permission to `%s`.", message.getAuthor().getAsMention(), target.getAsMention(), permissionLevel.toString()));
 					return;
 				}
 			}
-			message.getChannel().sendMessage(String.format("%s ➤ Permission not found. Valid permissions are: ```%s```", message.getAuthor().getAsMention(), Arrays.toString(PermissionLevel.serverValues())));
+			message.getChannel().sendMessage(String.format("%s ➜ Permission not found. Valid permissions are: ```%s```", message.getAuthor().getAsMention(), Arrays.toString(PermissionLevel.serverValues())));
 		}
 		else
 		{
-			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➤ Insufficient amount of arguments.");
+			message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Insufficient amount of arguments.");
 		}
 	}
 }

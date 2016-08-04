@@ -21,14 +21,14 @@ public class MathCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Please provide a math expression.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Please provide a math expression.", message.getAuthor().getAsMention()));
 			return;
 		}
 		
 		String exp = StringUtils.join(args, " ");
 		double result = new Expression(exp).eval();
-		message.getChannel().sendMessage(String.format("%s ➤ Expression `%s` evaluating.", message.getAuthor().getAsMention(), exp));
-		message.getChannel().sendMessage(String.format("%s ➤ Final answer: `%s`", message.getAuthor().getAsMention(), formatter.format(result)));
+		message.getChannel().sendMessage(String.format("%s ➜ Expression `%s` evaluating.", message.getAuthor().getAsMention(), exp));
+		message.getChannel().sendMessage(String.format("%s ➜ Final answer: `%s`", message.getAuthor().getAsMention(), formatter.format(result)));
 	}
 	
 	private class Expression

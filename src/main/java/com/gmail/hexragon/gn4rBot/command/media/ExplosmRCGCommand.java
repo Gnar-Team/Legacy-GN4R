@@ -34,7 +34,7 @@ public class ExplosmRCGCommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
-			message.getChannel().sendMessage(String.format("%s ➤ Unable to grab random Cyanide and Happiness comic.", message.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➜ Unable to grab random Cyanide and Happiness comic.", message.getAuthor().getAsMention()));
 			e.printStackTrace();
 		}
 	}

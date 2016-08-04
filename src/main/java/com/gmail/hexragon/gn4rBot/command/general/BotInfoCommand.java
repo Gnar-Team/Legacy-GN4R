@@ -19,6 +19,7 @@ public class BotInfoCommand extends CommandExecutor
 	
 	public void execute(Message message, String[] args)
 	{
+		int channels = 0;
 		int textChannels = 0;
 		int voiceChannels = 0;
 		int servers = 0;
@@ -51,6 +52,7 @@ public class BotInfoCommand extends CommandExecutor
 			users += g.getUsers().size();
 			textChannels += g.getTextChannels().size();
 			voiceChannels += g.getVoiceChannels().size();
+			channels += g.getTextChannels().size() + g.getVoiceChannels().size();
 		}
 		
 		int commandSize = getCommandManager().getUniqueCommandRegistry()//.values().stream()
@@ -64,24 +66,41 @@ public class BotInfoCommand extends CommandExecutor
 		
 		
 		StringJoiner joiner = new StringJoiner("\n");
-		joiner.add("[Usage Statistics]");
-		joiner.add("   ├─[Requests]             " + requests);
-		joiner.add("   ├─[Servers]              " + servers);
-		joiner.add("   ├─[Text Channels]        " + textChannels);
-		joiner.add("   ├─[Voice Channels]       " + voiceChannels);
-		joiner.add("   └─[Users]                " + users);
-		joiner.add("        ├─[Online]          " + online);
-		joiner.add("        ├─[Offline]         " + offline);
-		joiner.add("        └─[Inactive]        " + inactive);
-		joiner.add("");
-		joiner.add("[Credits]");
-		joiner.add("   ├─[Creator]              Avalon & Maeyrl");
-		joiner.add("   ├─[# of Commands]        " + commandSize);
-		joiner.add("   ├─[Language]             Java 8");
-		joiner.add("   ├─[Library]              Javacord");
-		joiner.add("   └─[Uptime]               " + GnarBot.getUptimeStamp() + ".");
+//		joiner.add("[Usage Statistics]");
+//		joiner.add("   ├─[Requests]             " + requests);
+//		joiner.add("   ├─[Servers]              " + servers);
+//		joiner.add("   ├─[Text Channels]        " + textChannels);
+//		joiner.add("   ├─[Voice Channels]       " + voiceChannels);
+//		joiner.add("   └─[Users]                " + users);
+//		joiner.add("        ├─[Online]          " + online);
+//		joiner.add("        ├─[Offline]         " + offline);
+//		joiner.add("        └─[Inactive]        " + inactive);
+//		joiner.add("");
+//		joiner.add("[Credits]");
+//		joiner.add("   ├─[Creator]              Avalon & Maeyrl");
+//		joiner.add("   ├─[# of Commands]        " + commandSize);
+//		joiner.add("   ├─[Language]             Java 8");
+//		joiner.add("   ├─[Library]              Javacord");
+//		joiner.add("   └─[Uptime]               " + GnarBot.getUptimeStamp() + ".");
 		
-		message.getChannel().sendMessage(String.format("%s ➤ Here is all of my information.", message.getAuthor().getAsMention()));
+		joiner.add("\u258C Requests ____ " + requests);
+		joiner.add("\u258C Servers _____ " + servers);
+		joiner.add("\u258C");
+		joiner.add("\u258C Channels ____ " + channels);
+		joiner.add("\u258C  - Text _____ " + textChannels);
+		joiner.add("\u258C  - Voice ____ " + voiceChannels);
+		joiner.add("\u258C");
+		joiner.add("\u258C Users _______ " + users);
+		joiner.add("\u258C  - Online ___ " + online);
+		joiner.add("\u258C  - Offline __ " + offline);
+		joiner.add("\u258C  - Inactive _ " + inactive);
+		joiner.add("\u258C");
+		joiner.add("\u258C Creator _____ Avalon & Maeyrl");
+		joiner.add("\u258C Commands ____ " + commandSize);
+		joiner.add("\u258C Library _____ JDA");
+		joiner.add("\u258C Uptime ______ " + GnarBot.getShortUptimeStamp() + ".");
+		
+		message.getChannel().sendMessage(String.format("%s ➜ Here is all of my information.", message.getAuthor().getAsMention()));
 		
 		message.getChannel().sendMessage("```xl\n" + joiner.toString() + "```\n");
 	}
