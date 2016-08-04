@@ -9,6 +9,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.*;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
@@ -65,7 +66,20 @@ public class Utils
 
 	public static JSONObject readJsonFromUrl(String url) throws JSONException
 	{
-		try (InputStream is = new URL(url).openStream())
+		URLConnection uCon;
+		try
+		{
+			uCon = new URL(url).openConnection();
+			uCon.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+			uCon.connect();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		
+		try (InputStream is = uCon.getInputStream())
 		{
 			BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 			String jsonText = readAll(rd);

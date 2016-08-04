@@ -1,33 +1,31 @@
 package com.gmail.hexragon.gn4rBot.command.mod;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
+@Command(
+		aliases = {"mute"},
+		usage = "(@user)",
+		description = "Mute/silence users from chat.",
+		permissionRequired = PermissionLevel.BOT_COMMANDER
+)
 public class MuteCommand extends CommandExecutor
 {
-	public MuteCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("Mute/silence users from chat.");
-		setUsage("mute (user)");
-		setPermission(PermissionLevel.BOT_COMMANDER);
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
-		User target = event.getMessage().getMentionedUsers().get(0);
-		
-		if (target == null)
+		if (message.getMentionedUsers().size() < 1)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ You did not mention a user.", event.getAuthor().getAsMention()));
+			message.reply("You did not mention a user.");
 			return;
 		}
 		
+		User target = message.getMentionedUsers().get(0);
+		
 		getGnarGuild().mute(target);
-		event.getChannel().sendMessage(String.format("%s ➤ You have muted %s.", event.getAuthor().getAsMention(), target.getAsMention()));
+		message.reply("You have muted "+target.getAsMention()+".");
 	}
 }

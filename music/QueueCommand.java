@@ -3,7 +3,7 @@ package com.gmail.hexragon.gn4rBot.command.music;
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.util.Utils;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.entities.Message;
 import net.dv8tion.jda.player.MusicPlayer;
 import net.dv8tion.jda.player.Playlist;
 import net.dv8tion.jda.player.source.AudioInfo;
@@ -25,15 +25,15 @@ public class QueueCommand extends MusicCommandExecutor
 	
 	public QueueCommand(CommandManager commandManager)
 	{
-		super(commandManager);
+		
 		setUsage("queue [youtube url]");
 		setDescription("Add music or show the current queue.");
 	}
 	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(Message message, String[] args)
 	{
-		super.execute(event, args);
+		super.execute(message, args);
 		
 		
 		//show the queue
@@ -41,7 +41,7 @@ public class QueueCommand extends MusicCommandExecutor
 		{
 			StringJoiner joiner = new StringJoiner("\n");
 			
-			event.getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** Here's what's queued to be played!");
+			message.getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** Here's what's queued to be played!");
 			joiner.add("```xl");
 			
 			if (player.getAudioQueue().isEmpty()) joiner.add(" Empty.");
@@ -57,7 +57,7 @@ public class QueueCommand extends MusicCommandExecutor
 			
 			joiner.add("```");
 			
-			event.getChannel().sendMessage(joiner.toString());
+			message.getChannel().sendMessage(joiner.toString());
 			return;
 		}
 		
@@ -66,7 +66,7 @@ public class QueueCommand extends MusicCommandExecutor
 		{
 			if (player.getAudioQueue().size() >= QUEUE_LIMIT)
 			{
-				event.getChannel().sendMessage(String.format("%s ➤ The music queue can only hold %d songs.", event.getAuthor().getAsMention(), QUEUE_LIMIT));
+				message.getChannel().sendMessage(String.format("%s ➤ The music queue can only hold %d songs.", message.getAuthor().getAsMention(), QUEUE_LIMIT));
 				return;
 			}
 			
@@ -93,7 +93,7 @@ public class QueueCommand extends MusicCommandExecutor
 				}
 				catch (Exception e1)
 				{
-					event.getChannel().sendMessage(String.format("%s ➤ Failed to find any video with the query `%s`.", event.getAuthor().getAsMention(), query));
+					message.getChannel().sendMessage(String.format("%s ➤ Failed to find any video with the query `%s`.", message.getAuthor().getAsMention(), query));
 					return;
 				}
 			}
@@ -104,7 +104,7 @@ public class QueueCommand extends MusicCommandExecutor
 			
 			if (sources.size() > 1)
 			{
-				event.getChannel().sendMessage(String.format("%s ➤ I've found a playlist with **%d** entries, will begin to gather info and queue sources. **(This may take a while.)**", event.getAuthor().getAsMention(), sources.size()));
+				message.getChannel().sendMessage(String.format("%s ➤ I've found a playlist with **%d** entries, will begin to gather info and queue sources. **(This may take a while.)**", message.getAuthor().getAsMention(), sources.size()));
 				final MusicPlayer fPlayer = player;
 				Thread thread = new Thread()
 				{
@@ -120,18 +120,18 @@ public class QueueCommand extends MusicCommandExecutor
 							{
 								if (source.getInfo().getDuration().getTotalSeconds() > DURATION_LIMIT)
 								{
-									event.getChannel().sendMessage(String.format("%s ➤ Skipping the source `%s` as it exceeded the time limit.", event.getAuthor().getAsMention(), source.getInfo().getTitle()));
+									message.getChannel().sendMessage(String.format("%s ➤ Skipping the source `%s` as it exceeded the time limit.", message.getAuthor().getAsMention(), source.getInfo().getTitle()));
 									continue;
 								}
 								queue.add(source);
 							}
 							else
 							{
-								event.getChannel().sendMessage(String.format("%s ➤ Skipping the source due to error.\nError: %s", event.getAuthor().getAsMention(), info.getError()));
+								message.getChannel().sendMessage(String.format("%s ➤ Skipping the source due to error.\nError: %s", message.getAuthor().getAsMention(), info.getError()));
 								it.remove();
 							}
 						}
-						event.getChannel().sendMessage(String.format("%s ➤ Finished queuing provided playlist. Successfully queued **%d** sources.", event.getAuthor().getAsMention(), sources.size()));
+						message.getChannel().sendMessage(String.format("%s ➤ Finished queuing provided playlist. Successfully queued **%d** sources.", message.getAuthor().getAsMention(), sources.size()));
 					}
 				};
 				thread.start();
@@ -145,21 +145,21 @@ public class QueueCommand extends MusicCommandExecutor
 				{
 					if (source.getInfo().getDuration().getTotalSeconds() > DURATION_LIMIT)
 					{
-						event.getChannel().sendMessage(String.format("%s ➤ The source `%s` exceeded the time limit.", event.getAuthor().getAsMention(), source.getInfo().getTitle()));
+						message.getChannel().sendMessage(String.format("%s ➤ The source `%s` exceeded the time limit.", message.getAuthor().getAsMention(), source.getInfo().getTitle()));
 						return;
 					}
 					player.getAudioQueue().add(source);
-					event.getChannel().sendMessage(String.format("%s ➤ **%s** The song `%s` has been successfully added to the queue.", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote(), source.getInfo().getTitle()));
+					message.getChannel().sendMessage(String.format("%s ➤ **%s** The song `%s` has been successfully added to the queue.", message.getAuthor().getAsMention(), GnarQuotes.getRandomQuote(), source.getInfo().getTitle()));
 				}
 				else
 				{
-					event.getChannel().sendMessage(String.format("%s ➤ There was an error while loading the provided URL.\nError: %s", event.getAuthor().getAsMention(), info.getError()));
+					message.getChannel().sendMessage(String.format("%s ➤ There was an error while loading the provided URL.\nError: %s", message.getAuthor().getAsMention(), info.getError()));
 				}
 			}
 		}
 		catch (Exception e)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ There was an error while loading the provided URL.", event.getAuthor().getAsMention()));
+			message.getChannel().sendMessage(String.format("%s ➤ There was an error while loading the provided URL.", message.getAuthor().getAsMention()));
 		}
 	}
 }

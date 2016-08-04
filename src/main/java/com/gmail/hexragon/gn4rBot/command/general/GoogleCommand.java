@@ -1,9 +1,9 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Message;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -15,28 +15,26 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.StringJoiner;
 
+@Command(
+		aliases = "google",
+		usage = "(query)",
+		description = "Who needs browsers!?"
+)
 public class GoogleCommand extends CommandExecutor
 {
-	public GoogleCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("Because who needs browsers?");
-		setUsage("google (query)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ Gotta have a query to Google.", event.getAuthor().getAsMention()));
+			message.reply("Gotta have a query to Google.");
 			return;
 		}
 		
 		try
 		{
 			String query = StringUtils.join(args, " ");
-			Message msg = event.getChannel().sendMessage(String.format("%s ➤ Searching `%s`.", event.getAuthor().getAsMention(), query));
+			Message msg = message.reply("Searching `"+ query +"`.");
 			
 			String userAgent = "GN4R-Bot"; // Change this to your company's name and bot homepage!
 			
@@ -65,11 +63,11 @@ public class GoogleCommand extends CommandExecutor
 			
 			
 			if (!links.isEmpty()) msg.updateMessage(joiner.toString());
-			else msg.updateMessage(String.format("%s ➤ No results for `%s`.", event.getAuthor().getAsMention(), query));
+			else msg.updateMessage(String.format("%s ➜ No results for `%s`.", message.getAuthor().getAsMention(), query));
 		}
 		catch (IOException e)
 		{
-			event.getChannel().sendMessage(event.getAuthor().getAsMention() + " ➤ Unable to Google stuff.");
+			message.reply("Caught an exception while trying to Google stuff.");
 			e.printStackTrace();
 		}
 	}

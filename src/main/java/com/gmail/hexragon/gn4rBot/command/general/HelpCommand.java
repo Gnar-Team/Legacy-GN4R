@@ -1,34 +1,32 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
-import com.gmail.hexragon.gn4rBot.command.music.MusicCommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Guild;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Command(
+		aliases = {"help", "guide"},
+		usage = "[command]",
+		description = "Display GN4R's list of commands."
+)
 public class HelpCommand extends CommandExecutor
 {
-	public HelpCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("Display GN4R's list of commands.");
-	}
-	
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length >= 1)
 		{
 			CommandExecutor cmd = getCommandManager().getCommand(args[0]);
 			if (cmd == null)
 			{
-				event.getChannel().sendMessage(String.format("%s ➤ There is no command by that name. :cry:", event.getAuthor().getAsMention()));
+				message.reply("There is no command by that name. :cry:");
 				return;
 			}
 			
@@ -38,16 +36,17 @@ public class HelpCommand extends CommandExecutor
 					.collect(Collectors.toList());
 			
 			StringJoiner joiner = new StringJoiner("\n");
-			joiner.add(String.format("%s ➤ This is the information for the command `%s`:", event.getAuthor().getAsMention(), args[0]));
+			joiner.add(String.format("%s ➜ This is the information for the command `%s`:", message.getAuthor().getAsMention(), args[0]));
 			joiner.add("```");
 			joiner.add("Description:   " + cmd.getDescription());
 			
+			String usage = cmd.getUsage();
 			
-			joiner.add("Usage:         " + getCommandManager().getToken() + (cmd.getUsage() == null ? args[0].toLowerCase() : cmd.getUsage()));
+			joiner.add("Usage:         " + getCommandManager().getToken() + args[0].toLowerCase() + (usage == null ? "" : " " + usage));
 			if (!aliases.isEmpty()) joiner.add("Aliases:       ["+StringUtils.join(aliases, ", ")+"]");
 			joiner.add("```");
 			
-			event.getChannel().sendMessage(joiner.toString());
+			message.getChannel().sendMessage(joiner.toString());
 		}
 		else
 		{
@@ -55,7 +54,7 @@ public class HelpCommand extends CommandExecutor
 			List<String> commands = new ArrayList<>(getCommandManager().getUniqueCommandRegistry().keySet());
 			StringBuilder builder = new StringBuilder();
 			
-			Guild guild = event.getJDA().getGuildById(getGnarGuild().getAccessID());
+			Guild guild = message.getJDA().getGuildById(getGnarGuild().getAccessID());
 			
 			builder.append(" \n ```This is all of GN4R-Bot's currently registered commands as of ")
 					.append(new SimpleDateFormat("MMMM F, yyyy hh:mm:ss a").format(new Date()))
@@ -90,8 +89,10 @@ public class HelpCommand extends CommandExecutor
 					
 					String usage = cmd.getUsage();
 					
-					subBuilder.append(cmd instanceof MusicCommandExecutor ? "♪ " : "  ").append(getCommandManager().getToken());
-					subBuilder.append(usage != null ? usage : cmdString).append("\n");
+					//cmd instanceof MusicCommandExecutor ? "♪ " : "  "
+					//                -V-
+					subBuilder.append("  ").append(getCommandManager().getToken());
+					subBuilder.append(cmdString).append(usage == null ? "" : " " + usage).append("\n");
 					
 					//subBuilder.append("    ").append(cmd.getDescription()).append("\n");
 				}
@@ -101,12 +102,12 @@ public class HelpCommand extends CommandExecutor
 				if (cmdCount != 0) builder.append(subBuilder.toString());
 			});
 			
-			builder.append("```\nNOTICE: Music capabilities will have to be removed for now until we get a better server, sorry for the inconveniences!```\n");
-			
-			event.getChannel().sendMessage(String.format("%s ➤ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", event.getAuthor().getAsMention()));
+			builder.append("```\nNOTICE: Music capabilities will have to be disabled for now until we get a better server, sorry for the inconveniences!```\n");
 			
 			builder.append("```\nTo view a command's description, do '").append(getCommandManager().getToken()).append("help (command)'.```");
-			event.getAuthor().getPrivateChannel().sendMessage(builder.toString());
+
+			message.getAuthor().getPrivateChannel().sendMessage(builder.toString());
+			message.getChannel().sendMessage(String.format("%s ➜ **" + GnarQuotes.getRandomQuote() + "** My commands has been PM'ed to you.", message.getAuthor().getAsMention()));
 		}
 	}
 }

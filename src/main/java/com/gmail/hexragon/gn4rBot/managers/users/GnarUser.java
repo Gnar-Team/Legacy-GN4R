@@ -10,7 +10,7 @@ public class GnarUser
 	private final User user;
 	private final GnarGuild gnarGuild;
 
-	private PermissionLevel permission = PermissionLevel.SERVER_USER;
+	private PermissionLevel permission = PermissionLevel.USER;
 
 	public GnarUser(GnarGuild gnarGuild, User user)
 	{

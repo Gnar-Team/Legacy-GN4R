@@ -61,7 +61,6 @@ public class GnarQuotes
 	
 	public static String getRandomQuote()
 	{
-		
 		Random random = new Random();
 		int randomNumber = random.nextInt(quotes.length);
 		

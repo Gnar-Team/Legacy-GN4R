@@ -1,30 +1,28 @@
 package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
+@Command(
+		aliases = {"listmedia", "listimage", "listshit"},
+		description = "List all media from GN4R's database.",
+		usage = "(img|gif|vine|all)"
+)
 public class ListMediaCommand extends CommandExecutor
 {
-	public ListMediaCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("List all media from GN4R's database.");
-		setUsage("listmedia (img|gif|vine|all)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ What kind of media? `[img, gif, vine, all]`", event.getAuthor().getAsMention()));
+			message.reply("What kind of media? `[img, gif, vine, all]`");
 			return;
 		}
 		
-		String greeting = String.format("%s ➤ **%s** Here's what I got in my stash!", event.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
+		String greeting = String.format("%s ➜ **%s** Here's what I got in my stash!", message.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
 		
 		MediaCache mediaCache = getGnarGuild().getServerManager().getMediaCache();
 		StringBuilder builder = new StringBuilder();
@@ -62,11 +60,11 @@ public class ListMediaCommand extends CommandExecutor
 				break;
 			
 			default:
-				event.getChannel().sendMessage(String.format("%s ➤ Invalid media type. `[img, gif, vine, all]`", event.getAuthor().getAsMention()));
+				message.reply("Invalid media type. `[img, gif, vine, all]`");
 		}
 		
-		event.getAuthor().getPrivateChannel().sendMessage(greeting + builder.toString());
+		message.getAuthor().getPrivateChannel().sendMessage(greeting + builder.toString());
 		
-		event.getChannel().sendMessage(String.format("%s ➤ **" + GnarQuotes.getRandomQuote() + "** Sent you my list of available media.", event.getAuthor().getAsMention()));
+		message.reply("**" + GnarQuotes.getRandomQuote() + "** Sent you my list of available media.");
 	}
 }

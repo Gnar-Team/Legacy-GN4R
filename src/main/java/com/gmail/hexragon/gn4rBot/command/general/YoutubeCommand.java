@@ -1,37 +1,35 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.entities.Message;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@Command(
+		aliases = "youtube",
+		usage = "(query)",
+		description = "Search and get a YouTube video."
+)
 public class YoutubeCommand extends CommandExecutor
 {
-	public YoutubeCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("Because who needs browsers?");
-		setUsage("google (query)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ Gotta have a query to YouTube.", event.getAuthor().getAsMention()));
+			message.reply("Gotta have a query to YouTube.");
 			return;
 		}
 		
 		try
 		{
 			String query = StringUtils.join(args, " ");
-			Message msg = event.getChannel().sendMessage(String.format("%s ➤ Searching `%s`.", event.getAuthor().getAsMention(), query));
+			Message msg = message.reply("Searching `"+ query +"`.");
 			
 			query = query.replace(" ", "+");
 			
@@ -40,13 +38,12 @@ public class YoutubeCommand extends CommandExecutor
 			JSONObject jsonObject = Utils.readJsonFromUrl(url);
 			
 			String videoID = jsonObject.getJSONArray("items").getJSONObject(0).getJSONObject("id").getString("videoId");
-			event.getChannel().sendMessage("https://www.youtube.com/watch?v=" + videoID);
+			message.getChannel().sendMessage("https://www.youtube.com/watch?v=" + videoID);
 			msg.deleteMessage();
-			
 		}
 		catch (JSONException | NullPointerException e)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ Unable to get YouTube results.", event.getAuthor().getAsMention()));
+			message.reply("Unable to get YouTube results.");
 			e.printStackTrace();
 		}
 	}

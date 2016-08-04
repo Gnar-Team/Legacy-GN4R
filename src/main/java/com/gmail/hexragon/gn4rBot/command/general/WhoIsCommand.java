@@ -1,69 +1,64 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
+import net.dv8tion.jda.entities.Game;
 import net.dv8tion.jda.entities.User;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 import java.util.StringJoiner;
 
+@Command(
+		aliases = {"whois", "infoof", "infoon"},
+		usage = "(@user)",
+		description = "Get information on a user."
+)
 public class WhoIsCommand extends CommandExecutor
 {
-	public WhoIsCommand(CommandManager manager)
-	{
-		super(manager);
-		setUsage("whois (user)");
-		setDescription("Get information on a user.");
-	}
 	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		if (args.length == 0)
 		{
-			event.getChannel().sendMessage("You did not mention a valid user.");
+			message.reply("You did not mention a valid user.");
 			return;
 		}
 		
-		User user = event.getMessage().getMentionedUsers().get(0);
+		User user = message.getMentionedUsers().get(0);
 		
 		if (user == null)
 		{
-			event.getChannel().sendMessage("You did not mention a valid user.");
+			message.reply("You did not mention a valid user.");
 			return;
 		}
 		
 		StringBuilder mainBuilder = new StringBuilder();
 		
 		
+		String nickname = getGnarGuild().getGuild().getNicknameForUser(user);
+		Game game = user.getCurrentGame();
+		String avatarID = user.getAvatarId();
+		String avatarURL = user.getAvatarUrl();
+		
 		StringJoiner metaBuilder = new StringJoiner("\n");
-		metaBuilder.add("[Main Information]");
-		metaBuilder.add("   ├─[ID]                   " + user.getId());
-		metaBuilder.add("   ├─[Name]                 " + user.getUsername());
-		metaBuilder.add("   ├─[Nickname]             " + getGnarGuild().getGuild().getNicknameForUser(user));
-		metaBuilder.add("   ├─[Game]                 " + user.getCurrentGame().getName());
-		metaBuilder.add("   ├─[Avatar]               " + user.getAvatarUrl());
-		metaBuilder.add("   ├─[Discriminator]        " + user.getDiscriminator());
-		//metaBuilder.add("   ├─[Hashcode]             "+String.valueOf(user.hashCode()));
-		metaBuilder.add("   ├─[Bot Status]           " + String.valueOf(user.isBot()).toUpperCase());
-		metaBuilder.add("   |");
+		metaBuilder.add("\u258C ID _________ " + user.getId());
+		metaBuilder.add("\u258C Name _______ " + user.getUsername());
+		metaBuilder.add("\u258C Nickname ___ " + (nickname != null ? nickname : "None"));
+		metaBuilder.add("\u258C Game _______ " + (game != null ? game.getName() : "None"));
+		metaBuilder.add("\u258C Avatar _____ " + (avatarID != null ? avatarID : "Error"));
+		metaBuilder.add("\u258C Disc. ______ " + user.getDiscriminator());
+		metaBuilder.add("\u258C Bot ________ " + String.valueOf(user.isBot()).toUpperCase());
+		metaBuilder.add("\u258C Gn4r Perm __ " + getUserManager().getGnarUser(user).getPermission().toString().replaceAll("_", " "));
+		metaBuilder.add("\u258C \n");
 		
-		mainBuilder.append(metaBuilder.toString()).append("\n");
+		mainBuilder.append(metaBuilder.toString());
 		
-		mainBuilder.append("   ├─[Roles]\n");
-		
-		StringBuilder rolesBuilder = new StringBuilder();
+		mainBuilder.append("\u258C Roles ______ ").append(getGnarGuild().getGuild().getRolesForUser(user).size()).append('\n');
 		getGnarGuild().getGuild().getRolesForUser(user).stream()
-				.filter(role -> !rolesBuilder.toString().contains(role.getId()))
-				.forEach(role -> rolesBuilder.append("   |    ├─[").append(role.getName()).append("]\n"));
+				.filter(role -> !mainBuilder.toString().contains(role.getId()))
+				.forEach(role -> mainBuilder.append("\u258C  - ").append(role.getName()).append('\n'));
 		
-		int lastIndex = rolesBuilder.toString().lastIndexOf("├");
-		if (lastIndex >= 0) rolesBuilder.replace(lastIndex, lastIndex + 1, "└");
-		
-		mainBuilder.append(rolesBuilder.toString());
-		
-		mainBuilder.append("   |\n   └─[Gn4r Perm]            ").append(getCommandManager().getUserManager().getGnarUser(user).getPermission().toString().replaceAll("_", " "));
-		
-		event.getChannel().sendMessage("```xl\n" + mainBuilder.toString().replaceAll("null", "None") + "```");
+		message.replyRaw("```xl\n" + mainBuilder.toString().replaceAll("null", "None") + "```");
 	}
 }

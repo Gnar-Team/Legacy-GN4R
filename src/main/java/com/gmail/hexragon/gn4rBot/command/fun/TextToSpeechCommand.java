@@ -1,26 +1,30 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.MessageBuilder;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
+@Command(
+		aliases = {"tts"},
+		usage = "(string)",
+		description = "Text to speech fun."
+)
 public class TextToSpeechCommand extends CommandExecutor
 {
-	public TextToSpeechCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("Text to speech fun.");
-		setUsage("tts (sentence)");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
+		if (args.length == 0)
+		{
+			message.reply("%s ➜ Please provide a query.");
+			return;
+		}
+		
 		MessageBuilder builder = new MessageBuilder();
 		builder.setTTS(true);
-		builder.appendString(event.getMessage().getContent().replaceFirst(getCommandManager().getToken() + "tts ", ""));
+		builder.appendString(message.getContent().replaceFirst(getCommandManager().getToken() + "tts ", ""));
 		
-		event.getChannel().sendMessage(builder.build());
+		message.getChannel().sendMessage(builder.build());
 	}
 }

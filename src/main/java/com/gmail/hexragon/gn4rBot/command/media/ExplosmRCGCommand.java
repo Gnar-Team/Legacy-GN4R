@@ -1,23 +1,20 @@
-package com.gmail.hexragon.gn4rBot.command.fun;
+package com.gmail.hexragon.gn4rBot.command.media;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-
+@Command(
+		aliases = {"rcg"},
+		description = "Random shit-post generation!"
+)
 public class ExplosmRCGCommand extends CommandExecutor
 {
-	public ExplosmRCGCommand(CommandManager manager)
-	{
-		super(manager);
-		setDescription("We all need some satire.");
-	}
-	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
 		try
 		{
@@ -32,12 +29,12 @@ public class ExplosmRCGCommand extends CommandExecutor
 							"**Random Comic Generator**\n" +
 							"Link: " + element.absUrl("src");
 			
-			event.getChannel().sendMessage(builder);
+			message.replyRaw(builder);
 			
 		}
 		catch (Exception e)
 		{
-			event.getChannel().sendMessage(String.format("%s ➤ Unable to grab random Cyanide and Happiness comic.", event.getAuthor().getAsMention()));
+			message.reply("Unable to grab random Cyanide and Happiness comic.");
 			e.printStackTrace();
 		}
 	}

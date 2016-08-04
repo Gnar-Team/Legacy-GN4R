@@ -2,12 +2,12 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,14 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Command(
+		aliases = {"eyes", "googleyeyes"},
+		usage = "(image url)",
+		description = "Put weird eyes on people!"
+)
 public class GoogleyEyesCommand extends CommandExecutor
 {
-	public GoogleyEyesCommand(CommandManager manager)
-	{
-		super(manager);
-		showInHelp(false);
-	}
-	
 	private static BufferedImage resize(BufferedImage img, int newW, int newH)
 	{
 		Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
@@ -45,9 +44,14 @@ public class GoogleyEyesCommand extends CommandExecutor
 	}
 	
 	@Override
-	public void execute(MessageReceivedEvent event, String[] args)
+	public void execute(GnarMessage message, String[] args)
 	{
-		event.getChannel().sendMessage("Processing image...");
+		if (args.length == 0)
+		{
+			message.reply("Please provide an image link.");
+			return;
+		}
+		
 		try
 		{
 			String urlStr = args[0];
@@ -62,23 +66,33 @@ public class GoogleyEyesCommand extends CommandExecutor
 			
 			JSONObject j = new JSONObject(response.getBody().toString());
 			
-			//MessageBuilder mb = new MessageBuilder();
-			
 			List<JSONObject> eyesJSON = new ArrayList<>();
 			
 			JSONArray j2 = (JSONArray) j.get("faces");
-			for (int in = 0; in < j2.length(); in++)
+			
+			try
 			{
-				JSONObject j3 = (JSONObject) j2.get(in);
-				JSONObject j4 = (JSONObject) j3.get("features");
-				JSONArray j5 = (JSONArray) j4.get("eyes");
-				
-				for (int i = 0; i < j5.length(); i++)
+				for (int in = 0; in < j2.length(); in++)
 				{
-					//mb.appendString(j5.get(i).toString() + "\n");
+					JSONObject j3 = (JSONObject) j2.get(in);
+					JSONObject j4 = (JSONObject) j3.get("features");
+					JSONArray j5 = (JSONArray) j4.get("eyes");
 					
-					//parse and add JSONObjects to a list.
-					eyesJSON.add(new JSONObject(j5.get(i).toString()));
+					for (int i = 0; i < j5.length(); i++)
+					{
+						//mb.appendString(j5.get(i).toString() + "\n");
+						
+						//parse and add JSONObjects to a list.
+						eyesJSON.add(new JSONObject(j5.get(i).toString()));
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				if (eyesJSON.isEmpty())
+				{
+					message.reply("The API did not detect any eyes/facial features.");
+					return;
 				}
 			}
 			
@@ -104,7 +118,7 @@ public class GoogleyEyesCommand extends CommandExecutor
 				if (ImageIO.write(targetImg, "jpg", outputFile))
 				{
 					//send if success
-					event.getChannel().sendFile(outputFile, null);
+					message.getChannel().sendFile(outputFile, null);
 				}
 			}
 			catch (IOException e)
@@ -121,6 +135,7 @@ public class GoogleyEyesCommand extends CommandExecutor
 		}
 		catch (Exception e)
 		{
+			message.reply("An unexpected error occurred, did you provide a proper link?");
 			e.printStackTrace();
 		}
 	}
