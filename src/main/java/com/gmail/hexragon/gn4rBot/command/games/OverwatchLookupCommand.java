@@ -22,7 +22,7 @@ public class OverwatchLookupCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.reply("%s ➜ You need to provide a BattleTag.");
+			message.reply("You need to provide a BattleTag.");
 			return;
 		}
 		

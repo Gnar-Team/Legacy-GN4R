@@ -1,10 +1,12 @@
-package com.gmail.hexragon.gn4rBot.command.misc;
+package com.gmail.hexragon.gn4rBot.util;
 
 
 import java.util.Random;
 
 public class GnarQuotes
 {
+	private static final Random random = new Random();
+	
 	private static final String[] quotes =
 			{
 					"Gnar gada!",
@@ -61,7 +63,6 @@ public class GnarQuotes
 	
 	public static String getRandomQuote()
 	{
-		Random random = new Random();
 		int randomNumber = random.nextInt(quotes.length);
 		
 		return quotes[randomNumber];

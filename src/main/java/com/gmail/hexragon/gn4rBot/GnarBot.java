@@ -32,7 +32,7 @@ public class GnarBot
 			return;
 		}
 		
-		new GnarBot(TOKENS.get("main-bot"));
+		new GnarBot(TOKENS.get("beta-bot"));
 		
 		//new SystemInfo().printUsage();
 	}

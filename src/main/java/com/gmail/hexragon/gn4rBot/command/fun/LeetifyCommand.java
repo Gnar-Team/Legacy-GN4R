@@ -16,13 +16,18 @@ import java.util.Map;
 public class LeetifyCommand extends CommandExecutor
 {
 	private static final Map<String, String> substitutions = new HashMap<String, String>() {{
-		put("a", "@");
+		put("a", "4");
+		put("A", "@");
+		put("G", "6");
 		put("e", "3");
 		put("l", "1");
-		put("s", "\\$");
+		put("s", "5");
+		put("S", "\\$");
 		put("o", "0");
 		put("t", "7");
 		put("i", "!");
+		put("I", "1");
+		put("B", "|3");
 	}};
 	
 	@Override

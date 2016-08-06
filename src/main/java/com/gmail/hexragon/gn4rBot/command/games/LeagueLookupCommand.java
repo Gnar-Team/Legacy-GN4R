@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 @Command(
-		aliases = {"leauge", "lol"},
+		aliases = {"league", "lol"},
 		usage = "(LOL Username)",
 		description = "Look up Leauge of Legends statistics of a player."
 )

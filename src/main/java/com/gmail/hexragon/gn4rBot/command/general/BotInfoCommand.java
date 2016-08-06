@@ -1,7 +1,7 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
-import com.gmail.hexragon.gn4rBot.command.misc.GnarQuotes;
+import com.gmail.hexragon.gn4rBot.util.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.managers.commands.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
@@ -20,10 +20,10 @@ public class BotInfoCommand extends CommandExecutor
 	
 	public void execute(GnarMessage message, String[] args)
 	{
-		int channels = 0;
+		int channels;
 		int textChannels = 0;
 		int voiceChannels = 0;
-		int servers = 0;
+		int servers;
 		int users = 0;
 		int offline = 0;
 		int online = 0;
@@ -49,12 +49,12 @@ public class BotInfoCommand extends CommandExecutor
 				}
 			}
 			
-			servers++;
 			users += g.getUsers().size();
 			textChannels += g.getTextChannels().size();
 			voiceChannels += g.getVoiceChannels().size();
-			channels += g.getTextChannels().size() + g.getVoiceChannels().size();
 		}
+		servers = jda.getGuilds().size();
+		channels = textChannels + voiceChannels;
 		
 		int commandSize = getCommandManager().getUniqueCommandRegistry()//.values().stream()
 				//.filter(CommandExecutor::isShownInHelp)
@@ -67,22 +67,6 @@ public class BotInfoCommand extends CommandExecutor
 		
 		
 		StringJoiner joiner = new StringJoiner("\n");
-//		joiner.add("[Usage Statistics]");
-//		joiner.add("   ├─[Requests]             " + requests);
-//		joiner.add("   ├─[Servers]              " + servers);
-//		joiner.add("   ├─[Text Channels]        " + textChannels);
-//		joiner.add("   ├─[Voice Channels]       " + voiceChannels);
-//		joiner.add("   └─[Users]                " + users);
-//		joiner.add("        ├─[Online]          " + online);
-//		joiner.add("        ├─[Offline]         " + offline);
-//		joiner.add("        └─[Inactive]        " + inactive);
-//		joiner.add("");
-//		joiner.add("[Credits]");
-//		joiner.add("   ├─[Creator]              Avalon & Maeyrl");
-//		joiner.add("   ├─[# of Commands]        " + commandSize);
-//		joiner.add("   ├─[Language]             Java 8");
-//		joiner.add("   ├─[Library]              Javacord");
-//		joiner.add("   └─[Uptime]               " + GnarBot.getUptimeStamp() + ".");
 		
 		joiner.add("\u258C Requests ____ " + requests);
 		joiner.add("\u258C Servers _____ " + servers);

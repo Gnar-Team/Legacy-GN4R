@@ -5,6 +5,7 @@ import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
+import net.dv8tion.jda.exceptions.PermissionException;
 
 @Command(
 		aliases = {"mute"},
@@ -25,7 +26,14 @@ public class MuteCommand extends CommandExecutor
 		
 		User target = message.getMentionedUsers().get(0);
 		
-		getGnarGuild().mute(target);
+		try
+		{
+			getGnarGuild().mute(target);
+		}
+		catch (PermissionException e)
+		{
+			message.reply("GN4R does not have sufficient permission/can't mute a user with higher rank.");
+		}
 		message.reply("You have muted "+target.getAsMention()+".");
 	}
 }
