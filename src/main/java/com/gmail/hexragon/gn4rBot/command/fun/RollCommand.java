@@ -29,7 +29,7 @@ public class RollCommand extends CommandExecutor
 		}
 		else
 		{
-			message.reply("%s ➜ Insufficient amount of arguments.");
+			message.reply("Insufficient amount of arguments.");
 		}
 	}
 }

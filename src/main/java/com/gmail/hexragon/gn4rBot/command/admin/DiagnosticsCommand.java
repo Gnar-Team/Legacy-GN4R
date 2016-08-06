@@ -18,7 +18,7 @@ public class DiagnosticsCommand extends CommandExecutor
 	@Override
 	public void execute(GnarMessage message, String[] args)
 	{
-		message.getChannel().sendMessage("```xl\n"+new SystemInfo().osInfo()+"```\n```xl\n"+new SystemInfo().memInfo()+"```");
+		message.replyRaw("```xl\n"+new SystemInfo().osInfo()+"```\n```xl\n"+new SystemInfo().memInfo()+"```");
 		
 		//getCommandManager().getCommandRegistry().forEach((str, cmd) -> System.out.println(str + "\t" + cmd.hashCode()));
 	}

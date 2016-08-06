@@ -85,6 +85,7 @@ public class GnarGuild extends GuildManager
 		commandManager.registerCommand(ZalgoCommand.class);
 		commandManager.registerCommand(ASCIICommand.class);
 		commandManager.registerCommand(LeetifyCommand.class);
+		commandManager.registerCommand(PoopCommand.class);
 		
 		
 		commandManager.registerCommand(GameLookupCommand.class);
@@ -111,7 +112,7 @@ public class GnarGuild extends GuildManager
 		
 		//commandManager.registerCommand(ReassignTokenCommand.class);
 		commandManager.registerCommand(JavascriptCommand.class);
-		commandManager.registerCommand(ReassignPermissionCommand.class);
+		//commandManager.registerCommand(ReassignPermissionCommand.class);
 		commandManager.registerCommand(DiagnosticsCommand.class);
 		commandManager.registerCommand(ArgsTestCommand.class);
 	}

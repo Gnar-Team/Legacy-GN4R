@@ -5,6 +5,7 @@ import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
+import net.dv8tion.jda.exceptions.PermissionException;
 
 @Command(
 		aliases = {"ban"},
@@ -25,7 +26,14 @@ public class BanCommand extends CommandExecutor
 		
 		User target = message.getMentionedUsers().get(0);
 		
-		getGnarGuild().ban(target, 0);
+		try
+		{
+			getGnarGuild().ban(target, 0);
+		}
+		catch (PermissionException e)
+		{
+			message.reply("GN4R does not have sufficient permission/can't ban a user with higher rank.");
+		}
 		message.reply("You have banned "+target.getAsMention()+".");
 	}
 }

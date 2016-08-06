@@ -17,11 +17,11 @@ public class CoinFlipCommand extends CommandExecutor
 	{
 		if (new Random().nextInt(2) == 0)
 		{
-			message.reply("%s ➜ `Heads`!");
+			message.reply("`Heads`!");
 		}
 		else
 		{
-			message.reply("%s ➜ `Tails`!");
+			message.reply("`Tails`!");
 		}
 	}
 }

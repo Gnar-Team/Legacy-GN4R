@@ -31,7 +31,7 @@ public class CleverbotCommand extends CommandExecutor
 				factory = new ChatterBotFactory();
 				bot = factory.create(ChatterBotType.CLEVERBOT);
 				session = bot.createSession();
-			    message.reply("%s ➜ Clever-Bot session created for the server.");
+			    message.reply("Clever-Bot session created for the server.");
 			}
 			
 			String input = StringUtils.join(args, " ");

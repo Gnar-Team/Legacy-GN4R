@@ -21,6 +21,7 @@ public class GnarMessage implements Message
 		return message.getChannel().sendMessage(s);
 	}
 	
+	// Stylized reply
 	public Message reply(String s)
 	{
 		return message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ " + s);
@@ -186,5 +187,11 @@ public class GnarMessage implements Message
 	public MessageType getType()
 	{
 		return message.getType();
+	}
+	
+	@Override
+	public List<Emote> getEmotes()
+	{
+		return message.getEmotes();
 	}
 }

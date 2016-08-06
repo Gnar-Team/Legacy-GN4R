@@ -17,7 +17,7 @@ public class TextToSpeechCommand extends CommandExecutor
 	{
 		if (args.length == 0)
 		{
-			message.reply("%s ➜ Please provide a query.");
+			message.reply("Please provide a query.");
 			return;
 		}
 		
