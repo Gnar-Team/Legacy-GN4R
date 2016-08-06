@@ -43,7 +43,7 @@ public class DeleteMessagesCommand extends CommandExecutor
 			List<Message> messages = messageHistory.retrieve(amount);
 
 			if (args.length == 2) {
-				if (args[1].contains("-content:")) {
+				if (args[1].contains ("-content:")) {
 					String targetWord = args[1].replaceFirst("-content:", "");
 					Set<Message> removeSet = messages.stream().filter(msg -> msg.getContent().toLowerCase().contains(targetWord.toLowerCase())).collect(Collectors.toSet());
 
