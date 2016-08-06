@@ -91,6 +91,8 @@ public class GnarGuild extends GuildManager
 		commandManager.registerCommand(GameLookupCommand.class);
 		commandManager.registerCommand(LeagueLookupCommand.class);
 		commandManager.registerCommand(OverwatchLookupCommand.class);
+
+		commandManager.registerCommand(Rule34Command.class);
 		
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
