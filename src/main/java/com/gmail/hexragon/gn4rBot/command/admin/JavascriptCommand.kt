@@ -24,6 +24,7 @@ class JavascriptCommand : CommandExecutor()
 		engine.put("message", message)
 		engine.put("guild", gnarGuild.guild)
 		engine.put("channel", message?.channel)
+
 		
 		val script = StringUtils.join(args, " ")
 		
