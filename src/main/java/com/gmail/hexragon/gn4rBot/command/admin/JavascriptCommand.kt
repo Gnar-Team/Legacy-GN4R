@@ -44,10 +44,11 @@ class JavascriptCommand : CommandExecutor()
 		
 		if (result != null)
 		{
-			if (result.javaClass == Int::class.java
-					|| result.javaClass == Double::class.java
-					|| result.javaClass == String::class.java
-					|| result.javaClass == Boolean::class.java)
+			if (result.javaClass == Int::class.javaObjectType
+					|| result.javaClass == Double::class.javaObjectType
+					|| result.javaClass == Float::class.javaObjectType
+					|| result.javaClass == String::class.javaObjectType
+					|| result.javaClass == Boolean::class.javaObjectType)
 			{
 				message?.reply("The result is `$result`.")
 			}

@@ -32,7 +32,7 @@ class HelpCommand : CommandExecutor()
 			joiner.add("```")
 			joiner.add("\u258C Description __ ${cmd.description}")
 			joiner.add("\u258C Usage ________ ${commandManager.token}${args[0].toLowerCase()} ${cmd.usage}")
-			joiner.add("\u258C Aliases ______ ${aliases.joinToString(", ")}]")
+			joiner.add("\u258C Aliases ______ [${aliases.joinToString(", ")}]")
 			joiner.add("```")
 			
 			message?.replyRaw(joiner.toString())

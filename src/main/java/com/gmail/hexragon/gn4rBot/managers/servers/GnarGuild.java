@@ -141,7 +141,7 @@ public class GnarGuild extends GuildManager
 	{
 		return manager;
 	}
-
+	
 	
 	public void handleMessageEvent(MessageReceivedEvent event)
 	{

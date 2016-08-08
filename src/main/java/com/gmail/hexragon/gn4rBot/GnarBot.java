@@ -1,13 +1,10 @@
 package com.gmail.hexragon.gn4rBot;
 
 import com.gmail.hexragon.gn4rBot.managers.servers.ServerManagers;
-import com.gmail.hexragon.gn4rBot.util.DiscordBotsInfo;
 import com.gmail.hexragon.gn4rBot.util.FileIOManager;
 import com.gmail.hexragon.gn4rBot.util.PropertiesManager;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.JDABuilder;
-import net.dv8tion.jda.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.hooks.ListenerAdapter;
 
@@ -35,7 +32,7 @@ public class GnarBot
 			return;
 		}
 		
-		new GnarBot(TOKENS.get("main-bot"));
+		new GnarBot(TOKENS.get("beta-bot"));
 		
 		//new SystemInfo().printUsage();
 	}
@@ -46,13 +43,10 @@ public class GnarBot
 		
 		try
 		{
-
 			final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
 
 			jda.getAccountManager().setUsername("GN4R");
 			jda.getAccountManager().setGame("_help | _invite");
-
-			DiscordBotsInfo.updateServerCount(jda);
 
 			jda.setAutoReconnect(true);
 			
@@ -62,16 +56,6 @@ public class GnarBot
 				public void onMessageReceived(MessageReceivedEvent event)
 				{
 					if (!event.getAuthor().isBot()) serverManagers.handleMessageEvent(event);
-				}
-
-				@Override
-				public void onGuildJoin(GuildJoinEvent event) {
-					DiscordBotsInfo.updateServerCount(jda);
-				}
-
-				@Override
-				public void onGuildLeave(GuildLeaveEvent event) {
-					DiscordBotsInfo.updateServerCount(jda);
 				}
 			});
 

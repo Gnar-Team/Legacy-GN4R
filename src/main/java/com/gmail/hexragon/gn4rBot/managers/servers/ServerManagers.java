@@ -25,7 +25,7 @@ public class ServerManagers
 		this.mediaCache = new MediaCache();
 	}
 
-	public void addServer(Guild server)
+	private void addServer(Guild server)
 	{
 		GnarGuild gServer = new GnarGuild(server.getId(), this, server);
 		gServer.defaultSetup();
