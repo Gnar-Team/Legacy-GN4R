@@ -1,11 +1,14 @@
 package com.gmail.hexragon.gn4rBot.command.admin;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 
 import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.SERVER_OWNER;
 
+@Deprecated
+@RequiresGuild
 @Command(
 		aliases = {"asigntoken", "reassigntoken", "rtoken"},
 		usage = "(string)",

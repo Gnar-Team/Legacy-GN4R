@@ -1,13 +1,15 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Game;
 import net.dv8tion.jda.entities.User;
 
 import java.util.StringJoiner;
 
+@RequiresGuild
 @Command(
 		aliases = {"whois", "infoof", "infoon"},
 		usage = "(@user)",
@@ -19,6 +21,7 @@ public class WhoIsCommand extends CommandExecutor
 	@Override
 	public void execute(GnarMessage message, String[] args)
 	{
+		
 		if (args.length == 0)
 		{
 			message.reply("You did not mention a valid user.");

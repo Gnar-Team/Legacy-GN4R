@@ -1,6 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.users;
 
-import com.gmail.hexragon.gn4rBot.managers.servers.GnarGuild;
+import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
 import net.dv8tion.jda.entities.User;
 
 import java.util.HashMap;
@@ -8,11 +8,11 @@ import java.util.Map;
 
 public class UserManager
 {
-	private final GnarGuild server;
+	private final GuildManager server;
 
 	private final Map<User, GnarUser> userRegistry;
 
-	public UserManager(GnarGuild server)
+	public UserManager(GuildManager server)
 	{
 		this.server = server;
 		userRegistry = new HashMap<>();

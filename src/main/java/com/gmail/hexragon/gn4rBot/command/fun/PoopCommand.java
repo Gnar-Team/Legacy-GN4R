@@ -1,6 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +9,7 @@ import java.util.StringJoiner;
 
 @Command(
 		aliases = {"poop"},
+		usage = "[string]",
 		description = "Shit your heart out."
 )
 public class PoopCommand extends CommandExecutor

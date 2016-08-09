@@ -1,11 +1,15 @@
 package com.gmail.hexragon.gn4rBot.command.mod;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
+import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
+import net.dv8tion.jda.exceptions.PermissionException;
 
+@RequiresGuild
 @Command(
 		aliases = {"unmute"},
 		usage = "(@user)",
@@ -25,7 +29,14 @@ public class UnmuteCommand extends CommandExecutor
 		
 		User target = message.getMentionedUsers().get(0);
 		
-		getGnarGuild().unmute(target);
+		try
+		{
+			((GuildManager) getGnarGuild()).unmute(target);
+		}
+		catch (PermissionException e)
+		{
+			message.reply("GN4R does not have sufficient permission to unmute target.");
+		}
 		message.reply("You have unmuted "+target.getAsMention()+".");
 	}
 }

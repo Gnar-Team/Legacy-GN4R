@@ -1,48 +1,46 @@
 package com.gmail.hexragon.gn4rBot.command.ai;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
-import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
+import net.dv8tion.jda.entities.User;
 import org.apache.commons.lang3.StringUtils;
 
-@RequiresGuild
+import java.util.Map;
+import java.util.WeakHashMap;
+
 @Command(
 		aliases = {"cbot", "cleverbot"},
 		usage = "(query)",
 		description = "Talk to Clever-Bot."
 )
-public class CleverbotCommand extends CommandExecutor
+public class PrivateCleverbotCommand extends CommandExecutor
 {
 	private ChatterBotFactory factory = new ChatterBotFactory();
-	private ChatterBot bot = null;
 	private ChatterBotSession session = null;
+	
+	private Map<User, ChatterBotSession> sessionMap = new WeakHashMap<>();
 	
 	@Override
 	public void execute(GnarMessage message, String[] args)
 	{
 		try
 		{
-			if (bot == null)
+			if (!sessionMap.containsKey(message.getAuthor()))
 			{
-				bot = factory.create(ChatterBotType.CLEVERBOT);
-				session = bot.createSession();
-			    message.reply("Clever-Bot session created for the server.");
+				ChatterBot bot = factory.create(ChatterBotType.CLEVERBOT);
+				sessionMap.put(message.getAuthor(), bot.createSession());
 			}
-			
-			String input = StringUtils.join(args, " ");
-			
-			String output = session.think(input);
-			message.replyRaw("**[CleverBot]** ─ `" + output + "`");
+			message.replyRaw(sessionMap.get(message.getAuthor()).think(StringUtils.join(args, " ")));
 		}
 		catch (Exception e)
 		{
-			message.reply("CleverBot has encountered an exception. Resetting CleverBot.");
-			bot = null;
+			message.reply("Chat Bot encountered an exception. Restarting. `:[`");
+			sessionMap.remove(message.getAuthor());
 		}
 	}
 }

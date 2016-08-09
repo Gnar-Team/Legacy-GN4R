@@ -1,7 +1,8 @@
 package com.gmail.hexragon.gn4rBot.command.ai;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
@@ -9,6 +10,7 @@ import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
 import org.apache.commons.lang3.StringUtils;
 
+@RequiresGuild
 @Command(
 		aliases = {"pbot", "pandorabot"},
 		usage = "(query)",
@@ -16,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 )
 public class PandorabotCommand extends CommandExecutor
 {
-	private ChatterBotFactory factory = null;
+	private ChatterBotFactory factory = new ChatterBotFactory();
 	private ChatterBot bot = null;
 	private ChatterBotSession session = null;
 	
@@ -25,9 +27,8 @@ public class PandorabotCommand extends CommandExecutor
 	{
 		try
 		{
-			if (factory == null)
+			if (bot == null)
 			{
-				factory = new ChatterBotFactory();
 				bot = factory.create(ChatterBotType.PANDORABOTS, "b0dafd24ee35a477");
 				session = bot.createSession();
 				message.reply("Pandora-Bot session created for the server.");
@@ -41,7 +42,7 @@ public class PandorabotCommand extends CommandExecutor
 		catch (Exception e)
 		{
 			message.reply("PandoraBot has encountered an exception. Resetting PandoraBot.");
-			factory = null;
+			bot = null;
 		}
 	}
 }

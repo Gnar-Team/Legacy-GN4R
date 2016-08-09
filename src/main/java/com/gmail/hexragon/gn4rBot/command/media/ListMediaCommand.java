@@ -1,7 +1,7 @@
 package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.util.GnarQuotes;
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;

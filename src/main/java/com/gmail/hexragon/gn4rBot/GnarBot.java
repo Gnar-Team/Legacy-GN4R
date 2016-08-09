@@ -1,10 +1,13 @@
 package com.gmail.hexragon.gn4rBot;
 
-import com.gmail.hexragon.gn4rBot.managers.servers.ServerManagers;
+import com.gmail.hexragon.gn4rBot.managers.servers.ServerManager;
+import com.gmail.hexragon.gn4rBot.util.DiscordBotsInfo;
 import com.gmail.hexragon.gn4rBot.util.FileIOManager;
 import com.gmail.hexragon.gn4rBot.util.PropertiesManager;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.JDABuilder;
+import net.dv8tion.jda.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.hooks.ListenerAdapter;
 
@@ -21,7 +24,7 @@ public class GnarBot
 	
 	public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
 	public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
-	private static final long startTime = System.currentTimeMillis();
+	private static final long START_TIME = System.currentTimeMillis();
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -39,7 +42,7 @@ public class GnarBot
 
 	private GnarBot(String token)
 	{
-		ServerManagers serverManagers = new ServerManagers();
+		ServerManager serverManager = new ServerManager();
 		
 		try
 		{
@@ -50,12 +53,26 @@ public class GnarBot
 
 			jda.setAutoReconnect(true);
 			
+			DiscordBotsInfo.updateServerCount(jda);
+			
 			jda.addEventListener(new ListenerAdapter()
 			{
 				@Override
 				public void onMessageReceived(MessageReceivedEvent event)
 				{
-					if (!event.getAuthor().isBot()) serverManagers.handleMessageEvent(event);
+					if (!event.getAuthor().isBot()) serverManager.handleMessageEvent(event);
+				}
+				
+				@Override
+				public void onGuildJoin(GuildJoinEvent event)
+				{
+					DiscordBotsInfo.updateServerCount(jda);
+				}
+				
+				@Override
+				public void onGuildLeave(GuildLeaveEvent event)
+				{
+					DiscordBotsInfo.updateServerCount(jda);
 				}
 			});
 
@@ -69,7 +86,7 @@ public class GnarBot
 	
 	public static String getUptimeStamp()
 	{
-		long seconds = (new Date().getTime() - startTime) / 1000;
+		long seconds = (new Date().getTime() - START_TIME) / 1000;
 		long minutes = seconds / 60;
 		long hours = minutes / 60;
 		long days = hours / 24;
@@ -78,7 +95,7 @@ public class GnarBot
 	
 	public static String getShortUptimeStamp()
 	{
-		long seconds = (new Date().getTime() - startTime) / 1000;
+		long seconds = (new Date().getTime() - START_TIME) / 1000;
 		long minutes = seconds / 60;
 		long hours = minutes / 60;
 		long days = hours / 24;

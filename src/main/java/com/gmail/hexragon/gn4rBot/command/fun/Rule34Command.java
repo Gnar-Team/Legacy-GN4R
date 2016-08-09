@@ -1,6 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.fun;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.jsoup.Jsoup;
@@ -15,7 +15,7 @@ import java.util.Random;
 
 @Command(
         aliases = {"rule", "rule34"},
-        usage = "[search result]",
+        usage = "[query]",
         description = "Pulls a random rule 34 article from your keywords",
         showInHelp = false
 )
@@ -36,7 +36,7 @@ public class Rule34Command extends CommandExecutor
                     tag += ("+" + s);
                 }
             }
-        } catch(Exception e) {}
+        } catch(Exception ignore) {}
 
         try {
 
@@ -50,7 +50,7 @@ public class Rule34Command extends CommandExecutor
 
             Element target = posts.get(rand);
 
-            String url = ""+target.attributes().size();
+            String url;
 
             Attributes att = target.attributes();
 
@@ -60,7 +60,7 @@ public class Rule34Command extends CommandExecutor
 
             message.reply("http:"+url);
         } catch (Exception e) {
-            message.reply("Please refer to rule 35");
+            message.reply("Please refer to rule 35.");
         }
 
 

@@ -1,18 +1,18 @@
 package com.gmail.hexragon.gn4rBot.managers.users;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
-import com.gmail.hexragon.gn4rBot.managers.servers.GnarGuild;
+import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
 import net.dv8tion.jda.entities.Role;
 import net.dv8tion.jda.entities.User;
 
 public class GnarUser
 {
 	private final User user;
-	private final GnarGuild gnarGuild;
+	private final GuildManager gnarGuild;
 
 	private PermissionLevel permission = PermissionLevel.USER;
 
-	public GnarUser(GnarGuild gnarGuild, User user)
+	GnarUser(GuildManager gnarGuild, User user)
 	{
 		this.user = user;
 		this.gnarGuild = gnarGuild;
@@ -55,7 +55,7 @@ public class GnarUser
 		return user;
 	}
 
-	public GnarGuild getGnarGuild()
+	public GuildManager getGnarGuild()
 	{
 		return gnarGuild;
 	}

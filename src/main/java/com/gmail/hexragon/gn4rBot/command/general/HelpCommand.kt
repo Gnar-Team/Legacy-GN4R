@@ -1,11 +1,12 @@
 package com.gmail.hexragon.gn4rBot.command.general
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command
+import com.gmail.hexragon.gn4rBot.managers.directMessage.PMCommandManager
+import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildCommandManager
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel
 import com.gmail.hexragon.gn4rBot.util.GnarMessage
 import com.gmail.hexragon.gn4rBot.util.GnarQuotes
-import java.text.SimpleDateFormat
 import java.util.*
 
 @Command(aliases = arrayOf("help", "guide"), usage = "[command]", description = "Display GN4R's list of commands.")
@@ -15,11 +16,11 @@ class HelpCommand : CommandExecutor()
 	{
 		if (args!!.size >= 1)
 		{
-			val cmd : CommandExecutor?  = commandManager.getCommand(args[0])
+			val cmd : CommandExecutor? = commandManager.getCommand(args[0])
 			
 			if (cmd == null)
 			{
-				message?.replyRaw("There is no command by the name `${args[0]}`. :cry:")
+				message?.replyRaw("There is no command by the name `${args[0]}` in this guild. :cry:")
 				return
 			}
 			
@@ -36,13 +37,18 @@ class HelpCommand : CommandExecutor()
 			joiner.add("```")
 			
 			message?.replyRaw(joiner.toString())
+			
+			return
 		}
 		
 		val commandEntries = commandManager.uniqueCommandRegistry
 		
 		val builder = StringBuilder()
 		
-		builder.append("\nThis is all of GN4R-Bot's currently registered commands as of **${SimpleDateFormat("MMMM F, yyyy hh:mm:ss a").format(Date())}**.\n\n")
+		if (commandManager.javaClass == GuildCommandManager::class.java)
+			builder.append("\nThis is all of GN4R-Bot's currently registered commands on the __**${guild.name}**__ guild.\n\n")
+		else if (commandManager.javaClass == PMCommandManager::class.java)
+			builder.append("\nThis is all of GN4R-Bot's currently registered commands on the __**direct message**__ channel.\n\n")
 		
 		PermissionLevel.values().forEach {
 			val perm = it
@@ -70,6 +76,8 @@ class HelpCommand : CommandExecutor()
 		
 		builder.append("**Bot Commander** commands requires you to have a role named exactly __Bot Commander__.\n")
 		builder.append("**Server Owner** commands requires you to be the __Server Owner__ to execute.\n\n")
+		
+		builder.append("**BETA Feature:** Gnar now responds to *selected commands* in private messages.\n")
 		
 		message?.author?.privateChannel?.sendMessage(builder.toString())
 		message?.channel?.sendMessage("${message.author?.asMention} ➜ **${GnarQuotes.getRandomQuote()}** My commands has been PM'ed to you.")

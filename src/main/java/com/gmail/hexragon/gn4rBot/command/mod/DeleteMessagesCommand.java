@@ -1,6 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.mod;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;

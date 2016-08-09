@@ -1,14 +1,16 @@
 package com.gmail.hexragon.gn4rBot.command.admin;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
 
 import java.util.Arrays;
 
-
+@Deprecated
+@RequiresGuild
 @Command(
 		aliases = {"assignperm", "reassignperm", "reassignpermission"},
 		usage = "(@user) (perm)",

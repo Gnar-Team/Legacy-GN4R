@@ -1,6 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.media;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import org.w3c.dom.Document;
@@ -9,7 +9,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
 @Command(
-		aliases = {"cats", "caaaaaaaaats"},
+		aliases = {"cats", "cat", "caaaaaaaaats"},
 		description = "Get cats! What more do you want!?"
 )
 public class CatsCommand extends CommandExecutor

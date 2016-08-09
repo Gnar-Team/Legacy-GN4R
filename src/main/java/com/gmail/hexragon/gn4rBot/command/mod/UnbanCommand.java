@@ -1,13 +1,17 @@
 package com.gmail.hexragon.gn4rBot.command.mod;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
+import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
+import net.dv8tion.jda.exceptions.PermissionException;
 
 import java.util.List;
 
+@RequiresGuild
 @Command(
 		aliases = {"unban"},
 		usage = "(user-id)",
@@ -25,7 +29,7 @@ public class UnbanCommand extends CommandExecutor
 			return;
 		}
 		
-		List<User> bannedList = getGnarGuild().getBans();
+		List<User> bannedList = ((GuildManager) getGnarGuild()).getBans();
 		
 		User target = null;
 		
@@ -43,7 +47,14 @@ public class UnbanCommand extends CommandExecutor
 			return;
 		}
 		
-		getGnarGuild().unBan(target);
+		try
+		{
+			((GuildManager) getGnarGuild()).unBan(target);
+		}
+		catch (PermissionException e)
+		{
+			message.reply("GN4R does not have sufficient permission to unban target.");
+		}
 		message.reply("You have unbanned "+target.getAsMention()+".");
 	}
 }

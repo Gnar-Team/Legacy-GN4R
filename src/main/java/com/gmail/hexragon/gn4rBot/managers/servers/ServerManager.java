@@ -1,6 +1,7 @@
 package com.gmail.hexragon.gn4rBot.managers.servers;
 
-import com.gmail.hexragon.gn4rBot.util.GnarQuotes;
+import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
+import com.gmail.hexragon.gn4rBot.managers.directMessage.PMManager;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
@@ -13,13 +14,15 @@ import java.util.Map;
 /*
  * Handles multiinstances of Guilds.
  */
-public class ServerManagers
+public class ServerManager
 {
 	private final MediaCache mediaCache;
 	
 	private final Map<String, GnarGuild> serverMap;
+	
+	private final PMManager privateGuild = new PMManager("DM", this);
 
-	public ServerManagers()
+	public ServerManager()
 	{
 		this.serverMap = new HashMap<>();
 		this.mediaCache = new MediaCache();
@@ -27,9 +30,7 @@ public class ServerManagers
 
 	private void addServer(Guild server)
 	{
-		GnarGuild gServer = new GnarGuild(server.getId(), this, server);
-		gServer.defaultSetup();
-		serverMap.put(server.getId(), gServer);
+		serverMap.put(server.getId(), new GuildManager(server.getId(), this, server));
 	}
 
 	public void handleMessageEvent(MessageReceivedEvent event)
@@ -40,7 +41,8 @@ public class ServerManagers
 		}
 		if (event.isPrivate())
 		{
-			event.getMessage().getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** I only respond on a server. :cry:");
+			//event.getMessage().getChannel().sendMessage("**" + GnarQuotes.getRandomQuote() + "** I only respond on a server. :cry:");
+			privateGuild.handleMessageEvent(event);
 			return;
 		}
 
