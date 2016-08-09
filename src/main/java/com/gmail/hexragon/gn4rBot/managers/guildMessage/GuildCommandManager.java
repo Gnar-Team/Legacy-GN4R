@@ -4,7 +4,7 @@ import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
-import com.gmail.hexragon.gn4rBot.managers.servers.GnarGuild;
+import com.gmail.hexragon.gn4rBot.managers.servers.GnarManager;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
@@ -14,7 +14,7 @@ import java.util.*;
 
 public class GuildCommandManager implements CommandManager
 {
-	protected final GnarGuild server;
+	protected final GnarManager server;
 
 	protected final Map<String, CommandExecutor> commandRegistry;
 	
@@ -22,7 +22,7 @@ public class GuildCommandManager implements CommandManager
 	
 	protected String token = "_"; //default token
 	
-	public GuildCommandManager(GnarGuild server)
+	public GuildCommandManager(GnarManager server)
 	{
 		this.server = server;
 		commandRegistry = new LinkedHashMap<>();
@@ -47,7 +47,7 @@ public class GuildCommandManager implements CommandManager
 	}
 
 	@Override
-	public GnarGuild getGnarGuild()
+	public GnarManager getGnarManager()
 	{
 		return server;
 	}
@@ -105,7 +105,7 @@ public class GuildCommandManager implements CommandManager
 					// Calling the command class.
 					CommandExecutor cmd = commandRegistry.get(regCommand);
 					
-					if (getGnarGuild().getUserManager() != null && cmd.permissionLevel().value > server.getUserManager().getGnarUser(event.getAuthor()).getPermission().value)
+					if (getGnarManager().getUserManager() != null && cmd.permissionLevel().value > server.getUserManager().getGnarUser(event.getAuthor()).getPermission().value)
 					{
 						gMessage.reply("You do not have sufficient permission to use this command.");
 						return;

@@ -14,13 +14,13 @@ import com.gmail.hexragon.gn4rBot.command.general.*;
 import com.gmail.hexragon.gn4rBot.command.media.*;
 import com.gmail.hexragon.gn4rBot.command.mod.*;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import com.gmail.hexragon.gn4rBot.managers.servers.GnarGuild;
+import com.gmail.hexragon.gn4rBot.managers.servers.GnarManager;
 import com.gmail.hexragon.gn4rBot.managers.servers.ServerManager;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
-public class GuildManager extends net.dv8tion.jda.managers.GuildManager implements GnarGuild
+public class GuildManager extends net.dv8tion.jda.managers.GuildManager implements GnarManager
 {
 	private final String accessID;
 	private final UserManager userManager;

@@ -39,7 +39,7 @@ public class WhoIsCommand extends CommandExecutor
 		StringBuilder mainBuilder = new StringBuilder();
 		
 		
-		String nickname = getGnarGuild().getGuild().getNicknameForUser(user);
+		String nickname = getGnarManager().getGuild().getNicknameForUser(user);
 		Game game = user.getCurrentGame();
 		String avatarID = user.getAvatarId();
 		String avatarURL = user.getAvatarUrl();
@@ -57,8 +57,8 @@ public class WhoIsCommand extends CommandExecutor
 		
 		mainBuilder.append(metaBuilder.toString());
 		
-		mainBuilder.append("\u258C Roles ______ ").append(getGnarGuild().getGuild().getRolesForUser(user).size()).append('\n');
-		getGnarGuild().getGuild().getRolesForUser(user).stream()
+		mainBuilder.append("\u258C Roles ______ ").append(getGnarManager().getGuild().getRolesForUser(user).size()).append('\n');
+		getGnarManager().getGuild().getRolesForUser(user).stream()
 				.filter(role -> !mainBuilder.toString().contains(role.getId()))
 				.forEach(role -> mainBuilder.append("\u258C  - ").append(role.getName()).append('\n'));
 		

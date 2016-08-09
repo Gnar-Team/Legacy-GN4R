@@ -12,13 +12,13 @@ import com.gmail.hexragon.gn4rBot.command.games.OverwatchLookupCommand;
 import com.gmail.hexragon.gn4rBot.command.general.*;
 import com.gmail.hexragon.gn4rBot.command.media.*;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import com.gmail.hexragon.gn4rBot.managers.servers.GnarGuild;
+import com.gmail.hexragon.gn4rBot.managers.servers.GnarManager;
 import com.gmail.hexragon.gn4rBot.managers.servers.ServerManager;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
-public class PMManager implements GnarGuild
+public class PMManager implements GnarManager
 {
 	private final String accessID;
 	private final CommandManager commandManager;

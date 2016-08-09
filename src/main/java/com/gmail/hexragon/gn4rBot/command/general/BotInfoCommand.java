@@ -17,7 +17,6 @@ import java.util.StringJoiner;
 )
 public class BotInfoCommand extends CommandExecutor
 {
-	
 	public void execute(GnarMessage message, String[] args)
 	{
 		int channels;
@@ -61,7 +60,7 @@ public class BotInfoCommand extends CommandExecutor
 				//.collect(Collectors.toList())
 				.size();
 		
-		int requests = getGnarGuild().getServerManager().getGnarGuilds().parallelStream()
+		int requests = getGnarManager().getServerManager().getGnarManagers().parallelStream()
 				.mapToInt(guild -> guild.getCommandManager().getRequests())
 				.sum();
 		

@@ -31,7 +31,7 @@ public class UnmuteCommand extends CommandExecutor
 		
 		try
 		{
-			((GuildManager) getGnarGuild()).unmute(target);
+			((GuildManager) getGnarManager()).unmute(target);
 		}
 		catch (PermissionException e)
 		{

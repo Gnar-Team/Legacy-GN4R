@@ -22,7 +22,7 @@ class JavascriptCommand : CommandExecutor()
 		
 		engine.put("jda", message?.jda)
 		engine.put("message", message)
-		engine.put("guild", gnarGuild)
+		engine.put("guild", gnarManager)
 		engine.put("channel", message?.channel)
 
 		

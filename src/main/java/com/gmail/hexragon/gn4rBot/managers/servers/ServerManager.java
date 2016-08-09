@@ -18,7 +18,7 @@ public class ServerManager
 {
 	private final MediaCache mediaCache;
 	
-	private final Map<String, GnarGuild> serverMap;
+	private final Map<String, GnarManager> serverMap;
 	
 	private final PMManager privateGuild = new PMManager("DM", this);
 
@@ -48,17 +48,17 @@ public class ServerManager
 
 		if (!serverMap.containsKey(event.getGuild().getId())) addServer(event.getGuild());
 
-		GnarGuild server = serverMap.get(event.getGuild().getId());
+		GnarManager server = serverMap.get(event.getGuild().getId());
 
 		server.handleMessageEvent(event);
 	}
 
-	public GnarGuild getGnarGuildByID(String accessID)
+	public GnarManager getGnarGuildByID(String accessID)
 	{
 		return serverMap.get(accessID);
 	}
 	
-	public List<GnarGuild> getGnarGuilds()
+	public List<GnarManager> getGnarManagers()
 	{
 		return new ArrayList<>(serverMap.values());
 	}

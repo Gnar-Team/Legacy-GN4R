@@ -36,12 +36,12 @@ public class ReassignPermissionCommand extends CommandExecutor
 			{
 				if (permissionLevel.toString().toLowerCase().equals(args[1].toLowerCase()))
 				{
-					if (getGnarGuild().getUserManager().getGnarUser(message.getAuthor()).getPermission().value < permissionLevel.value)
+					if (getGnarManager().getUserManager().getGnarUser(message.getAuthor()).getPermission().value < permissionLevel.value)
 					{
 						message.reply("You need to be `"+permissionLevel.toString()+"` to assign that permission.");
 						return;
 					}
-					getGnarGuild().getUserManager().getGnarUser(message.getAuthor()).setGnarPermission(permissionLevel);
+					getGnarManager().getUserManager().getGnarUser(message.getAuthor()).setGnarPermission(permissionLevel);
 					message.getChannel().sendMessage(String.format("%s ➜ You have set %s's Gn4r-Bot permission to `%s`.", message.getAuthor().getAsMention(), target.getAsMention(), permissionLevel.toString()));
 					return;
 				}

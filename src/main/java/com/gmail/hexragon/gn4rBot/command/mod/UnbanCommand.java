@@ -29,7 +29,7 @@ public class UnbanCommand extends CommandExecutor
 			return;
 		}
 		
-		List<User> bannedList = ((GuildManager) getGnarGuild()).getBans();
+		List<User> bannedList = ((GuildManager) getGnarManager()).getBans();
 		
 		User target = null;
 		
@@ -49,7 +49,7 @@ public class UnbanCommand extends CommandExecutor
 		
 		try
 		{
-			((GuildManager) getGnarGuild()).unBan(target);
+			((GuildManager) getGnarManager()).unBan(target);
 		}
 		catch (PermissionException e)
 		{

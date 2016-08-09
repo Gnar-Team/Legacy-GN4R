@@ -31,7 +31,7 @@ public class BanCommand extends CommandExecutor
 		
 		try
 		{
-			((GuildManager) getGnarGuild()).ban(target, 0);
+			((GuildManager) getGnarManager()).ban(target, 0);
 		}
 		catch (PermissionException e)
 		{

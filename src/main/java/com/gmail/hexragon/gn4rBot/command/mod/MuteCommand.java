@@ -31,7 +31,7 @@ public class MuteCommand extends CommandExecutor
 		
 		try
 		{
-			((GuildManager) getGnarGuild()).mute(target);
+			((GuildManager) getGnarManager()).mute(target);
 		}
 		catch (PermissionException e)
 		{
