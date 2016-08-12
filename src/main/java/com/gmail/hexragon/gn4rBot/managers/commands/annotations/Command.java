@@ -13,13 +13,13 @@ import java.lang.annotation.Target;
 
 public @interface Command
 {
-	String[] aliases();
-	
-	String description() default "No descriptions provided.";
-	
-	String usage() default "";
-	
-	boolean showInHelp() default true;
-	
-	PermissionLevel permissionRequired() default PermissionLevel.USER;
+    String[] aliases();
+    
+    String description() default "No descriptions provided.";
+    
+    String usage() default "";
+    
+    boolean showInHelp() default true;
+    
+    PermissionLevel permissionRequired() default PermissionLevel.USER;
 }

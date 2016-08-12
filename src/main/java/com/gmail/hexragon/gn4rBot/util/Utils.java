@@ -15,80 +15,80 @@ import java.util.Arrays;
 
 public class Utils
 {
-	static
-	{
-		TrustManager[] trustAllCerts = new TrustManager[]
-				{
-						new X509TrustManager()
-						{
-							public java.security.cert.X509Certificate[] getAcceptedIssuers()
-							{
-								return null;
-							}
-
-							public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
-							{}
-
-							public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
-							{}
-						}
-				};
-
-		try
-		{
-			SSLContext sc = SSLContext.getInstance("SSL");
-			sc.init(null, trustAllCerts, new java.security.SecureRandom());
-			HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-		}
-		catch (Exception ignore) {}
-	}
-
-	public static String exceptionToString(Exception e)
-	{
-		StringBuilder errBuilder = new StringBuilder();
-
-		Arrays.stream(e.getStackTrace())
-				.forEach(ste -> errBuilder.append("  ").append(ste.toString()).append("\n"));
-
-		return String.format("```xl\n%s%s```", e.toString(), errBuilder.toString());
-	}
-
-	private static String readAll(Reader rd) throws IOException
-	{
-		StringBuilder sb = new StringBuilder();
-		int cp;
-		while ((cp = rd.read()) != -1)
-		{
-			sb.append((char) cp);
-		}
-		return sb.toString();
-	}
-
-	public static JSONObject readJsonFromUrl(String url) throws JSONException
-	{
-		URLConnection uCon;
-		try
-		{
-			uCon = new URL(url).openConnection();
-			uCon.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
-			uCon.connect();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-		
-		try (InputStream is = uCon.getInputStream())
-		{
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-			String jsonText = readAll(rd);
-			return new JSONObject(jsonText);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-	}
+    static
+    {
+        TrustManager[] trustAllCerts = new TrustManager[]
+                {
+                        new X509TrustManager()
+                        {
+                            public java.security.cert.X509Certificate[] getAcceptedIssuers()
+                            {
+                                return null;
+                            }
+                            
+                            public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
+                            {}
+                            
+                            public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
+                            {}
+                        }
+                };
+        
+        try
+        {
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        }
+        catch (Exception ignore) {}
+    }
+    
+    public static String exceptionToString(Exception e)
+    {
+        StringBuilder errBuilder = new StringBuilder();
+        
+        Arrays.stream(e.getStackTrace())
+                .forEach(ste -> errBuilder.append("  ").append(ste.toString()).append("\n"));
+        
+        return String.format("```xl\n%s%s```", e.toString(), errBuilder.toString());
+    }
+    
+    private static String readAll(Reader rd) throws IOException
+    {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1)
+        {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+    
+    public static JSONObject readJsonFromUrl(String url) throws JSONException
+    {
+        URLConnection uCon;
+        try
+        {
+            uCon = new URL(url).openConnection();
+            uCon.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+            uCon.connect();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        
+        try (InputStream is = uCon.getInputStream())
+        {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            String jsonText = readAll(rd);
+            return new JSONObject(jsonText);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

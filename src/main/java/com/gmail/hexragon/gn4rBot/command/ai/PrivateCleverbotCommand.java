@@ -14,33 +14,33 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 @Command(
-		aliases = {"cbot", "cleverbot"},
-		usage = "(query)",
-		description = "Talk to Clever-Bot."
+        aliases = {"cbot", "cleverbot"},
+        usage = "(query)",
+        description = "Talk to Clever-Bot."
 )
 public class PrivateCleverbotCommand extends CommandExecutor
 {
-	private ChatterBotFactory factory = new ChatterBotFactory();
-	private ChatterBotSession session = null;
-	
-	private Map<User, ChatterBotSession> sessionMap = new WeakHashMap<>();
-	
-	@Override
-	public void execute(GnarMessage message, String[] args)
-	{
-		try
-		{
-			if (!sessionMap.containsKey(message.getAuthor()))
-			{
-				ChatterBot bot = factory.create(ChatterBotType.CLEVERBOT);
-				sessionMap.put(message.getAuthor(), bot.createSession());
-			}
-			message.replyRaw(sessionMap.get(message.getAuthor()).think(StringUtils.join(args, " ")));
-		}
-		catch (Exception e)
-		{
-			message.reply("Chat Bot encountered an exception. Restarting. `:[`");
-			sessionMap.remove(message.getAuthor());
-		}
-	}
+    private ChatterBotFactory factory = new ChatterBotFactory();
+    private ChatterBotSession session = null;
+    
+    private Map<User, ChatterBotSession> sessionMap = new WeakHashMap<>();
+    
+    @Override
+    public void execute(GnarMessage message, String[] args)
+    {
+        try
+        {
+            if (!sessionMap.containsKey(message.getAuthor()))
+            {
+                ChatterBot bot = factory.create(ChatterBotType.CLEVERBOT);
+                sessionMap.put(message.getAuthor(), bot.createSession());
+            }
+            message.replyRaw(sessionMap.get(message.getAuthor()).think(StringUtils.join(args, " ")));
+        }
+        catch (Exception e)
+        {
+            message.reply("Chat Bot encountered an exception. Restarting. `:[`");
+            sessionMap.remove(message.getAuthor());
+        }
+    }
 }

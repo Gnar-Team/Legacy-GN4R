@@ -8,16 +8,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DiscordBotsUserInfo {
-
-    public static String getUserInfo(String id) {
-        try {
-
+public class DiscordBotsUserInfo
+{
+    
+    public static String getUserInfo(String id)
+    {
+        try
+        {
+            
             String data = "";
-
+            
             String authToken = GnarBot.TOKENS.get("authToken");
             URL url = new URL("https://bots.discord.pw/api/bots/" + id);
-
+            
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setDoInput(true);
             con.setDoOutput(true);
@@ -26,14 +29,15 @@ public class DiscordBotsUserInfo {
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestMethod("GET");
-
+            
             BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
+            
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null)
+            {
                 data += "\n" + line;
             }
-
+            
             JSONObject j = new JSONObject(data);
             String info = "\n";
             info += "**Bots Name:** " + j.get("name");
@@ -42,12 +46,14 @@ public class DiscordBotsUserInfo {
             info += "\n\n**Bots Description:**\n      " + j.get("description");
             info += "\n\n**Bots Website:** " + j.get("website");
             info += "\n\n**Bots Invite URL:** " + j.get("invite_url");
-
+            
             return info;
-
-        } catch (Exception e) {
+            
+        }
+        catch (Exception e)
+        {
             return "Error, bot not found.";
         }
     }
-
+    
 }

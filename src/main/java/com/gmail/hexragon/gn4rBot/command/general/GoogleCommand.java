@@ -1,7 +1,7 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Message;
 import org.apache.commons.lang3.StringUtils;
@@ -16,61 +16,62 @@ import java.nio.charset.StandardCharsets;
 import java.util.StringJoiner;
 
 @Command(
-		aliases = "google",
-		usage = "(query)",
-		description = "Who needs browsers!?"
+        aliases = "google",
+        usage = "(query)",
+        description = "Who needs browsers!?"
 )
 public class GoogleCommand extends CommandExecutor
 {
-	@Override
-	public void execute(GnarMessage message, String[] args)
-	{
-		if (args.length == 0)
-		{
-			message.reply("Gotta have a query to Google.");
-			return;
-		}
-		
-		try
-		{
-			String query = StringUtils.join(args, " ");
-			Message msg = message.reply("Searching `"+ query +"`.");
-			
-			String userAgent = "GN4R-Bot"; // Change this to your company's name and bot homepage!
-			
-			Elements links = Jsoup.connect(
-					String.format("http://www.google.com/search?q=%s", URLEncoder.encode(query, StandardCharsets.UTF_8.displayName())))
-					.userAgent(userAgent).get().select(".g>.r>a");
-			
-			StringJoiner joiner = new StringJoiner("\n");
-			
-			for (Element link : links)
-			{
-				String title = link.text();
-				String url = link.absUrl("href"); // Google returns URLs in format "http://www.google.com/url?q=<url>&sa=U&ei=<someKey>".
-				url = URLDecoder.decode(url.substring(url.indexOf('=') + 1, url.indexOf('&')), StandardCharsets.UTF_8.displayName());
-				
-				if (!url.startsWith("http"))
-				{
-					continue; // Ads/news/etc.
-				}
-				
-				joiner.add("Title: **" + title + "**");
-				joiner.add("URL: " + url);
-				
-				break;
-			}
-			
-			
-			if (!links.isEmpty()) msg.updateMessage(joiner.toString());
-			else msg.updateMessage(String.format("%s ➜ No results for `%s`.", message.getAuthor().getAsMention(), query));
-		}
-		catch (IOException e)
-		{
-			message.reply("Caught an exception while trying to Google stuff.");
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void execute(GnarMessage message, String[] args)
+    {
+        if (args.length == 0)
+        {
+            message.reply("Gotta have a query to Google.");
+            return;
+        }
+        
+        try
+        {
+            String query = StringUtils.join(args, " ");
+            Message msg = message.reply("Searching `" + query + "`.");
+            
+            String userAgent = "GN4R-Bot";
+            
+            Elements links = Jsoup.connect(
+                    String.format("http://www.google.com/search?q=%s", URLEncoder.encode(query, StandardCharsets.UTF_8.displayName())))
+                    .userAgent(userAgent).get().select(".g>.r>a");
+            
+            StringJoiner joiner = new StringJoiner("\n");
+            
+            for (Element link : links)
+            {
+                String title = link.text();
+                String url = link.absUrl("href"); // Google returns URLs in format "http://www.google.com/url?q=<url>&sa=U&ei=<someKey>".
+                url = URLDecoder.decode(url.substring(url.indexOf('=') + 1, url.indexOf('&')), StandardCharsets.UTF_8.displayName());
+                
+                if (!url.startsWith("http"))
+                {
+                    continue; // Ads/news/etc.
+                }
+                
+                joiner.add("Title: **" + title + "**");
+                joiner.add("URL: " + url);
+                
+                break;
+            }
+            
+            
+            if (!links.isEmpty()) msg.updateMessage(joiner.toString());
+            else
+                msg.updateMessage(String.format("%s ➜ No results for `%s`.", message.getAuthor().getAsMention(), query));
+        }
+        catch (IOException e)
+        {
+            message.reply("Caught an exception while trying to Google stuff.");
+            e.printStackTrace();
+        }
+    }
 }
 
 

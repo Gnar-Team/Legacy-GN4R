@@ -20,85 +20,85 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class GnarBot
 {
-	public static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-	
-	public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
-	public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
-	private static final long START_TIME = System.currentTimeMillis();
-	
-	public static void main(String[] args) throws Exception
-	{
-		File dataFolder = new File("_DATA");
-		if (!dataFolder.exists())
-		{
-			System.out.println("[ERROR] - Folder '_DATA' not found.");
-			return;
-		}
-		
-		new GnarBot(TOKENS.get("beta-bot"));
-		
-		//new SystemInfo().printUsage();
-	}
-
-	private GnarBot(String token)
-	{
-		ServerManager serverManager = new ServerManager();
-		
-		try
-		{
-			final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
-
-			jda.getAccountManager().setUsername("GN4R");
-			jda.getAccountManager().setGame("_help | _invite");
-
-			jda.setAutoReconnect(true);
-			
-			DiscordBotsInfo.updateServerCount(jda);
-			
-			jda.addEventListener(new ListenerAdapter()
-			{
-				@Override
-				public void onMessageReceived(MessageReceivedEvent event)
-				{
-					if (!event.getAuthor().isBot()) serverManager.handleMessageEvent(event);
-				}
-				
-				@Override
-				public void onGuildJoin(GuildJoinEvent event)
-				{
-					DiscordBotsInfo.updateServerCount(jda);
-				}
-				
-				@Override
-				public void onGuildLeave(GuildLeaveEvent event)
-				{
-					DiscordBotsInfo.updateServerCount(jda);
-				}
-			});
-
-		}
-		catch (LoginException | InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-
-	}
-	
-	public static String getUptimeStamp()
-	{
-		long seconds = (new Date().getTime() - START_TIME) / 1000;
-		long minutes = seconds / 60;
-		long hours = minutes / 60;
-		long days = hours / 24;
-		return days + " days, " + hours % 24 + " hours, " + minutes % 60 + " minutes and " + seconds % 60 + " seconds";
-	}
-	
-	public static String getShortUptimeStamp()
-	{
-		long seconds = (new Date().getTime() - START_TIME) / 1000;
-		long minutes = seconds / 60;
-		long hours = minutes / 60;
-		long days = hours / 24;
-		return days + "d " + hours % 24 + "h " + minutes % 60 + "m " + seconds % 60 + "s";
-	}
+    public static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    
+    public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
+    public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
+    private static final long START_TIME = System.currentTimeMillis();
+    
+    private GnarBot(String token)
+    {
+        ServerManager serverManager = new ServerManager();
+        
+        try
+        {
+            final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
+            
+            jda.getAccountManager().setUsername("GN4R");
+            jda.getAccountManager().setGame("_help | _invite");
+            
+            jda.setAutoReconnect(true);
+            
+            DiscordBotsInfo.updateServerCount(jda);
+            
+            jda.addEventListener(new ListenerAdapter()
+            {
+                @Override
+                public void onMessageReceived(MessageReceivedEvent event)
+                {
+                    if (!event.getAuthor().isBot()) serverManager.handleMessageEvent(event);
+                }
+                
+                @Override
+                public void onGuildJoin(GuildJoinEvent event)
+                {
+                    DiscordBotsInfo.updateServerCount(jda);
+                }
+                
+                @Override
+                public void onGuildLeave(GuildLeaveEvent event)
+                {
+                    DiscordBotsInfo.updateServerCount(jda);
+                }
+            });
+            
+        }
+        catch (LoginException | InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        
+    }
+    
+    public static void main(String[] args) throws Exception
+    {
+        File dataFolder = new File("_DATA");
+        if (!dataFolder.exists())
+        {
+            System.out.println("[ERROR] - Folder '_DATA' not found.");
+            return;
+        }
+        
+        new GnarBot(TOKENS.get("beta-bot"));
+        
+        //new SystemInfo().printUsage();
+    }
+    
+    public static String getUptimeStamp()
+    {
+        long seconds = (new Date().getTime() - START_TIME) / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        return days + " days, " + hours % 24 + " hours, " + minutes % 60 + " minutes and " + seconds % 60 + " seconds";
+    }
+    
+    public static String getShortUptimeStamp()
+    {
+        long seconds = (new Date().getTime() - START_TIME) / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        return days + "d " + hours % 24 + "h " + minutes % 60 + "m " + seconds % 60 + "s";
+    }
 }

@@ -8,8 +8,8 @@ import com.gmail.hexragon.gn4rBot.util.GnarMessage
 @Command(aliases = arrayOf("throwError"), permissionRequired = PermissionLevel.BOT_MASTER, showInHelp = false)
 class ThrowError : CommandExecutor()
 {
-	override fun execute(message : GnarMessage?, args : Array<out String>?)
-	{
-		throw RuntimeException("Requested to throw an error, so here you go.")
-	}
+    override fun execute(message : GnarMessage?, args : Array<out String>?)
+    {
+        throw RuntimeException("Requested to throw an error, so here you go.")
+    }
 }

@@ -8,8 +8,8 @@ import com.gmail.hexragon.gn4rBot.util.GnarMessage
 @Command(aliases = arrayOf("args"), permissionRequired = PermissionLevel.BOT_MASTER, showInHelp = false)
 class ArgsTestCommand : CommandExecutor()
 {
-	override fun execute(message : GnarMessage?, args : Array<out String>?)
-	{
-		message?.reply("Args: `${args?.joinToString(", ")}`.")
-	}
+    override fun execute(message : GnarMessage?, args : Array<out String>?)
+    {
+        message?.reply("Args: `${args?.joinToString(", ")}`.")
+    }
 }

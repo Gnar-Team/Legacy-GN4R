@@ -7,17 +7,17 @@ import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
 public interface GnarManager
 {
-	CommandManager getCommandManager();
-	
-	UserManager getUserManager();
-	
-	String getAccessID();
-	
-	ServerManager getServerManager();
-	
-	void handleMessageEvent(MessageReceivedEvent event);
-	
-	String getBasePath();
-	
-	Guild getGuild();
+    CommandManager getCommandManager();
+    
+    UserManager getUserManager();
+    
+    String getAccessID();
+    
+    ServerManager getServerManager();
+    
+    void handleMessageEvent(MessageReceivedEvent event);
+    
+    String getBasePath();
+    
+    Guild getGuild();
 }

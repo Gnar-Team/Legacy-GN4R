@@ -8,19 +8,22 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DiscordBotsInfo {
-
-    public static void updateServerCount(JDA api) {
-        try {
-            String url= GnarBot.TOKENS.get("url");
-            URL object=new URL(url);
-
+public class DiscordBotsInfo
+{
+    
+    public static void updateServerCount(JDA api)
+    {
+        try
+        {
+            String url = GnarBot.TOKENS.get("url");
+            URL object = new URL(url);
+            
             String authToken = GnarBot.TOKENS.get("authToken");
-
+            
             JSONObject serverCount = new JSONObject();
-
+            
             serverCount.put("server_count", api.getGuilds().size());
-
+            
             HttpURLConnection con = (HttpURLConnection) object.openConnection();
             con.setDoInput(true);
             con.setDoOutput(true);
@@ -29,13 +32,18 @@ public class DiscordBotsInfo {
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestMethod("POST");
-
+            
             OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
             wr.write(serverCount.toString());
             wr.flush();
-
+            
             System.out.println("Successfully updated server count to " + api.getGuilds().size() + ", Response Code: " + con.getResponseCode());
-
-        } catch (Exception e) { System.out.println("Error updating server count..."); e.printStackTrace();}
+            
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error updating server count...");
+            e.printStackTrace();
+        }
     }
 }
