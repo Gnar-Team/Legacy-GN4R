@@ -69,22 +69,6 @@
 						<goals>
 							<goal>compile</goal>
 						</goals>
-						<configuration>
-							<sourceDirs>
-								<source>
-									src/main/java/com/gmail/hexragon/gn4rBot/command/admin
-								</source>
-								<source>
-									src/main/java/com/gmail/hexragon/gn4rBot/command/fun
-								</source>
-								<source>
-									src/main/java/com/gmail/hexragon/gn4rBot/command/general
-								</source>
-								<source>
-									src/main/java/com/gmail/hexragon/gn4rBot/command/fun
-								</source>
-							</sourceDirs>
-						</configuration>
 					</execution>
 					<execution>
 						<id>test-compile</id>
