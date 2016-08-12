@@ -29,8 +29,10 @@ public class UpdateShitCommand extends CommandExecutor {
             p = Runtime.getRuntime().exec("mvn install package");
             p.waitFor();
 
+            p = Runtime.getRuntime().exec("cd target");
+
             message.replyRaw("Compiling...");
-            p = Runtime.getRuntime().exec("mv GN4R-BOT.jar ../../GNAR");
+            p = Runtime.getRuntime().exec("mv target/GN4R-BOT.jar ../../GNAR");
             p.waitFor();
 
             p = Runtime.getRuntime().exec("cd ../../GNAR");
