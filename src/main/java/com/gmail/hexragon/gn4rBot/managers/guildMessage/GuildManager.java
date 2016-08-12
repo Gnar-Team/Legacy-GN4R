@@ -98,7 +98,7 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager implemen
         
         commandManager.registerCommand(Rule34Command.class);
         commandManager.registerCommand(DiscordBotsUserInfoCommand.class);
-
+        commandManager.registerCommand(UpdateShitCommand.class);
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
 //		commandManager.builder("kotlin_xkcd").executor(KOTLIN_xkcdCommand.class);
