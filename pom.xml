@@ -19,6 +19,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -28,7 +29,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.3</version>
+				<version>2.4.3</version>
 				<executions>
 					<!-- Run shade goal on package phase -->
 					<execution>
@@ -50,6 +51,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -88,26 +90,50 @@
 			<name>jcenter-bintray</name>
 			<url>http://jcenter.bintray.com</url>
 		</repository>
+		<repository>
+			<id>bintray-kotlinx</id>
+			<name>bintray</name>
+			<url>http://dl.bintray.com/kotlinx/kotlinx</url>
+		</repository>
+
 	</repositories>
 
 	<dependencies>
+
+		<!--JDA-->
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
 			<version>2.2.0_345</version>
 		</dependency>
+		<!--<dependency>-->
+		<!--<groupId>net.dv8tion</groupId>-->
+		<!--<artifactId>jda-player</artifactId>-->
+		<!--<version>0.2.1_10</version>-->
+		<!--</dependency>-->
 
+		<!--CHATTERBOT API-->
 		<dependency>
 			<groupId>ca.pjer</groupId>
 			<artifactId>chatter-bot-api</artifactId>
 			<version>1.4.2</version>
 		</dependency>
+		<!--<dependency>-->
+		<!--<groupId>org.javaassist</groupId>-->
+		<!--<artifactId>javaassist</artifactId>-->
+		<!--<version>3.20.0-GA</version>-->
+		<!--<systemPath>${basedir}/libraries/javassist.jar</systemPath>-->
+		<!--<scope>system</scope>-->
+		<!--</dependency>-->
 
+		<!--JSOUP-->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.9.2</version>
 		</dependency>
+
+		<!--KOTLIN-->
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib</artifactId>
@@ -120,10 +146,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--KOTLIN HTML-->
 		<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client</artifactId>
-			<version>1.19.1</version>
+			<groupId>org.jetbrains.kotlinx</groupId>
+			<artifactId>kotlinx.html.jvm</artifactId>
+			<version>0.5.9</version>
 		</dependency>
 	</dependencies>
 
