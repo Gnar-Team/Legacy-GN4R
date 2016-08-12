@@ -102,13 +102,6 @@
 			<artifactId>chatter-bot-api</artifactId>
 			<version>1.4.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.javaassist</groupId>
-			<artifactId>javaassist</artifactId>
-			<version>3.20.0-GA</version>
-			<systemPath>${basedir}/libraries/javassist.jar</systemPath>
-			<scope>system</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>org.jsoup</groupId>
