@@ -38,6 +38,9 @@ public class UpdateShitCommand extends CommandExecutor {
 
             p = Runtime.getRuntime().exec("java -jar GN4R-BOT.jar");
             p.waitFor();
+
+            p=Runtime.getRuntime().exec("cd ../../../../../~");
+            p.waitFor();
             message.reply("Restarting...");
 
             System.exit(0);
