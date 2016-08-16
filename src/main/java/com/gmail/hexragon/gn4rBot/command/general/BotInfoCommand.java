@@ -55,6 +55,8 @@ public class BotInfoCommand extends CommandExecutor
         servers = jda.getGuilds().size();
         channels = textChannels + voiceChannels;
         
+        
+        
         int commandSize = getCommandManager().getUniqueCommandRegistry()//.values().stream()
                 //.filter(CommandExecutor::isShownInHelp)
                 //.collect(Collectors.toList())
@@ -80,6 +82,7 @@ public class BotInfoCommand extends CommandExecutor
         joiner.add("\u258C  - Inactive _ " + inactive);
         joiner.add("\u258C");
         joiner.add("\u258C Creator _____ Avalon & Maeyrl");
+        joiner.add("\u258C Website _____ gnarbot.xyz");
         joiner.add("\u258C Commands ____ " + commandSize);
         joiner.add("\u258C Library _____ JDA");
         joiner.add("\u258C Uptime ______ " + GnarBot.getShortUptimeStamp() + ".");
