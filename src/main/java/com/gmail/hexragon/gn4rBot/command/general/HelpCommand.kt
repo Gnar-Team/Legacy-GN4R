@@ -77,7 +77,7 @@ class HelpCommand : CommandExecutor()
         builder.append("**Bot Commander** commands requires you to have a role named exactly __Bot Commander__.\n")
         builder.append("**Server Owner** commands requires you to be the __Server Owner__ to execute.\n\n")
         
-        builder.append("**BETA Feature:** Gnar now responds to *selected commands* in private messages.\n")
+        builder.append("**Website:** http://gnarbot.xyz\n")
         
         message?.author?.privateChannel?.sendMessage(builder.toString())
         message?.channel?.sendMessage("${message.author?.asMention} ➜ **${GnarQuotes.getRandomQuote()}** My commands has been PM'ed to you.")
