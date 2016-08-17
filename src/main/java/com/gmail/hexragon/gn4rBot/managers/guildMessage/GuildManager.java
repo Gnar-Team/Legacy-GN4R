@@ -91,7 +91,7 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager implemen
         commandManager.registerCommand(LeetifyCommand.class);
         commandManager.registerCommand(PoopCommand.class);
         commandManager.registerCommand(DialogCommand.class);
-        
+        commandManager.registerCommand(ProgressionCommand.class);
         
         commandManager.registerCommand(GameLookupCommand.class);
         commandManager.registerCommand(LeagueLookupCommand.class);
