@@ -90,7 +90,8 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager implemen
         commandManager.registerCommand(ASCIICommand.class);
         commandManager.registerCommand(LeetifyCommand.class);
         commandManager.registerCommand(PoopCommand.class);
-        
+        commandManager.registerCommand(DialogCommand.class);
+        commandManager.registerCommand(ProgressionCommand.class);
         
         commandManager.registerCommand(GameLookupCommand.class);
         commandManager.registerCommand(LeagueLookupCommand.class);
@@ -123,7 +124,7 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager implemen
         commandManager.registerCommand(DiagnosticsCommand.class);
         commandManager.registerCommand(ArgsTestCommand.class);
         commandManager.registerCommand(ThrowError.class);
-        commandManager.registerCommand(ProcessHTML.class);
+    
     }
     
     @Override

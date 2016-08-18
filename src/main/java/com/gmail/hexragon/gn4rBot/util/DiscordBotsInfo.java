@@ -15,6 +15,13 @@ public class DiscordBotsInfo
     {
         try
         {
+            /*
+
+
+                bots.discord.pw
+
+
+             */
             String url = GnarBot.TOKENS.get("url");
             URL object = new URL(url);
             
@@ -38,7 +45,40 @@ public class DiscordBotsInfo
             wr.flush();
             
             System.out.println("Successfully updated server count to " + api.getGuilds().size() + ", Response Code: " + con.getResponseCode());
-            
+
+            /*
+
+
+                Carbonitex
+
+
+             */
+
+            JSONObject serverCount2 = new JSONObject();
+
+            String key = GnarBot.TOKENS.get("serverKey");
+
+
+            serverCount2.put("key", key);
+            serverCount2.put("servercount", api.getGuilds().size());
+
+            object = new URL("https://www.carbonitex.net/discord/data/botdata.php");
+
+            HttpURLConnection conn = (HttpURLConnection) object.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.24 Safari/537.36");
+            conn.setRequestProperty("Authorization", authToken);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestMethod("POST");
+
+            OutputStreamWriter wre = new OutputStreamWriter(conn.getOutputStream());
+            wre.write(serverCount2.toString());
+            wre.flush();
+
+            System.out.println("Successfully updated server count to " + api.getGuilds().size() + ", Response Code: " + conn.getResponseCode());
+
         }
         catch (Exception e)
         {

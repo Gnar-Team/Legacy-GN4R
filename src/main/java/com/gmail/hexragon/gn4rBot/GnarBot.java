@@ -26,16 +26,28 @@ public class GnarBot
     public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
     private static final long START_TIME = System.currentTimeMillis();
     
+    public static void main(String[] args) throws Exception
+    {
+        File dataFolder = new File("_DATA");
+        if (!dataFolder.exists())
+        {
+            System.out.println("[ERROR] - Folder '_DATA' not found.");
+            return;
+        }
+        
+        new GnarBot(TOKENS.get("beta-bot"));
+    }
+    
     private GnarBot(String token)
     {
         ServerManager serverManager = new ServerManager();
-        
         try
         {
             final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
             
-            jda.getAccountManager().setUsername("GN4R");
+            jda.getAccountManager().setUsername("GNAR");
             jda.getAccountManager().setGame("_help | _invite");
+            jda.getAccountManager().update();
             
             jda.setAutoReconnect(true);
             
@@ -68,20 +80,6 @@ public class GnarBot
             e.printStackTrace();
         }
         
-    }
-    
-    public static void main(String[] args) throws Exception
-    {
-        File dataFolder = new File("_DATA");
-        if (!dataFolder.exists())
-        {
-            System.out.println("[ERROR] - Folder '_DATA' not found.");
-            return;
-        }
-        
-        new GnarBot(TOKENS.get("beta-bot"));
-        
-        //new SystemInfo().printUsage();
     }
     
     public static String getUptimeStamp()

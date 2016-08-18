@@ -95,7 +95,10 @@
 			<name>bintray</name>
 			<url>http://dl.bintray.com/kotlinx/kotlinx</url>
 		</repository>
-
+		<!--<repository>-->
+			<!--<id>local-repo</id>-->
+			<!--<url>file://${basedir}/local-repository</url>-->
+		<!--</repository>-->
 	</repositories>
 
 	<dependencies>
@@ -104,7 +107,7 @@
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
-			<version>2.2.0_345</version>
+			<version>2.2.1_355</version>
 		</dependency>
 		<!--<dependency>-->
 		<!--<groupId>net.dv8tion</groupId>-->
@@ -126,6 +129,12 @@
 		<!--<scope>system</scope>-->
 		<!--</dependency>-->
 
+		<!--<dependency>-->
+			<!--<groupId>com.github.hexavalon</groupId>-->
+			<!--<artifactId>Kippers</artifactId>-->
+			<!--<version>1.1-SNAPSHOT</version>-->
+		<!--</dependency>-->
+
 		<!--JSOUP-->
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -139,6 +148,8 @@
 			<artifactId>kotlin-stdlib</artifactId>
 			<version>${kotlin.version}</version>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-test-junit</artifactId>
@@ -146,12 +157,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--KOTLIN HTML-->
-		<dependency>
-			<groupId>org.jetbrains.kotlinx</groupId>
-			<artifactId>kotlinx.html.jvm</artifactId>
-			<version>0.5.9</version>
-		</dependency>
 	</dependencies>
 
 </project>

@@ -14,9 +14,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Command(
-        aliases = {"deletemessages"},
+        aliases = {"deletemessages", "delmessages"},
         usage = "(integer)",
-        description = "Delete an amount of recent messages from the server.",
+        description = "Delete a # of recent messages.",
         permissionRequired = PermissionLevel.BOT_COMMANDER
 )
 public class DeleteMessagesCommand extends CommandExecutor

@@ -87,7 +87,6 @@ public class GuildCommandManager implements CommandManager
             if (messageContent.startsWith(token + "gnar:"))
             {
                 messageContent = messageContent.replaceFirst(token + "gnar:", token);
-                //directMention = true;
             }
             
             // Splitting sections
@@ -167,7 +166,6 @@ public class GuildCommandManager implements CommandManager
                     field.set(cmd, this);
                 }
             }
-            
             
             Arrays.stream(meta.aliases()).forEach(s -> registerCommand(s, cmd));
         }

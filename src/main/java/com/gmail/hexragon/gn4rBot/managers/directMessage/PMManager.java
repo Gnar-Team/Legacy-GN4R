@@ -1,9 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.directMessage;
 
-import com.gmail.hexragon.gn4rBot.command.admin.ArgsTestCommand;
-import com.gmail.hexragon.gn4rBot.command.admin.DiagnosticsCommand;
-import com.gmail.hexragon.gn4rBot.command.admin.JavascriptCommand;
-import com.gmail.hexragon.gn4rBot.command.admin.ThrowError;
+import com.gmail.hexragon.gn4rBot.command.admin.*;
 import com.gmail.hexragon.gn4rBot.command.ai.PrivateCleverbotCommand;
 import com.gmail.hexragon.gn4rBot.command.fun.*;
 import com.gmail.hexragon.gn4rBot.command.games.GameLookupCommand;
@@ -72,6 +69,7 @@ public class PMManager implements GnarManager
         commandManager.registerCommand(ASCIICommand.class);
         commandManager.registerCommand(LeetifyCommand.class);
         commandManager.registerCommand(PoopCommand.class);
+        commandManager.registerCommand(DialogCommand.class);
         
         
         commandManager.registerCommand(GameLookupCommand.class);
