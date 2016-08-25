@@ -102,6 +102,7 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager implemen
         commandManager.registerCommand(UpdateShitCommand.class);
         commandManager.registerCommand(ListBotsCommand.class);
         commandManager.registerCommand(ListServersCommand.class);
+        commandManager.registerCommand(ServerGraphCommand.class);
 
 //		commandManager.builder("kotlin_test").executor(KOTLIN_KotlinBase.class);
 //		commandManager.builder("kotlin_xkcd").executor(KOTLIN_xkcdCommand.class);

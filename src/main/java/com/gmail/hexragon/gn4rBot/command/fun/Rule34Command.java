@@ -2,7 +2,9 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
+import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
+import net.dv8tion.jda.entities.Role;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Attributes;
@@ -26,52 +28,55 @@ public class Rule34Command extends CommandExecutor
     @Override
     public void execute(GnarMessage message, String[] args)
     {
-        String tag = "";
-        try
-        {
-            for (String s : args)
-            {
-                if (s.equals("/$rule")) continue;
-                if (tag.equals(""))
-                {
-                    tag += ("&tags=" + s);
-                }
-                else
-                {
-                    tag += ("+" + s);
-                }
+        boolean checked = false;
+
+        for(Role r : ((GuildManager) getGnarManager()).getGuild().getRolesForUser(message.getAuthor())) {
+            if(r.getName().equals("Fucking Teemo")) {
+                checked = true;
             }
         }
-        catch (Exception ignore) {}
-        
-        try
-        {
-            
-            String xml = "http://rule34.xxx/index.php?page=dapi&s=post&q=index" + tag;
-            
-            Document document = Jsoup.connect(xml).parser(Parser.xmlParser()).get();
-            
-            Elements posts = document.getElementsByTag("post");
-            
-            int rand = new Random().nextInt(posts.size());
-            
-            Element target = posts.get(rand);
-            
-            String url;
-            
-            Attributes att = target.attributes();
-            
-            Attribute att2 = att.asList().get(2);
-            
-            url = att2.getValue();
-            
-            message.reply("http:" + url);
+
+        if(checked) {
+            String tag = "";
+            try {
+                for (String s : args) {
+                    if (s.equals("_rule")) continue;
+                    if (tag.equals("")) {
+                        tag += ("&tags=" + s);
+                    } else {
+                        tag += ("+" + s);
+                    }
+                }
+            } catch (Exception ignore) {
+            }
+
+            try {
+
+                String xml = "http://rule34.xxx/index.php?page=dapi&s=post&q=index" + tag;
+
+                Document document = Jsoup.connect(xml).parser(Parser.xmlParser()).get();
+
+                Elements posts = document.getElementsByTag("post");
+
+                int rand = new Random().nextInt(posts.size());
+
+                Element target = posts.get(rand);
+
+                String url;
+
+                Attributes att = target.attributes();
+
+                Attribute att2 = att.asList().get(2);
+
+                url = att2.getValue();
+
+                message.reply("http:" + url);
+            } catch (Exception e) {
+                message.reply("Please refer to rule 35.");
+            }
+        } else {
+            message.reply("Sorry, you must have the role `Fucking Teemo` to use this command!");
         }
-        catch (Exception e)
-        {
-            message.reply("Please refer to rule 35.");
-        }
-        
-        
+
     }
 }

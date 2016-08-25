@@ -35,7 +35,7 @@ public class GnarBot
             return;
         }
         
-        new GnarBot(TOKENS.get("beta-bot"));
+        new GnarBot(TOKENS.get("main-bot"));
     }
     
     private GnarBot(String token)
@@ -58,7 +58,11 @@ public class GnarBot
                 @Override
                 public void onMessageReceived(MessageReceivedEvent event)
                 {
-                    if (!event.getAuthor().isBot()) serverManager.handleMessageEvent(event);
+                    if (!event.getAuthor().isBot()) {
+                        if(event.getAuthor().getId().equals("138481382794985472") || event.getAuthor().getId().equals("192113152328990726")) {
+                            serverManager.handleMessageEvent(event);
+                        }
+                    }
                 }
                 
                 @Override

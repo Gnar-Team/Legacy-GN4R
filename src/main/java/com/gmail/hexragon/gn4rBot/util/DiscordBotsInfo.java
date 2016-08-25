@@ -44,7 +44,7 @@ public class DiscordBotsInfo
             wr.write(serverCount.toString());
             wr.flush();
             
-            System.out.println("Successfully updated server count to " + api.getGuilds().size() + ", Response Code: " + con.getResponseCode());
+            System.out.println("Successfully updated Abal server count to " + api.getGuilds().size() + ", Response Code: " + con.getResponseCode());
 
             /*
 
@@ -77,7 +77,7 @@ public class DiscordBotsInfo
             wre.write(serverCount2.toString());
             wre.flush();
 
-            System.out.println("Successfully updated server count to " + api.getGuilds().size() + ", Response Code: " + conn.getResponseCode());
+            System.out.println("Successfully updated Carbonitex server count to " + api.getGuilds().size() + ", Response Code: " + conn.getResponseCode());
 
         }
         catch (Exception e)
