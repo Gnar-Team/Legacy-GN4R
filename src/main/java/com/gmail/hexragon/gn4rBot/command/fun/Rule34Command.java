@@ -21,10 +21,8 @@ import java.util.Random;
         description = "Pulls a random rule 34 article from your keywords",
         showInHelp = false
 )
-
 public class Rule34Command extends CommandExecutor
 {
-    
     @Override
     public void execute(GnarMessage message, String[] args)
     {

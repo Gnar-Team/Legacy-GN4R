@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.command.mod;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
@@ -11,10 +12,11 @@ import net.dv8tion.jda.exceptions.PermissionException;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Command(
-        aliases = {"deletemessages", "delmessages"},
+        aliases = {"deletemessages", "delmessages", "prunemessages"},
         usage = "(integer)",
         description = "Delete a # of recent messages.",
         permissionRequired = PermissionLevel.BOT_COMMANDER
@@ -66,7 +68,9 @@ public class DeleteMessagesCommand extends CommandExecutor
             }
             
             ((TextChannel) message.getChannel()).deleteMessages(messages);
-            message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Attempted to delete `" + messages.size() + "` messages.");
+            Message msg = message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Attempted to delete `" + messages.size() + "` messages.");
+    
+            GnarBot.scheduler.schedule(msg::deleteMessage, 5, TimeUnit.SECONDS);
         }
         catch (Exception e)
         {

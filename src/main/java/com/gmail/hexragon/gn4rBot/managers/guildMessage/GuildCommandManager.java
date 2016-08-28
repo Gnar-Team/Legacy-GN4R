@@ -47,6 +47,15 @@ public class GuildCommandManager implements CommandManager
     }
     
     @Override
+    public CommandExecutor getCommand(Class<? extends CommandExecutor> cls)
+    {
+        return commandRegistry.values().stream()
+                .filter(commandExecutor -> commandExecutor.getClass() == cls)
+                .findFirst()
+                .get();
+    }
+    
+    @Override
     public GnarManager getGnarManager()
     {
         return server;

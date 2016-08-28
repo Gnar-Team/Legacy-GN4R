@@ -70,7 +70,7 @@ class DialogCommand : CommandExecutor()
             4 ->
             {
                 joiner.add("|   ___________   _______   |")
-                joiner.add("|  |   YEAH!   | | PUSSY |  |")
+                joiner.add("|  | HELLA YES | | PUSSY |  |")
                 joiner.add("|   ‾‾‾‾‾‾‾‾‾‾‾   ‾‾‾‾‾‾‾   |")
             }
         }

@@ -16,11 +16,7 @@ public class DiscordBotsInfo
         try
         {
             /*
-
-
                 bots.discord.pw
-
-
              */
             String url = GnarBot.TOKENS.get("url");
             URL object = new URL(url);
@@ -57,8 +53,7 @@ public class DiscordBotsInfo
             JSONObject serverCount2 = new JSONObject();
 
             String key = GnarBot.TOKENS.get("serverKey");
-
-
+            
             serverCount2.put("key", key);
             serverCount2.put("servercount", api.getGuilds().size());
 

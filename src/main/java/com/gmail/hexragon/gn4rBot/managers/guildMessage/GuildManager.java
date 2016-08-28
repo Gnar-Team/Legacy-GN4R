@@ -14,8 +14,15 @@ import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
 import com.gmail.hexragon.gn4rBot.managers.servers.GnarManager;
 import com.gmail.hexragon.gn4rBot.managers.servers.ServerManager;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
+import com.gmail.hexragon.gn4rBot.util.FileManager;
+import com.gmail.hexragon.gn4rBot.util.NullableJSONObject;
 import net.dv8tion.jda.entities.Guild;
+import net.dv8tion.jda.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import org.json.JSONObject;
+
+import java.io.File;
 
 public class GuildManager extends net.dv8tion.jda.managers.GuildManager implements GnarManager
 {
@@ -24,21 +31,27 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager implemen
     private final CommandManager commandManager;
     private final ServerManager manager;
     
-    private String basePath;
-    //private final File baseFile;
+    private final FileManager fileManager;
+    private final JSONObject jsonObject;
     
     public GuildManager(String accessID, ServerManager manager, Guild guild)
     {
         super(guild);
-        
+    
         this.accessID = accessID;
-        this.basePath = String.format("_DATA/servers/%s/", accessID);
         this.manager = manager;
-
-//		baseFile = new File(basePath);
-//		if (!baseFile.exists()) //noinspection ResultOfMethodCallIgnored
-//			baseFile.mkdirs();
+    
+        String basePath = String.format("_DATA/servers/%s.json", accessID);
+        fileManager = new FileManager(basePath);
+        fileManager.createIfNotFound();
+    
+        String content = fileManager.readText();
         
+        if (content.length() == 0) jsonObject = new NullableJSONObject();
+        else jsonObject = new NullableJSONObject(content);
+        
+        saveFile();
+    
         this.userManager = new UserManager(this);
         this.commandManager = new GuildCommandManager(this);
         
@@ -86,10 +99,10 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager implemen
         commandManager.registerCommand(DiscordGoldCommand.class);
         commandManager.registerCommand(GoodShitCommand.class);
         commandManager.registerCommand(YodaTalkCommand.class);
-        commandManager.registerCommand(ZalgoCommand.class);
         commandManager.registerCommand(ASCIICommand.class);
         commandManager.registerCommand(LeetifyCommand.class);
         commandManager.registerCommand(PoopCommand.class);
+        commandManager.registerCommand(MarvelComics.class);
         commandManager.registerCommand(DialogCommand.class);
         commandManager.registerCommand(ProgressionCommand.class);
         
@@ -163,18 +176,28 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager implemen
     {
         getCommandManager().callCommand(event);
     }
-
-//
-//	public File getBaseFile()
-//	{
-//		return baseFile;
-//	}
-    
     
     @Override
-    public String getBasePath()
+    public void handleUserJoin(GuildMemberJoinEvent event)
     {
-        return basePath;
+        
     }
     
+    @Override
+    public void handleUserLeave(GuildMemberLeaveEvent event)
+    {
+        
+    }
+    
+    @Override
+	public File getFile()
+	{
+		return fileManager.getFile();
+	}
+    
+    @Override
+    public void saveFile()
+    {
+        fileManager.writeText(jsonObject.toString(4));
+    }
 }

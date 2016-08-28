@@ -18,55 +18,54 @@ import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.BOT_MAST
         showInHelp = false
 )
 public class ListBotsCommand extends CommandExecutor {
+            
     @Override
     public void execute(GnarMessage message, String[] args) {
-
-
-
+        
         int page = 1;
         try {
             page = Integer.valueOf(args[0]);
-        } catch (Exception e) {
-        }
-
+        } catch (Exception ignore) {}
+        
         if (page == 0) { page = 1; }
-
+        
         ArrayList<String> list = new ArrayList<>();
-
+        
         for(Guild s : message.getJDA().getGuilds()) {
-            for(User u : s.getUsers()) {
-                if(u.isBot()) { if(!list.contains(u.getUsername())) { list.add(u.getUsername()); }}
-            }
+            s.getUsers().stream()
+                    .filter(User::isBot)
+                    .filter(u -> !list.contains(u.getUsername()))
+                    .forEach(u -> list.add(u.getUsername()));
         }
-
+        
         Collections.sort(list);
-
+        
         String mb = "";
-
-        int pages = 0;
+        
+        int pages;
         if(message.getJDA().getGuilds().size() % 10 == 0) {
             pages = list.size()/10;
         } else {
             pages = list.size()/10+1;
         }
-
+        
         int i = 0;
-
+        
         for (String g : list) {
             i++;
             if (i < 10 * page + 1&& i > 10 * page - 10) {
                 mb = mb + "**#" + i + "** " + g + "\n";
             }
         }
-
+        
         try {
             message.replyRaw("Bot Lists (Page " + page + "/" + pages + ")\n" + mb);
         } catch (Exception e) {
             message.replyRaw("An error has occurred, blame Maeyrl for Javacord -> JDA Conversion");
         }
     }
-
-
-
+    
+    
+    
 }
 

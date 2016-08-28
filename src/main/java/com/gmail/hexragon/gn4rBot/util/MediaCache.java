@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class MediaCache
 {
-    private final FileIOManager fileIOManager = new FileIOManager("_DATA/images/imageCache.txt");
+    private final FileManager fileManager = new FileManager("_DATA/images/imageCache.txt");
     
     private final HashMap<String, File> imgFileCache;
     
@@ -94,12 +94,12 @@ public class MediaCache
                 .map(entry -> String.format("%s!=%s!=%s", entry.getKey(), entry.getValue(), "vine"))
                 .collect(Collectors.toList()));
         
-        fileIOManager.writeFile(entries);
+        fileManager.writeText(entries);
     }
     
     public synchronized void load()
     {
-        List<String> entries = fileIOManager.readList();
+        List<String> entries = fileManager.readLines();
         
         entries.stream().filter(s -> !s.isEmpty()).map(s -> s.split("!=")).forEach(args -> cacheImage(args[0], args[1], args[2]));
     }

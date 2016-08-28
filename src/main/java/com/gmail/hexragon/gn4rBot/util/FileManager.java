@@ -8,26 +8,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-public class FileIOManager
+public class FileManager
 {
     private final File file;
     
-    public FileIOManager(File file)
+    public FileManager(File file)
     {
         this.file = file;
     }
     
-    public FileIOManager(String path)
+    public FileManager(String path)
     {
         this.file = new File(path);
     }
     
-    public String readString()
+    public String readText()
     {
-        return StringUtils.join(readList(), "\n");
+        return StringUtils.join(readLines(), "\n");
     }
     
-    public List<String> readList()
+    public List<String> readLines()
     {
         try
         {
@@ -40,22 +40,22 @@ public class FileIOManager
         return null;
     }
     
-    public synchronized void writeFile(List<String> list)
+    public synchronized void writeText(List<String> list)
     {
-        writeFile(StringUtils.join(list, "\n"));
+        writeText(StringUtils.join(list, "\n"));
     }
     
-    public synchronized void writeFile(String content)
+    public synchronized void writeText(String content)
     {
-        writeFile(content, false);
+        writeText(content, false);
     }
     
-    public synchronized void writeFile(List<String> list, boolean append)
+    public synchronized void writeText(List<String> list, boolean append)
     {
-        writeFile(StringUtils.join(list, "\n"), append);
+        writeText(StringUtils.join(list, "\n"), append);
     }
     
-    public synchronized void writeFile(String content, boolean append)
+    public synchronized void writeText(String content, boolean append)
     {
         FileWriter writer = null;
         
@@ -80,5 +80,26 @@ public class FileIOManager
                 ex.printStackTrace();
             }
         }
+    }
+    
+    public boolean createIfNotFound()
+    {
+        if (!file.exists())
+        {
+            try
+            {
+                return file.createNewFile();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+    
+    public File getFile()
+    {
+        return file;
     }
 }

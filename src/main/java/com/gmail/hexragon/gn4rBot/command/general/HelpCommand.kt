@@ -72,14 +72,20 @@ class HelpCommand : CommandExecutor()
             builder.append(joiner.toString())
         }
         
-        builder.append("To view a command's description, do `${commandManager.token}help [command]`.\n\n")
+        builder.append("To view a command's description, do `${commandManager.token}help [command]`.\n")
+        builder.append("You can also chat and execute commands with Gnar privately, try it!\n\n")
         
         builder.append("**Bot Commander** commands requires you to have a role named exactly __Bot Commander__.\n")
         builder.append("**Server Owner** commands requires you to be the __Server Owner__ to execute.\n\n")
+    
+        builder.append("**Latest News:**\n")
+        builder.append(" - Create dank memes with Windows dialog `_dialog (message)`.\n")
+        builder.append(" - Marvel character look-up! Try with `_marvel (character)`.\n\n")
         
         builder.append("**Website:** http://gnarbot.xyz\n")
+        builder.append("**Discord Server:** http://discord.gg/NQRpmr2\n")
         
         message?.author?.privateChannel?.sendMessage(builder.toString())
-        message?.channel?.sendMessage("${message.author?.asMention} ➜ **${GnarQuotes.getRandomQuote()}** My commands has been PM'ed to you.")
+        message?.reply("**${GnarQuotes.getRandomQuote()}** My commands has been PM'ed to you.")
     }
 }
