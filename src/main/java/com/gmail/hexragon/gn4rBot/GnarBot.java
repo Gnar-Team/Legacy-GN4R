@@ -27,14 +27,14 @@ public class GnarBot
     
     public static void main(String[] args) throws Exception
     {
-//        File dataFolder = new File("_DATA");
-//        if (!dataFolder.exists())
-//        {
-//            System.out.println("[ERROR] - Folder '_DATA' not found.");
-//            return;
-//        }
-//
-//        instance = new GnarBot(TOKENS.get("beta-bot"));
+        File dataFolder = new File("_DATA");
+        if (!dataFolder.exists())
+        {
+            System.out.println("[ERROR] - Folder '_DATA' not found.");
+            return;
+        }
+
+        instance = new GnarBot(TOKENS.get("beta-bot"));
     }
     
     private GnarBot(String token)
