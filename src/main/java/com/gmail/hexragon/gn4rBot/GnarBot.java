@@ -2,14 +2,10 @@ package com.gmail.hexragon.gn4rBot;
 
 import com.gmail.hexragon.gn4rBot.managers.servers.ServerManager;
 import com.gmail.hexragon.gn4rBot.util.DiscordBotsInfo;
-import com.gmail.hexragon.gn4rBot.util.FileIOManager;
+import com.gmail.hexragon.gn4rBot.util.FileManager;
 import com.gmail.hexragon.gn4rBot.util.PropertiesManager;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.JDABuilder;
-import net.dv8tion.jda.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
@@ -20,27 +16,29 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class GnarBot
 {
+    private static GnarBot instance;
+    private static ServerManager serverManager;
+    
     public static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     
-    public static final List<String> ADMIN_IDS = new FileIOManager("_DATA/administrators").readList();
+    public static final List<String> ADMIN_IDS = new FileManager("_DATA/administrators").readLines();
     public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
     private static final long START_TIME = System.currentTimeMillis();
     
     public static void main(String[] args) throws Exception
     {
-        File dataFolder = new File("_DATA");
-        if (!dataFolder.exists())
-        {
-            System.out.println("[ERROR] - Folder '_DATA' not found.");
-            return;
-        }
-        
-        new GnarBot(TOKENS.get("beta-bot"));
+//        File dataFolder = new File("_DATA");
+//        if (!dataFolder.exists())
+//        {
+//            System.out.println("[ERROR] - Folder '_DATA' not found.");
+//            return;
+//        }
+//
+//        instance = new GnarBot(TOKENS.get("beta-bot"));
     }
     
     private GnarBot(String token)
     {
-        ServerManager serverManager = new ServerManager();
         try
         {
             final JDA jda = new JDABuilder().setBotToken(token).buildBlocking();
@@ -53,33 +51,22 @@ public class GnarBot
             
             DiscordBotsInfo.updateServerCount(jda);
             
-            jda.addEventListener(new ListenerAdapter()
-            {
-                @Override
-                public void onMessageReceived(MessageReceivedEvent event)
-                {
-                    if (!event.getAuthor().isBot()) serverManager.handleMessageEvent(event);
-                }
-                
-                @Override
-                public void onGuildJoin(GuildJoinEvent event)
-                {
-                    DiscordBotsInfo.updateServerCount(jda);
-                }
-                
-                @Override
-                public void onGuildLeave(GuildLeaveEvent event)
-                {
-                    DiscordBotsInfo.updateServerCount(jda);
-                }
-            });
-            
+            serverManager = new ServerManager(jda);
         }
         catch (LoginException | InterruptedException e)
         {
             e.printStackTrace();
         }
-        
+    }
+    
+    public static GnarBot getInstance()
+    {
+        return instance;
+    }
+    
+    public ServerManager getServerManager()
+    {
+        return serverManager;
     }
     
     public static String getUptimeStamp()

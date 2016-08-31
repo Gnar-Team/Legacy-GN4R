@@ -10,7 +10,7 @@ import org.apache.commons.lang3.text.WordUtils
 import java.util.StringJoiner
 import java.util.concurrent.TimeUnit
 
-@Command(aliases = arrayOf("progress"), permissionRequired = PermissionLevel.BOT_MASTER)
+@Command(aliases = arrayOf("progress"), permissionRequired = PermissionLevel.BOT_MASTER, showInHelp = false)
 class ProgressionCommand : CommandExecutor()
 {
     override fun execute(message : GnarMessage?, args : Array<out String>?)

@@ -62,7 +62,7 @@ public class LeagueLookupCommand extends CommandExecutor
                     message.getChannel().sendMessage(mb.build());
                 }
                 catch (Exception ex) {e.printStackTrace();}
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         catch (Exception e)
@@ -74,8 +74,11 @@ public class LeagueLookupCommand extends CommandExecutor
             {
                 message.getChannel().sendMessage(mb.build());
             }
-            catch (Exception ex) { e.printStackTrace();}
-            e.printStackTrace();
+            catch (Exception ex) {
+                //e.printStackTrace();
+            }
+                
+            //e.printStackTrace();
         }
     }
 }

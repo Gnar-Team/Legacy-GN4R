@@ -16,11 +16,7 @@ public class DiscordBotsInfo
         try
         {
             /*
-
-
                 bots.discord.pw
-
-
              */
             String url = GnarBot.TOKENS.get("url");
             URL object = new URL(url);
@@ -44,7 +40,7 @@ public class DiscordBotsInfo
             wr.write(serverCount.toString());
             wr.flush();
             
-            System.out.println("Successfully updated server count to " + api.getGuilds().size() + ", Response Code: " + con.getResponseCode());
+            System.out.println("Successfully updated Abal server count to " + api.getGuilds().size() + ", Response Code: " + con.getResponseCode());
 
             /*
 
@@ -57,8 +53,7 @@ public class DiscordBotsInfo
             JSONObject serverCount2 = new JSONObject();
 
             String key = GnarBot.TOKENS.get("serverKey");
-
-
+            
             serverCount2.put("key", key);
             serverCount2.put("servercount", api.getGuilds().size());
 
@@ -77,7 +72,7 @@ public class DiscordBotsInfo
             wre.write(serverCount2.toString());
             wre.flush();
 
-            System.out.println("Successfully updated server count to " + api.getGuilds().size() + ", Response Code: " + conn.getResponseCode());
+            System.out.println("Successfully updated Carbonitex server count to " + api.getGuilds().size() + ", Response Code: " + conn.getResponseCode());
 
         }
         catch (Exception e)

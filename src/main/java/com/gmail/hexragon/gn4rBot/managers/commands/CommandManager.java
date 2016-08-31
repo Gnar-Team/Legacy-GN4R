@@ -13,6 +13,8 @@ public interface CommandManager
     
     CommandExecutor getCommand(String key);
     
+    CommandExecutor getCommand(Class<? extends CommandExecutor> cls);
+    
     GnarManager getGnarManager();
     
     Map<String, CommandExecutor> getCommandRegistry();

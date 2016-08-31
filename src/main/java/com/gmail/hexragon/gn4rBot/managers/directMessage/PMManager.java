@@ -13,7 +13,11 @@ import com.gmail.hexragon.gn4rBot.managers.servers.GnarManager;
 import com.gmail.hexragon.gn4rBot.managers.servers.ServerManager;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import net.dv8tion.jda.entities.Guild;
+import net.dv8tion.jda.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
+
+import java.io.File;
 
 public class PMManager implements GnarManager
 {
@@ -60,17 +64,16 @@ public class PMManager implements GnarManager
         commandManager.registerCommand(ListMediaCommand.class);
         commandManager.registerCommand(CatsCommand.class);
         
-        
         commandManager.registerCommand(GoogleyEyesCommand.class);
         commandManager.registerCommand(DiscordGoldCommand.class);
         commandManager.registerCommand(GoodShitCommand.class);
         commandManager.registerCommand(YodaTalkCommand.class);
-        commandManager.registerCommand(ZalgoCommand.class);
         commandManager.registerCommand(ASCIICommand.class);
         commandManager.registerCommand(LeetifyCommand.class);
         commandManager.registerCommand(PoopCommand.class);
+        commandManager.registerCommand(MarvelComics.class);
         commandManager.registerCommand(DialogCommand.class);
-        
+        commandManager.registerCommand(ProgressionCommand.class);
         
         commandManager.registerCommand(GameLookupCommand.class);
         commandManager.registerCommand(LeagueLookupCommand.class);
@@ -111,6 +114,12 @@ public class PMManager implements GnarManager
         getCommandManager().callCommand(event);
     }
     
+    @Override
+    public void handleUserJoin(GuildMemberJoinEvent event) {}
+    
+    @Override
+    public void handleUserLeave(GuildMemberLeaveEvent event) {}
+    
     
     @Override
     public Guild getGuild()
@@ -118,11 +127,15 @@ public class PMManager implements GnarManager
         return null;
     }
     
+    
     @Override
-    public String getBasePath()
+    public File getFile()
     {
         return null;
     }
+    
+    @Override
+    public void saveFile() {}
     
     @Override
     public UserManager getUserManager()
