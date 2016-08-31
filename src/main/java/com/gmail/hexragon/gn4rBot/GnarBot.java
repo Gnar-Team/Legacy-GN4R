@@ -34,7 +34,7 @@ public class GnarBot
             return;
         }
 
-        instance = new GnarBot(TOKENS.get("beta-bot"));
+        instance = new GnarBot(TOKENS.get("main-bot"));
     }
     
     private GnarBot(String token)
