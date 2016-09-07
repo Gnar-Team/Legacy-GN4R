@@ -3,6 +3,7 @@ package com.gmail.hexragon.gn4rBot.command.general;
 import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.GnarQuotes;
 import net.dv8tion.jda.JDA;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.entities.User;
 
 import java.util.StringJoiner;
 
+@ManagerDependent
 @Command(
         aliases = {"info", "botinfo"},
         description = "Show information about GN4R-BOT."
@@ -62,7 +64,7 @@ public class BotInfoCommand extends CommandExecutor
                 //.collect(Collectors.toList())
                 .size();
         
-        int requests = getGnarManager().getServerManager().getGnarManagers().parallelStream()
+        int requests = getGuildManager().getServerManager().getGuildManagers().parallelStream()
                 .mapToInt(guild -> guild.getCommandManager().getRequests())
                 .sum();
         

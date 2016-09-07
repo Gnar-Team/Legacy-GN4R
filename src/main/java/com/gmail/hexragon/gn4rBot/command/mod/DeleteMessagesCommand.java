@@ -3,6 +3,7 @@ package com.gmail.hexragon.gn4rBot.command.mod;
 import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.MessageHistory;
@@ -15,6 +16,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+@GuildDependent
 @Command(
         aliases = {"deletemessages", "delmessages", "prunemessages"},
         usage = "(integer)",

@@ -2,13 +2,13 @@ package com.gmail.hexragon.gn4rBot.command.general
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command
-import com.gmail.hexragon.gn4rBot.managers.directMessage.PMCommandManager
-import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildCommandManager
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel
 import com.gmail.hexragon.gn4rBot.util.GnarMessage
 import com.gmail.hexragon.gn4rBot.util.GnarQuotes
 import java.util.StringJoiner
 
+@ManagerDependent
 @Command(aliases = arrayOf("help", "guide"), usage = "[command]", description = "Display GN4R's list of commands.")
 class HelpCommand : CommandExecutor()
 {
@@ -45,9 +45,9 @@ class HelpCommand : CommandExecutor()
         
         val builder = StringBuilder()
         
-        if (commandManager.javaClass == GuildCommandManager::class.java)
+        if (!guildManager.isPrivate)
             builder.append("\nThis is all of GN4R-Bot's currently registered commands on the __**${guild.name}**__ guild.\n\n")
-        else if (commandManager.javaClass == PMCommandManager::class.java)
+        else
             builder.append("\nThis is all of GN4R-Bot's currently registered commands on the __**direct message**__ channel.\n\n")
         
         PermissionLevel.values().forEach {

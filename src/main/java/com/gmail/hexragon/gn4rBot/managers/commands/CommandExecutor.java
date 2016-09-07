@@ -1,6 +1,7 @@
 package com.gmail.hexragon.gn4rBot.managers.commands;
 
-import com.gmail.hexragon.gn4rBot.managers.servers.GnarManager;
+import com.gmail.hexragon.gn4rBot.managers.CommandManager;
+import com.gmail.hexragon.gn4rBot.managers.GuildManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
@@ -58,19 +59,19 @@ public abstract class CommandExecutor
         return showInHelp;
     }
     
-    public GnarManager getGnarManager()
+    public GuildManager getGuildManager()
     {
-        return getCommandManager().getGnarManager();
+        return getCommandManager().getGuildManager();
     }
     
     public Guild getGuild()
     {
-        return getGnarManager().getGuild();
+        return getGuildManager().getGuild();
     }
     
     public UserManager getUserManager()
     {
-        return getGnarManager().getUserManager();
+        return getGuildManager().getUserManager();
     }
     
     public CommandManager getCommandManager()

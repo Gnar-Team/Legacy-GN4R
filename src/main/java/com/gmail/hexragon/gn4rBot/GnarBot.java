@@ -1,6 +1,6 @@
 package com.gmail.hexragon.gn4rBot;
 
-import com.gmail.hexragon.gn4rBot.managers.servers.ServerManager;
+import com.gmail.hexragon.gn4rBot.managers.ServerManager;
 import com.gmail.hexragon.gn4rBot.util.DiscordBotsInfo;
 import com.gmail.hexragon.gn4rBot.util.FileManager;
 import com.gmail.hexragon.gn4rBot.util.PropertiesManager;
@@ -27,14 +27,14 @@ public class GnarBot
     
     public static void main(String[] args) throws Exception
     {
-//        File dataFolder = new File("_DATA");
-//        if (!dataFolder.exists())
-//        {
-//            System.out.println("[ERROR] - Folder '_DATA' not found.");
-//            return;
-//        }
-//
-//        instance = new GnarBot(TOKENS.get("beta-bot"));
+        File dataFolder = new File("_DATA");
+        if (!dataFolder.exists())
+        {
+            System.out.println("[ERROR] - Folder '_DATA' not found.");
+            return;
+        }
+
+        instance = new GnarBot(TOKENS.get("beta-bot"));
     }
     
     private GnarBot(String token)

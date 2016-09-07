@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.ai;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
-import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
@@ -10,7 +10,7 @@ import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
 import org.apache.commons.lang3.StringUtils;
 
-@RequiresGuild
+@GuildDependent
 @Command(
         aliases = {"cbot", "cleverbot"},
         usage = "(query)",

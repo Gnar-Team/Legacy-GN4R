@@ -2,7 +2,6 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
-import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Role;
 import org.jsoup.Jsoup;
@@ -28,7 +27,7 @@ public class Rule34Command extends CommandExecutor
     {
         boolean checked = false;
 
-        for(Role r : ((GuildManager) getGnarManager()).getGuild().getRolesForUser(message.getAuthor())) {
+        for(Role r : getGuildManager().getGuild().getRolesForUser(message.getAuthor())) {
             if(r.getName().equals("Fucking Teemo")) {
                 checked = true;
             }

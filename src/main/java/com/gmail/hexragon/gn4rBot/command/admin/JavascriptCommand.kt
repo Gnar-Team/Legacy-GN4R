@@ -26,7 +26,7 @@ class JavascriptCommand : CommandExecutor()
         
         engine.put("jda", message?.jda)
         engine.put("message", message)
-        engine.put("guild", gnarManager) // no need for ; (you can put if you want though)
+        engine.put("guild", guildManager) // no need for ; (you can put if you want though)
         engine.put("channel", message?.channel)
         
         

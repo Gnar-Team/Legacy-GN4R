@@ -2,7 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.admin;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
-import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
@@ -10,7 +10,7 @@ import net.dv8tion.jda.entities.User;
 import java.util.Arrays;
 
 @Deprecated
-@RequiresGuild
+@GuildDependent
 @Command(
         aliases = {"assignperm", "reassignperm", "reassignpermission"},
         usage = "(@user) (perm)",
@@ -36,12 +36,12 @@ public class ReassignPermissionCommand extends CommandExecutor
             {
                 if (permissionLevel.toString().toLowerCase().equals(args[1].toLowerCase()))
                 {
-                    if (getGnarManager().getUserManager().getGnarUser(message.getAuthor()).getPermission().value < permissionLevel.value)
+                    if (getGuildManager().getUserManager().getGnarUser(message.getAuthor()).getPermission().value < permissionLevel.value)
                     {
                         message.reply("You need to be `" + permissionLevel.toString() + "` to assign that permission.");
                         return;
                     }
-                    getGnarManager().getUserManager().getGnarUser(message.getAuthor()).setGnarPermission(permissionLevel);
+                    getGuildManager().getUserManager().getGnarUser(message.getAuthor()).setGnarPermission(permissionLevel);
                     message.getChannel().sendMessage(String.format("%s ➜ You have set %s's Gn4r-Bot permission to `%s`.", message.getAuthor().getAsMention(), target.getAsMention(), permissionLevel.toString()));
                     return;
                 }

@@ -3,12 +3,12 @@ package com.gmail.hexragon.gn4rBot.command.general
 import com.gmail.hexragon.gn4rBot.GnarBot
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command
-import com.gmail.hexragon.gn4rBot.managers.directMessage.PMCommandManager
-import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildCommandManager
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent
 import com.gmail.hexragon.gn4rBot.util.GnarMessage
 import com.gmail.hexragon.gn4rBot.util.GnarQuotes
 import java.util.concurrent.TimeUnit
 
+@ManagerDependent
 @Command(aliases = arrayOf("remindme", "remind"), usage = "(#) (unit) (msg)")
 class RemindMeCommand : CommandExecutor()
 {
@@ -41,15 +41,11 @@ class RemindMeCommand : CommandExecutor()
             if (time > 0)
             {
                 message?.reply("**${GnarQuotes.getRandomQuote()}** I'll be reminding you in __$time ${timeUnit.toString().toLowerCase()}__.")
-                
-                if (commandManager.javaClass == GuildCommandManager::class.java)
-                    GnarBot.scheduler.schedule({
-                        message?.author?.privateChannel?.sendMessage("**REMINDER:** You requested to be reminded about this __$time ${timeUnit.toString().toLowerCase()}__ ago on the server **__${guild.name}__**:\n```\n$string```")
-                    }, time.toLong(), timeUnit)
-                else if (commandManager.javaClass == PMCommandManager::class.java)
-                    GnarBot.scheduler.schedule({
-                        message?.author?.privateChannel?.sendMessage("**REMINDER:** You requested to be reminded about this __$time ${timeUnit.toString().toLowerCase()}__ ago:\n```\n$string```")
-                    }, time.toLong(), timeUnit)
+//
+//                println("privateee")
+                GnarBot.scheduler.schedule({
+                    message?.author?.privateChannel?.sendMessage("**REMINDER:** You requested to be reminded about this __$time ${timeUnit.toString().toLowerCase()}__ ago:\n```\n$string```")
+                }, time.toLong(), timeUnit)
                 
             }
             else

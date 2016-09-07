@@ -1,6 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.users;
 
-import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
+import com.gmail.hexragon.gn4rBot.managers.GuildManager;
 import net.dv8tion.jda.entities.User;
 
 import java.util.HashMap;

@@ -1,7 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.commands.annotations;
 
-import com.gmail.hexragon.gn4rBot.managers.directMessage.PMManager;
-import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
+import com.gmail.hexragon.gn4rBot.managers.GuildManager;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,11 +13,9 @@ import java.lang.annotation.Target;
  * PrivateGNarGuild command list.
  *
  * @see GuildManager
- * @see PMManager
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface RequiresGuild
-{
+public @interface GuildDependent {
     
 }

@@ -2,14 +2,14 @@ package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
-import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Game;
 import net.dv8tion.jda.entities.User;
 
 import java.util.StringJoiner;
 
-@RequiresGuild
+@GuildDependent
 @Command(
         aliases = {"whois", "infoof", "infoon"},
         usage = "(@user)",
@@ -39,7 +39,7 @@ public class WhoIsCommand extends CommandExecutor
         StringBuilder mainBuilder = new StringBuilder();
         
         
-        String nickname = getGnarManager().getGuild().getNicknameForUser(user);
+        String nickname = getGuildManager().getGuild().getNicknameForUser(user);
         Game game = user.getCurrentGame();
         String avatarID = user.getAvatarId();
         String avatarURL = user.getAvatarUrl();
@@ -57,8 +57,8 @@ public class WhoIsCommand extends CommandExecutor
         
         mainBuilder.append(metaBuilder.toString());
         
-        mainBuilder.append("\u258C Roles ______ ").append(getGnarManager().getGuild().getRolesForUser(user).size()).append('\n');
-        getGnarManager().getGuild().getRolesForUser(user).stream()
+        mainBuilder.append("\u258C Roles ______ ").append(getGuildManager().getGuild().getRolesForUser(user).size()).append('\n');
+        getGuildManager().getGuild().getRolesForUser(user).stream()
                 .filter(role -> !mainBuilder.toString().contains(role.getId()))
                 .forEach(role -> mainBuilder.append("\u258C  - ").append(role.getName()).append('\n'));
         

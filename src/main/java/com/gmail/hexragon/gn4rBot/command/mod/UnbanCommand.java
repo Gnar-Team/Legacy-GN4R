@@ -2,8 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.mod;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
-import com.gmail.hexragon.gn4rBot.managers.commands.annotations.RequiresGuild;
-import com.gmail.hexragon.gn4rBot.managers.guildMessage.GuildManager;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.User;
@@ -11,7 +10,7 @@ import net.dv8tion.jda.exceptions.PermissionException;
 
 import java.util.List;
 
-@RequiresGuild
+@GuildDependent
 @Command(
         aliases = {"unban"},
         usage = "(user-id)",
@@ -29,7 +28,7 @@ public class UnbanCommand extends CommandExecutor
             return;
         }
         
-        List<User> bannedList = ((GuildManager) getGnarManager()).getBans();
+        List<User> bannedList = getGuildManager().getBans();
         
         User target = null;
         
@@ -49,7 +48,7 @@ public class UnbanCommand extends CommandExecutor
         
         try
         {
-            ((GuildManager) getGnarManager()).unBan(target);
+            getGuildManager().unBan(target);
         }
         catch (PermissionException e)
         {
