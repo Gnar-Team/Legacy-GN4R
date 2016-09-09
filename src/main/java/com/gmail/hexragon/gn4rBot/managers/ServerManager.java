@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.command.admin.*;
 import com.gmail.hexragon.gn4rBot.command.ai.CleverbotCommand;
 import com.gmail.hexragon.gn4rBot.command.ai.PandorabotCommand;
@@ -70,10 +71,11 @@ public class ServerManager extends CommandRegistry
                     privateGuild.handleMessageEvent(event);
                     return;
                 }
-    
-                if (!serverMap.containsKey(event.getGuild().getId())) addServer(event.getGuild());
-                GuildManager server = serverMap.get(event.getGuild().getId());
-                server.handleMessageEvent(event);
+                if(GnarBot.ADMIN_IDS.contains(event.getAuthor().getId())) {
+                    if (!serverMap.containsKey(event.getGuild().getId())) addServer(event.getGuild());
+                    GuildManager server = serverMap.get(event.getGuild().getId());
+                    server.handleMessageEvent(event);
+                }
             }
     
             @Override
@@ -102,13 +104,14 @@ public class ServerManager extends CommandRegistry
             @Override
             public void onGuildJoin(GuildJoinEvent event)
             {
-                DiscordBotsInfo.updateServerCount(jda);
+               DiscordBotsInfo.updateServerCount(GnarBot.getServerCount());
             }
 
             @Override
             public void onGuildLeave(GuildLeaveEvent event)
             {
-                DiscordBotsInfo.updateServerCount(jda);
+
+                DiscordBotsInfo.updateServerCount(GnarBot.getServerCount());
             }
         });
        
@@ -187,6 +190,7 @@ public class ServerManager extends CommandRegistry
         registerCommand(DiagnosticsCommand.class);
         registerCommand(ArgsTestCommand.class);
         registerCommand(ThrowError.class);
+        registerCommand(TestingRoles.class);
     }
     
     @Override

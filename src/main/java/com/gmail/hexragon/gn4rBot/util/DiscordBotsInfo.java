@@ -11,7 +11,7 @@ import java.net.URL;
 public class DiscordBotsInfo
 {
     
-    public static void updateServerCount(JDA api)
+    public static void updateServerCount(int i)
     {
         try
         {
@@ -25,7 +25,7 @@ public class DiscordBotsInfo
             
             JSONObject serverCount = new JSONObject();
             
-            serverCount.put("server_count", api.getGuilds().size());
+            serverCount.put("server_count", i);
             
             HttpURLConnection con = (HttpURLConnection) object.openConnection();
             con.setDoInput(true);
@@ -40,7 +40,7 @@ public class DiscordBotsInfo
             wr.write(serverCount.toString());
             wr.flush();
             
-            System.out.println("Successfully updated Abal server count to " + api.getGuilds().size() + ", Response Code: " + con.getResponseCode());
+            System.out.println("Successfully updated Abal server count to " + i + ", Response Code: " + con.getResponseCode());
 
             /*
 
@@ -55,7 +55,7 @@ public class DiscordBotsInfo
             String key = GnarBot.TOKENS.get("serverKey");
             
             serverCount2.put("key", key);
-            serverCount2.put("servercount", api.getGuilds().size());
+            serverCount2.put("servercount", i);
 
             object = new URL("https://www.carbonitex.net/discord/data/botdata.php");
 
@@ -72,7 +72,7 @@ public class DiscordBotsInfo
             wre.write(serverCount2.toString());
             wre.flush();
 
-            System.out.println("Successfully updated Carbonitex server count to " + api.getGuilds().size() + ", Response Code: " + conn.getResponseCode());
+            System.out.println("Successfully updated Carbonitex server count to " + i + ", Response Code: " + conn.getResponseCode());
 
         }
         catch (Exception e)

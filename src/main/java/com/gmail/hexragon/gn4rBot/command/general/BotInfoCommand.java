@@ -24,37 +24,36 @@ public class BotInfoCommand extends CommandExecutor
         int channels;
         int textChannels = 0;
         int voiceChannels = 0;
-        int servers;
+        int servers = 0;
         int users = 0;
         int offline = 0;
         int online = 0;
         int inactive = 0;
         
-        JDA jda = message.getJDA();
-        
-        for (Guild g : jda.getGuilds())
-        {
-            for (User u : g.getUsers())
-            {
-                switch (u.getOnlineStatus())
-                {
-                    case ONLINE:
-                        online++;
-                        break;
-                    case OFFLINE:
-                        offline++;
-                        break;
-                    case AWAY:
-                        inactive++;
-                        break;
+
+        for(JDA jda : GnarBot.jdas) {
+            servers += jda.getGuilds().size();
+            for (Guild g : jda.getGuilds()) {
+                for (User u : g.getUsers()) {
+                    switch (u.getOnlineStatus()) {
+                        case ONLINE:
+                            online++;
+                            break;
+                        case OFFLINE:
+                            offline++;
+                            break;
+                        case AWAY:
+                            inactive++;
+                            break;
+                    }
                 }
+
+
+                users += g.getUsers().size();
+                textChannels += g.getTextChannels().size();
+                voiceChannels += g.getVoiceChannels().size();
             }
-            
-            users += g.getUsers().size();
-            textChannels += g.getTextChannels().size();
-            voiceChannels += g.getVoiceChannels().size();
         }
-        servers = jda.getGuilds().size();
         channels = textChannels + voiceChannels;
         
         
@@ -73,6 +72,7 @@ public class BotInfoCommand extends CommandExecutor
         
         joiner.add("\u258C Requests ____ " + requests);
         joiner.add("\u258C Servers _____ " + servers);
+        joiner.add("\u258C Shards ______ " + GnarBot.jdas.size());
         joiner.add("\u258C");
         joiner.add("\u258C Channels ____ " + channels);
         joiner.add("\u258C  - Text _____ " + textChannels);

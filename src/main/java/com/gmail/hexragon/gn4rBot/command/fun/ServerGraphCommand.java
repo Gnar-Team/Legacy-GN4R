@@ -32,7 +32,7 @@ public class ServerGraphCommand extends CommandExecutor {
         message.getChannel().sendFile(drawPlot(getGuild(), message.getTime()), null);
     }
 
-    public static File drawPlot(Guild guild, OffsetDateTime now)
+    private File drawPlot(Guild guild, OffsetDateTime now)
     {
         long start = getCreationTime(guild.getId()).toEpochSecond();
         long end = now.toEpochSecond();

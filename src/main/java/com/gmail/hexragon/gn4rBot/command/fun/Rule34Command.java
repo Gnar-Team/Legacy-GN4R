@@ -27,7 +27,7 @@ public class Rule34Command extends CommandExecutor
     {
         boolean checked = false;
 
-        for(Role r : getGuildManager().getGuild().getRolesForUser(message.getAuthor())) {
+        for(Role r : getGuild().getRolesForUser(message.getAuthor())) {
             if(r.getName().equals("Fucking Teemo")) {
                 checked = true;
             }
