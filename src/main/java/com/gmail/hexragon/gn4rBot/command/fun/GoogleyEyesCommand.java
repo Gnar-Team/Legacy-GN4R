@@ -58,7 +58,7 @@ public class GoogleyEyesCommand extends CommandExecutor
             String encodedStr = URLEncoder.encode(urlStr, StandardCharsets.UTF_8.displayName());
             
             HttpResponse<JsonNode> response = Unirest.get("https://apicloud-facerect.p.mashape.com/process-url.json?features=true&url=" + encodedStr)
-                    .header("X-Mashape-Key", GnarBot.TOKENS.get("mashape"))
+                    .header("X-Mashape-Key", GnarBot.getAuthTokens().get("mashape"))
                     .header("Accept", "application/json")
                     .asJson();
             

@@ -30,8 +30,8 @@ public class MarvelComics extends CommandExecutor
         {
             long timeStamp = System.currentTimeMillis();
             String ts = String.valueOf(timeStamp);
-            String apiKeyPu = GnarBot.TOKENS.get("marvelPuToken");
-            String apiKeyPr = GnarBot.TOKENS.get("marvelPrToken");
+            String apiKeyPu = GnarBot.getAuthTokens().get("marvelPuToken");
+            String apiKeyPr = GnarBot.getAuthTokens().get("marvelPrToken");
             String preHash = timeStamp + apiKeyPr + apiKeyPu;
             String hash = DigestUtils.md5Hex(preHash);
             

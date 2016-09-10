@@ -79,8 +79,8 @@ class HelpCommand : CommandExecutor()
         builder.append("**Server Owner** commands requires you to be the __Server Owner__ to execute.\n\n")
     
         builder.append("**Latest News:**\n")
-        builder.append(" - Create dank memes with Windows dialog `_dialog (message)`.\n")
-        builder.append(" - Marvel character look-up! Try with `_marvel (character)`.\n\n")
+        builder.append(" - `_ascii` is broken right now.\n")
+        builder.append(" - Private messaging will be broken until JDA 3.x.\n\n")
         
         builder.append("**Website:** http://gnarbot.xyz\n")
         builder.append("**Discord Server:** http://discord.gg/NQRpmr2\n")

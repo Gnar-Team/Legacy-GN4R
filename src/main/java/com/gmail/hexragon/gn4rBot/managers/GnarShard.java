@@ -26,6 +26,7 @@ import net.dv8tion.jda.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.hooks.ListenerAdapter;
 
 import java.lang.reflect.Field;
@@ -37,7 +38,7 @@ import java.util.Map;
 /*
  * Handles multiinstances of Guilds.
  */
-public class ServerManager
+public class GnarShard
 {
     private final JDA jda;
     private final int shardId;
@@ -46,20 +47,20 @@ public class ServerManager
     
     private final Map<String, GuildManager> serverMap = new HashMap<>();
     
-    private final GuildManager privateGuild;
+    //private final GuildManager privateGuild;
     
     private final Map<String, CommandExecutor> globalCMDRegistry = new HashMap<>();
     private final List<Class<? extends CommandExecutor>> managerCMDRegistry = new ArrayList<>();
     private final List<Class<? extends CommandExecutor>> guildCMDRegistry = new ArrayList<>();
     
-    public ServerManager(JDA jda, int shardID)
+    public GnarShard(JDA jda, int shardID)
     {
         this.jda = jda;
         this.shardId = shardID;
         
         defaultSetup();
     
-        this.privateGuild = new GuildManager("DM", this, null, true);
+        //this.privateGuild = new GuildManager("DM", this, null, true);
         
 //        if (shardID == 0)
 //        {
@@ -75,23 +76,31 @@ public class ServerManager
             @Override
             public void onMessageReceived(MessageReceivedEvent event)
             {
+                //System.out.println("shardID = " + shardID);
+                
                 if (event.getAuthor().isBot())
                 {
                     return;
                 }
                 if (event.isPrivate())
                 {
-                    privateGuild.handleMessageEvent(event);
+                    //privateGuild.handleMessageEvent(event);
                     return;
                 }
-                if (GnarBot.ADMIN_IDS.contains(event.getAuthor().getId()))
+                if (GnarBot.getAdminIDs().contains(event.getAuthor().getId()))
                 {
                     if (!serverMap.containsKey(event.getGuild().getId())) addServer(event.getGuild());
                     GuildManager server = serverMap.get(event.getGuild().getId());
                     server.handleMessageEvent(event);
                 }
             }
-            
+    
+            @Override
+            public void onPrivateMessageReceived(PrivateMessageReceivedEvent event)
+            {
+                //System.out.println("shardID = " + shardID);
+            }
+    
             @Override
             public void onGuildMemberJoin(GuildMemberJoinEvent event)
             {
@@ -124,7 +133,6 @@ public class ServerManager
             @Override
             public void onGuildLeave(GuildLeaveEvent event)
             {
-                
                 DiscordBotsInfo.updateServerCount(GnarBot.getGuildCount());
             }
         });

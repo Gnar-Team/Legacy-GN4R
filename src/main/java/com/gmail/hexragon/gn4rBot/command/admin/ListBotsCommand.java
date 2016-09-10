@@ -25,7 +25,7 @@ public class ListBotsCommand extends CommandExecutor {
         int page = 1;
         try {
             page = Integer.valueOf(args[0]);
-        } catch (Exception ignore) {}
+        } catch (NumberFormatException ignore) {}
         
         if (page == 0) { page = 1; }
         

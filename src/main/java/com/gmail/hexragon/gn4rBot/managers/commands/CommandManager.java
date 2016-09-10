@@ -76,15 +76,15 @@ public class CommandManager extends CommandRegistry
                         cmd.execute(gMessage, args);
                         requests++;
                     }
-                    catch (Exception e)
+                    catch (RuntimeException e)
                     {
-                        if (GnarBot.ADMIN_IDS.contains(event.getAuthor().getId()))
+                        if (GnarBot.getAdminIDs().contains(event.getAuthor().getId()))
                         {
                             try
                             {
                                 event.getAuthor().getPrivateChannel().sendMessage(Utils.exceptionToString(e));
                             }
-                            catch (UnsupportedOperationException e0) // message too long
+                            catch (UnsupportedOperationException ignored) // usually message too long
                             {
                                 event.getAuthor().getPrivateChannel().sendMessage("Error that occured was too long for Discord.");
                             }

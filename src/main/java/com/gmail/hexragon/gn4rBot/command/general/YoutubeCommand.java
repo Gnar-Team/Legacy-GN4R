@@ -33,7 +33,7 @@ public class YoutubeCommand extends CommandExecutor
             
             query = query.replace(" ", "+");
             
-            String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=" + query + "&key=" + GnarBot.TOKENS.get("youtube");
+            String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=" + query + "&key=" + GnarBot.getAuthTokens().get("youtube");
             
             JSONObject jsonObject = Utils.readJsonFromUrl(url);
             

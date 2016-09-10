@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.commands;
 
+import com.gmail.hexragon.gn4rBot.managers.GnarShard;
 import com.gmail.hexragon.gn4rBot.managers.guild.GuildManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
@@ -60,6 +61,11 @@ public abstract class CommandExecutor
     public GuildManager getGuildManager()
     {
         return getCommandManager().getGuildManager();
+    }
+    
+    public GnarShard getGnarShard()
+    {
+        return getGuildManager().getGnarShard();
     }
     
     public Guild getGuild()
