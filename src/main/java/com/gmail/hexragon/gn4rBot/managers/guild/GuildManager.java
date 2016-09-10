@@ -1,7 +1,7 @@
 package com.gmail.hexragon.gn4rBot.managers.guild;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
-import com.gmail.hexragon.gn4rBot.managers.ServerManager;
+import com.gmail.hexragon.gn4rBot.managers.GnarShard;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import com.gmail.hexragon.gn4rBot.util.FileManager;
 import com.gmail.hexragon.gn4rBot.util.NullableJSONObject;
@@ -13,24 +13,24 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-public class GuildManager extends JDA_GuildManager
+public class GuildManager extends net.dv8tion.jda.managers.GuildManager
 {
     private final String accessID;
     private final UserManager userManager;
     private final CommandManager commandManager;
-    private final ServerManager serverManager;
+    private final GnarShard gnarShard;
     
     private final FileManager fileManager;
     private final JSONObject jsonObject;
     
     private final boolean isPrivate;
     
-    public GuildManager(String accessID, ServerManager serverManager, Guild guild, boolean isPrivate)
+    public GuildManager(String accessID, GnarShard gnarShard, Guild guild, boolean isPrivate)
     {
         super(guild);
         
         this.accessID = accessID;
-        this.serverManager = serverManager;
+        this.gnarShard = gnarShard;
         this.isPrivate = isPrivate;
     
         String basePath = String.format("_DATA/servers/%s.json", accessID);
@@ -49,12 +49,12 @@ public class GuildManager extends JDA_GuildManager
         
         this.commandManager = new CommandManager(this);
        
-        serverManager.getGlobalCMDRegistry().entrySet().forEach(entry ->
+        gnarShard.getGlobalCMDRegistry().entrySet().forEach(entry ->
                 commandManager.registerCommand(entry.getKey(), entry.getValue()));
     
-        serverManager.getManagerCommandRegistry().forEach(commandManager::registerCommand);
+        gnarShard.getManagerCommandRegistry().forEach(commandManager::registerCommand);
         
-        if (!isPrivate) serverManager.getGuildCommandRegistry().forEach(commandManager::registerCommand);
+        if (!isPrivate) gnarShard.getGuildCommandRegistry().forEach(commandManager::registerCommand);
     }
     
     public CommandManager getCommandManager()
@@ -75,9 +75,9 @@ public class GuildManager extends JDA_GuildManager
     }
     
     
-    public ServerManager getServerManager()
+    public GnarShard getGnarShard()
     {
-        return serverManager;
+        return gnarShard;
     }
     
     

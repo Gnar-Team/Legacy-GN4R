@@ -23,7 +23,7 @@ public class LeagueLookupCommand extends CommandExecutor
         try
         {
             JSONObject jso = Utils.readJsonFromUrl("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/"
-                    + args[0] + "?api_key=" + GnarBot.TOKENS.get("leauge"));
+                    + args[0] + "?api_key=" + GnarBot.getAuthTokens().get("leauge"));
             JSONObject info = jso.getJSONObject(args[0]);
             mb.appendString("**League Of Legends** Account Info: \n");
             mb.appendString("Season: **SEASON 2016** \n\n");

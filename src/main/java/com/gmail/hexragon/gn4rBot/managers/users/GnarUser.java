@@ -8,27 +8,27 @@ import net.dv8tion.jda.entities.User;
 public class GnarUser
 {
     private final User user;
-    private final GuildManager gnarGuild;
+    private final GuildManager guildManager;
     
     private PermissionLevel permission = PermissionLevel.USER;
     
-    GnarUser(GuildManager gnarGuild, User user)
+    GnarUser(GuildManager guildManager, User user)
     {
         this.user = user;
-        this.gnarGuild = gnarGuild;
+        this.guildManager = guildManager;
         
-        if (GnarBot.ADMIN_IDS.contains(user.getId()))
+        if (GnarBot.getAdminIDs().contains(user.getId()))
         {
             setGnarPermission(PermissionLevel.BOT_MASTER);
             return;
         }
         
-        if (user == gnarGuild.getGuild().getOwner())
+        if (user == guildManager.getGuild().getOwner())
         {
             setGnarPermission(PermissionLevel.SERVER_OWNER);
         }
         
-        for (Role role : gnarGuild.getGuild().getRolesForUser(user))
+        for (Role role : guildManager.getGuild().getRolesForUser(user))
         {
             if (role.getName().equals("Bot Commander"))
             {
@@ -55,8 +55,8 @@ public class GnarUser
         return user;
     }
     
-    public GuildManager getGnarGuild()
+    public GuildManager getGuildManager()
     {
-        return gnarGuild;
+        return guildManager;
     }
 }

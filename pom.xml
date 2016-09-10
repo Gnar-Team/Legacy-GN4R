@@ -41,7 +41,7 @@
 							<transformers>
 								<!-- add Main-Class to manifest file -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.gmail.hexragon.gn4rBot.GnarBot</mainClass>
+									<mainClass>com.gmail.hexragon.gn4rBot.GnarBotKt</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
@@ -55,7 +55,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.gmail.hexragon.gn4rBot.GnarBot</mainClass>
+							<mainClass>com.gmail.hexragon.gn4rBot.GnarBotKt</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -102,7 +102,7 @@
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
-			<version>2.2.1_357</version>
+			<version>2.2.1_362</version>
 		</dependency>
 		<!--<dependency>-->
 		<!--<groupId>net.dv8tion</groupId>-->
@@ -129,12 +129,6 @@
 			<!--<artifactId>Kippers</artifactId>-->
 			<!--<version>1.1-SNAPSHOT</version>-->
 		<!--</dependency>-->
-
-		<dependency>
-			<groupId>com.github.hexavalon</groupId>
-			<artifactId>Arrak</artifactId>
-			<version>1.0</version>
-		</dependency>
 
 		<!--JSOUP-->
 		<dependency>

@@ -72,7 +72,7 @@ public class DeleteMessagesCommand extends CommandExecutor
             ((TextChannel) message.getChannel()).deleteMessages(messages);
             Message msg = message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ Attempted to delete `" + messages.size() + "` messages.");
     
-            GnarBot.scheduler.schedule(msg::deleteMessage, 5, TimeUnit.SECONDS);
+            GnarBot.getScheduler().schedule(msg::deleteMessage, 5, TimeUnit.SECONDS);
         }
         catch (Exception e)
         {

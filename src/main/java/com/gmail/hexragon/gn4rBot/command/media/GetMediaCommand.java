@@ -2,12 +2,14 @@ package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;
 
 import java.io.File;
 
+@ManagerDependent
 @Command(
         aliases = {"getmedia", "getimage", "getshit"},
         description = "Get a png/jpg/gif/vine from GN4R's database.",
@@ -26,7 +28,7 @@ public class GetMediaCommand extends CommandExecutor
         
         String greeting = String.format("%s ➜ **%s** Here's your stuff!", message.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
         
-        MediaCache mediaCache = getGuildManager().getServerManager().getMediaCache();
+        MediaCache mediaCache = getGuildManager().getGnarShard().getMediaCache();
         
         if (mediaCache.getImgFileCache().containsKey(args[0]))
         {

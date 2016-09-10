@@ -2,10 +2,12 @@ package com.gmail.hexragon.gn4rBot.command.media;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.GnarQuotes;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;
 
+@ManagerDependent
 @Command(
         aliases = {"listmedia", "listimage", "listshit"},
         description = "List all media from GN4R's database.",
@@ -24,7 +26,7 @@ public class ListMediaCommand extends CommandExecutor
         
         String greeting = String.format("%s ➜ **%s** Here's what I got in my stash!", message.getAuthor().getAsMention(), GnarQuotes.getRandomQuote());
         
-        MediaCache mediaCache = getGuildManager().getServerManager().getMediaCache();
+        MediaCache mediaCache = getGuildManager().getGnarShard().getMediaCache();
         StringBuilder builder = new StringBuilder();
         
         switch (args[0])

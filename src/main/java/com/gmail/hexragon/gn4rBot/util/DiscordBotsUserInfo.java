@@ -18,7 +18,7 @@ public class DiscordBotsUserInfo
             
             String data = "";
             
-            String authToken = GnarBot.TOKENS.get("authToken");
+            String authToken = GnarBot.getAuthTokens().get("authToken");
             URL url = new URL("https://bots.discord.pw/api/bots/" + id);
             
             HttpURLConnection con = (HttpURLConnection) url.openConnection();

@@ -14,6 +14,6 @@ public class UptimeCommand extends CommandExecutor
     @Override
     public void execute(GnarMessage message, String[] args)
     {
-        message.reply("I've been up and awake for `" + GnarBot.getUptimeStamp() + "`.");
+        message.reply("I've been up and awake for `" + GnarBot.getUptimeStamp(false) + "`.");
     }
 }

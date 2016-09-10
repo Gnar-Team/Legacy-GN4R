@@ -2,6 +2,7 @@ package com.gmail.hexragon.gn4rBot.command.`fun`
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel
 import com.gmail.hexragon.gn4rBot.util.GnarMessage
 import net.dv8tion.jda.utils.MiscUtil
@@ -19,6 +20,7 @@ import java.util.ArrayList
 import java.util.Collections
 import javax.imageio.ImageIO
 
+@GuildDependent
 @Command(aliases = arrayOf("gusers"), description = "Fancy server stats ya uuuuuurdd mi?", permissionRequired = PermissionLevel.BOT_MASTER, showInHelp = false)
 class GraphCommand : CommandExecutor()
 {

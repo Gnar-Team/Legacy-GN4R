@@ -1,7 +1,6 @@
 package com.gmail.hexragon.gn4rBot.util;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
-import net.dv8tion.jda.JDA;
 import org.json.JSONObject;
 
 import java.io.OutputStreamWriter;
@@ -18,10 +17,10 @@ public class DiscordBotsInfo
             /*
                 bots.discord.pw
              */
-            String url = GnarBot.TOKENS.get("url");
+            String url = GnarBot.getAuthTokens().get("url");
             URL object = new URL(url);
             
-            String authToken = GnarBot.TOKENS.get("authToken");
+            String authToken = GnarBot.getAuthTokens().get("authToken");
             
             JSONObject serverCount = new JSONObject();
             
@@ -43,16 +42,12 @@ public class DiscordBotsInfo
             System.out.println("Successfully updated Abal server count to " + i + ", Response Code: " + con.getResponseCode());
 
             /*
-
-
                 Carbonitex
-
-
              */
 
             JSONObject serverCount2 = new JSONObject();
 
-            String key = GnarBot.TOKENS.get("serverKey");
+            String key = GnarBot.getAuthTokens().get("serverKey");
             
             serverCount2.put("key", key);
             serverCount2.put("servercount", i);

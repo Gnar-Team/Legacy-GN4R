@@ -8,7 +8,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
 
-@Command(aliases = arrayOf("ascii"), usage = "(string)", description = "ASCII text art!")
+@Command(aliases = arrayOf("ascii"), usage = "(string)", description = "ASCII text art!", showInHelp = false)
 class ASCIICommand : CommandExecutor()
 {
     override fun execute(message : GnarMessage, args : Array<String>)
@@ -21,11 +21,19 @@ class ASCIICommand : CommandExecutor()
         
         try
         {
-            val query = StringUtils.join(args, "%20")
+            val query = StringUtils.join(args, "+")
             
-            val document = Jsoup.connect("http://ascii-text.com/online-ascii-banner-text-generator/slant/$query").get()
+            if (query.length > 15)
+            {
+                message.reply("The query has too many characters. `15 at most.`")
+                return
+            }
             
-            val element = document.getElementById("cb").getElementsByTag("pre")[0]
+            val document = Jsoup.connect("http://artii.herokuapp.com/make?text=$query").get()
+            
+            println(document.toString())
+            
+            val element = document.getElementsByTag("body")[0]
             
             val builder = "```\n${getText(element)}```"
             

@@ -1,6 +1,7 @@
 package com.gmail.hexragon.gn4rBot.command.general;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.GnarShard;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent;
@@ -31,10 +32,12 @@ public class BotInfoCommand extends CommandExecutor
         int online = 0;
         int inactive = 0;
         
-        for (JDA shard : GnarBot.getShards())
+        for (GnarShard shard : GnarBot.getShards())
         {
-            servers += shard.getGuilds().size();
-            for (Guild g : shard.getGuilds())
+            JDA jda = shard.getJDA();
+            
+            servers += jda.getGuilds().size();
+            for (Guild g : jda.getGuilds())
             {
                 for (User u : g.getUsers())
                 {
@@ -64,7 +67,7 @@ public class BotInfoCommand extends CommandExecutor
                 .collect(Collectors.toList())
                 .size();
         
-        int requests = getGuildManager().getServerManager().getGuildManagers().parallelStream()
+        int requests = GnarBot.getGuildManagers().stream()
                 .mapToInt(guild -> guild.getCommandManager().getRequests())
                 .sum();
         
@@ -88,7 +91,7 @@ public class BotInfoCommand extends CommandExecutor
         joiner.add("\u258C Website _____ gnarbot.xyz");
         joiner.add("\u258C Commands ____ " + commandSize);
         joiner.add("\u258C Library _____ JDA");
-        joiner.add("\u258C Uptime ______ " + GnarBot.getShortUptimeStamp() + ".");
+        joiner.add("\u258C Uptime ______ " + GnarBot.getUptimeStamp(false) + ".");
         
         message.reply("**" + GnarQuotes.getRandomQuote() + "** Here is all of my information!");
         
