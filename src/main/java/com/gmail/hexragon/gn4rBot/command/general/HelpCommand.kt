@@ -24,7 +24,7 @@ class HelpCommand : CommandExecutor()
                 return
             }
             
-            val aliases = commandManager.commandRegistry.entries
+            val aliases = commandManager.registry.entries
                     .filter { it.value == cmd }
                     .map { it.key }
             
@@ -41,7 +41,7 @@ class HelpCommand : CommandExecutor()
             return
         }
         
-        val commandEntries = commandManager.uniqueCommandRegistry
+        val commandEntries = commandManager.uniqueRegistry
         
         val builder = StringBuilder()
         

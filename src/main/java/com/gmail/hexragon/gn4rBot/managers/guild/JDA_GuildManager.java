@@ -1,4 +1,4 @@
-package com.gmail.hexragon.gn4rBot.managers;
+package com.gmail.hexragon.gn4rBot.managers.guild;
 
 import net.dv8tion.jda.Permission;
 import net.dv8tion.jda.Region;

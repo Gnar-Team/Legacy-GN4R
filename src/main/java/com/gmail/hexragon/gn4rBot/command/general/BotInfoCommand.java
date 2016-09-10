@@ -11,6 +11,7 @@ import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.entities.User;
 
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 @ManagerDependent
 @Command(
@@ -30,12 +31,15 @@ public class BotInfoCommand extends CommandExecutor
         int online = 0;
         int inactive = 0;
         
-
-        for(JDA jda : GnarBot.jdas) {
-            servers += jda.getGuilds().size();
-            for (Guild g : jda.getGuilds()) {
-                for (User u : g.getUsers()) {
-                    switch (u.getOnlineStatus()) {
+        for (JDA shard : GnarBot.getShards())
+        {
+            servers += shard.getGuilds().size();
+            for (Guild g : shard.getGuilds())
+            {
+                for (User u : g.getUsers())
+                {
+                    switch (u.getOnlineStatus())
+                    {
                         case ONLINE:
                             online++;
                             break;
@@ -47,8 +51,6 @@ public class BotInfoCommand extends CommandExecutor
                             break;
                     }
                 }
-
-
                 users += g.getUsers().size();
                 textChannels += g.getTextChannels().size();
                 voiceChannels += g.getVoiceChannels().size();
@@ -57,10 +59,9 @@ public class BotInfoCommand extends CommandExecutor
         channels = textChannels + voiceChannels;
         
         
-        
-        int commandSize = getCommandManager().getUniqueCommandRegistry()//.values().stream()
-                //.filter(CommandExecutor::isShownInHelp)
-                //.collect(Collectors.toList())
+        int commandSize = getCommandManager().getUniqueRegistry().values().parallelStream()
+                .filter(CommandExecutor::isShownInHelp)
+                .collect(Collectors.toList())
                 .size();
         
         int requests = getGuildManager().getServerManager().getGuildManagers().parallelStream()
@@ -72,7 +73,7 @@ public class BotInfoCommand extends CommandExecutor
         
         joiner.add("\u258C Requests ____ " + requests);
         joiner.add("\u258C Servers _____ " + servers);
-        joiner.add("\u258C Shards ______ " + GnarBot.jdas.size());
+        joiner.add("\u258C Shards ______ " + GnarBot.getShards().size());
         joiner.add("\u258C");
         joiner.add("\u258C Channels ____ " + channels);
         joiner.add("\u258C  - Text _____ " + textChannels);

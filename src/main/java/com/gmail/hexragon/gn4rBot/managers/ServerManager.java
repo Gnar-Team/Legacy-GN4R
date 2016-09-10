@@ -15,6 +15,7 @@ import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent;
+import com.gmail.hexragon.gn4rBot.managers.guild.GuildManager;
 import com.gmail.hexragon.gn4rBot.util.DiscordBotsInfo;
 import com.gmail.hexragon.gn4rBot.util.MediaCache;
 import net.dv8tion.jda.JDA;
@@ -36,9 +37,10 @@ import java.util.Map;
 /*
  * Handles multiinstances of Guilds.
  */
-public class ServerManager extends CommandRegistry
+public class ServerManager
 {
     private final JDA jda;
+    private final int shardId;
     
     private final MediaCache mediaCache = new MediaCache();
     
@@ -46,16 +48,27 @@ public class ServerManager extends CommandRegistry
     
     private final GuildManager privateGuild;
     
+    private final Map<String, CommandExecutor> globalCMDRegistry = new HashMap<>();
     private final List<Class<? extends CommandExecutor>> managerCMDRegistry = new ArrayList<>();
     private final List<Class<? extends CommandExecutor>> guildCMDRegistry = new ArrayList<>();
     
-    public ServerManager(JDA jda)
+    public ServerManager(JDA jda, int shardID)
     {
         this.jda = jda;
-    
-        defaultSetup();
+        this.shardId = shardID;
         
+        defaultSetup();
+    
         this.privateGuild = new GuildManager("DM", this, null, true);
+        
+//        if (shardID == 0)
+//        {
+//            this.privateGuild = new GuildManager("DM", this, null, true);
+//        }
+//        else
+//        {
+//            this.privateGuild = null;
+//        }
         
         this.jda.addEventListener(new ListenerAdapter()
         {
@@ -71,13 +84,14 @@ public class ServerManager extends CommandRegistry
                     privateGuild.handleMessageEvent(event);
                     return;
                 }
-                if(GnarBot.ADMIN_IDS.contains(event.getAuthor().getId())) {
+                if (GnarBot.ADMIN_IDS.contains(event.getAuthor().getId()))
+                {
                     if (!serverMap.containsKey(event.getGuild().getId())) addServer(event.getGuild());
                     GuildManager server = serverMap.get(event.getGuild().getId());
                     server.handleMessageEvent(event);
                 }
             }
-    
+            
             @Override
             public void onGuildMemberJoin(GuildMemberJoinEvent event)
             {
@@ -85,7 +99,7 @@ public class ServerManager extends CommandRegistry
                 GuildManager server = serverMap.get(event.getGuild().getId());
                 server.handleUserJoin(event);
             }
-
+            
             @Override
             public void onGuildMemberLeave(GuildMemberLeaveEvent event)
             {
@@ -93,28 +107,28 @@ public class ServerManager extends CommandRegistry
                 GuildManager server = serverMap.get(event.getGuild().getId());
                 server.handleUserLeave(event);
             }
-
+            
             @Override
             public void onShutdown(ShutdownEvent event)
             {
                 getGuildManagers().forEach(GuildManager::saveFile);
                 getMediaCache().store();
             }
-
+            
             @Override
             public void onGuildJoin(GuildJoinEvent event)
             {
-               DiscordBotsInfo.updateServerCount(GnarBot.getServerCount());
+                DiscordBotsInfo.updateServerCount(GnarBot.getGuildCount());
             }
-
+            
             @Override
             public void onGuildLeave(GuildLeaveEvent event)
             {
-
-                DiscordBotsInfo.updateServerCount(GnarBot.getServerCount());
+                
+                DiscordBotsInfo.updateServerCount(GnarBot.getGuildCount());
             }
         });
-       
+        
     }
     
     private void addServer(Guild server)
@@ -127,7 +141,7 @@ public class ServerManager extends CommandRegistry
         return serverMap.get(accessID);
     }
     
-    void defaultSetup()
+    private void defaultSetup()
     {
         registerCommand(HelpCommand.class);
         registerCommand(BotInfoCommand.class);
@@ -137,24 +151,24 @@ public class ServerManager extends CommandRegistry
         registerCommand(MathCommand.class);
         registerCommand(PingCommand.class);
         registerCommand(RemindMeCommand.class);
-    
+        
         registerCommand(RollCommand.class);
         registerCommand(CoinFlipCommand.class);
         registerCommand(EightBallCommand.class);
-    
+        
         registerCommand(GoogleCommand.class);
         registerCommand(YoutubeCommand.class);
-    
+        
         registerCommand(BanCommand.class);
         registerCommand(UnbanCommand.class);
         registerCommand(MuteCommand.class);
         registerCommand(UnmuteCommand.class);
         registerCommand(DeleteMessagesCommand.class);
-    
+        
         registerCommand(CleverbotCommand.class);
         registerCommand(PandorabotCommand.class);
         registerCommand(TextToSpeechCommand.class);
-    
+        
         registerCommand(xkcdCommand.class);
         registerCommand(ExplosmCommand.class);
         registerCommand(ExplosmRCGCommand.class);
@@ -173,11 +187,11 @@ public class ServerManager extends CommandRegistry
         registerCommand(MarvelComics.class);
         registerCommand(DialogCommand.class);
         registerCommand(ProgressionCommand.class);
-    
+        
         registerCommand(GameLookupCommand.class);
         registerCommand(LeagueLookupCommand.class);
         registerCommand(OverwatchLookupCommand.class);
-    
+        
         registerCommand(Rule34Command.class);
         registerCommand(DiscordBotsUserInfoCommand.class);
         registerCommand(UpdateShitCommand.class);
@@ -185,22 +199,20 @@ public class ServerManager extends CommandRegistry
         registerCommand(ListServersCommand.class);
         registerCommand(ServerGraphCommand.class);
         registerCommand(GraphCommand.class);
-    
+        
         registerCommand(JavascriptCommand.class);
         registerCommand(DiagnosticsCommand.class);
         registerCommand(ArgsTestCommand.class);
         registerCommand(ThrowError.class);
-        registerCommand(TestingRoles.class);
+        //registerCommand(TestingRoles.class);
     }
     
-    @Override
-    public void registerCommand(Class<? extends CommandExecutor> cls) throws IllegalStateException
+    private void registerCommand(Class<? extends CommandExecutor> cls)
     {
         if (!cls.isAnnotationPresent(Command.class))
         {
             throw new IllegalStateException(cls + ": @Command annotation not found.");
         }
-
         if (cls.isAnnotationPresent(ManagerDependent.class))
         {
             managerCMDRegistry.add(cls);
@@ -210,14 +222,14 @@ public class ServerManager extends CommandRegistry
             try
             {
                 CommandExecutor cmd = cls.newInstance();
-        
+                
                 Command meta = cls.getAnnotation(Command.class);
-        
+                
                 cmd.setDescription(meta.description());
                 cmd.setPermission(meta.permissionRequired());
                 cmd.showInHelp(meta.showInHelp());
                 cmd.setUsage(meta.usage());
-        
+                
                 for (Field field : cmd.getClass().getSuperclass().getDeclaredFields())
                 {
                     if (field.getType().isAssignableFrom(this.getClass()))
@@ -229,20 +241,20 @@ public class ServerManager extends CommandRegistry
                 
                 for (String s : meta.aliases())
                 {
-                    getCommandRegistry().put(s, cmd);
+                    globalCMDRegistry.put(s, cmd);
                 }
             }
-            catch (Exception e)
+            catch (IllegalAccessException | InstantiationException e)
             {
                 e.printStackTrace();
             }
         }
-        
         else
         {
             guildCMDRegistry.add(cls);
         }
     }
+    
     
     public List<GuildManager> getGuildManagers()
     {
@@ -254,6 +266,11 @@ public class ServerManager extends CommandRegistry
         return mediaCache;
     }
     
+    public Map<String, CommandExecutor> getGlobalCMDRegistry()
+    {
+        return globalCMDRegistry;
+    }
+    
     public List<Class<? extends CommandExecutor>> getManagerCommandRegistry()
     {
         return managerCMDRegistry;
@@ -262,5 +279,15 @@ public class ServerManager extends CommandRegistry
     public List<Class<? extends CommandExecutor>> getGuildCommandRegistry()
     {
         return guildCMDRegistry;
+    }
+    
+    public JDA getJDA()
+    {
+        return jda;
+    }
+    
+    public int getShardID()
+    {
+        return shardId;
     }
 }

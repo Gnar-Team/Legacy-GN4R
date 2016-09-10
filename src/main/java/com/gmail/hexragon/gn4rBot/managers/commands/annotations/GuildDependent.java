@@ -1,6 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.commands.annotations;
 
-import com.gmail.hexragon.gn4rBot.managers.GuildManager;
+import com.gmail.hexragon.gn4rBot.managers.guild.GuildManager;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

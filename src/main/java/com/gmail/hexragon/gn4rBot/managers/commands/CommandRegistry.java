@@ -1,16 +1,15 @@
-package com.gmail.hexragon.gn4rBot.managers;
+package com.gmail.hexragon.gn4rBot.managers.commands;
 
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
-public abstract class CommandRegistry
+public class CommandRegistry
 {
     private Map<String, CommandExecutor> registry = new LinkedHashMap<>();
     
-    public void registerCommand(Class<? extends CommandExecutor> cls) throws IllegalStateException
+    public void registerCommand(Class<? extends CommandExecutor> cls)
     {
         if (!cls.isAnnotationPresent(Command.class))
         {
@@ -30,7 +29,7 @@ public abstract class CommandRegistry
         
             for (Field field : cmd.getClass().getSuperclass().getDeclaredFields())
             {
-                if (field.getType().isAssignableFrom(this.getClass()))
+                if (field.getType().isAssignableFrom(CommandManager.class))
                 {
                     field.setAccessible(true);
                     field.set(cmd, this);
@@ -39,13 +38,13 @@ public abstract class CommandRegistry
         
             Arrays.stream(meta.aliases()).forEach(s -> registerCommand(s, cmd));
         }
-        catch (Exception e)
+        catch (IllegalAccessException | InstantiationException e)
         {
             e.printStackTrace();
         }
     }
     
-    public void registerCommand(String label, CommandExecutor cmd) throws IllegalStateException
+    public void registerCommand(String label, CommandExecutor cmd)
     {
         if (!registry.isEmpty())
         {
@@ -53,8 +52,8 @@ public abstract class CommandRegistry
             {
                 if (label.equals(command))
                 {
-                    System.out.println("WARNING: Command " + label + " is already registered.");
-                    return;
+                    //System.out.println("WARNING: Command " + label + " is already registered.");
+                    throw new IllegalStateException("Command " + label + " is already registered.");
                 }
             }
         }
@@ -73,12 +72,12 @@ public abstract class CommandRegistry
         //throw new IllegalStateException("Command " + label + " isn't registered.");
     }
     
-    public Map<String, CommandExecutor> getCommandRegistry()
+    public Map<String, CommandExecutor> getRegistry()
     {
         return registry;
     }
     
-    public Map<String, CommandExecutor> getUniqueCommandRegistry()
+    public Map<String, CommandExecutor> getUniqueRegistry()
     {
         Set<CommandExecutor> blacklist = new HashSet<>();
         Map<String, CommandExecutor> uniqueMap = new LinkedHashMap<>();
@@ -96,7 +95,7 @@ public abstract class CommandRegistry
     
     public CommandExecutor getCommand(String key)
     {
-        return getCommandRegistry().get(key);
+        return getRegistry().get(key);
     }
     
     public CommandExecutor getCommand(Class<? extends CommandExecutor> cls)
@@ -105,13 +104,6 @@ public abstract class CommandRegistry
                 .filter(commandExecutor -> commandExecutor.getClass() == cls)
                 .findFirst();
         
-        if (cmd.isPresent())
-        {
-            return cmd.get();
-        }
-        else
-        {
-            return null;
-        }
+        return cmd.isPresent() ? cmd.get() : null;
     }
 }

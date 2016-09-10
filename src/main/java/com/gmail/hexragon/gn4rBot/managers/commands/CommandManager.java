@@ -1,12 +1,12 @@
-package com.gmail.hexragon.gn4rBot.managers;
+package com.gmail.hexragon.gn4rBot.managers.commands;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
-import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
+import com.gmail.hexragon.gn4rBot.managers.guild.GuildManager;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class CommandManager extends CommandRegistry
 {
@@ -57,12 +57,12 @@ public class CommandManager extends CommandRegistry
             
             GnarMessage gMessage = new GnarMessage(event.getMessage());
             
-            for (String regCommand : getCommandRegistry().keySet())
+            for (String regCommand : getRegistry().keySet())
             {
                 if (label.equalsIgnoreCase(token + regCommand))
                 {
                     // Calling the command class.
-                    CommandExecutor cmd = getCommandRegistry().get(regCommand);
+                    CommandExecutor cmd = getRegistry().get(regCommand);
                     
                     if (getGuildManager().getUserManager() != null && cmd.permissionLevel().value > server.getUserManager().getGnarUser(event.getAuthor()).getPermission().value)
                     {

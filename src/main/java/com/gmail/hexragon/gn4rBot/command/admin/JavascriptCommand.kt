@@ -2,12 +2,14 @@ package com.gmail.hexragon.gn4rBot.command.admin
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel
 import com.gmail.hexragon.gn4rBot.util.GnarMessage
 import org.apache.commons.lang3.StringUtils
 import javax.script.ScriptEngineManager
 import javax.script.ScriptException
 
+@GuildDependent
 @Command(
         aliases = arrayOf("runjs"),
         description = "Run JavaScript commands.",

@@ -1,7 +1,6 @@
 package com.gmail.hexragon.gn4rBot.managers.commands;
 
-import com.gmail.hexragon.gn4rBot.managers.CommandManager;
-import com.gmail.hexragon.gn4rBot.managers.GuildManager;
+import com.gmail.hexragon.gn4rBot.managers.guild.GuildManager;
 import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
@@ -9,7 +8,6 @@ import net.dv8tion.jda.entities.Guild;
 
 public abstract class CommandExecutor
 {
-    //injected by CommandManager
     private CommandManager manager;
     
     private String description = "No descriptions provided.";

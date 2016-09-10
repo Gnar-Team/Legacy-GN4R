@@ -17,28 +17,26 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class GnarBot
 {
-    private static GnarBot instance;
-    private static ServerManager serverManager;
-    
-    public static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-    
-    public static final List<String> ADMIN_IDS = new FileManager("_DATA/administrators").readLines();
-    public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
-    private static final long START_TIME = System.currentTimeMillis();
-
-    public static ArrayList<JDA> jdas = new ArrayList<>();
-    
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args)
     {
         File dataFolder = new File("_DATA");
         if (!dataFolder.exists())
         {
             System.out.println("[ERROR] - Folder '_DATA' not found.");
+            System.exit(1);
             return;
         }
-
-        instance = new GnarBot(TOKENS.get("main-bot"), 4);
+        
+        instance = new GnarBot(TOKENS.get("beta-bot"), 4);
     }
+    
+    private static GnarBot instance;
+    private static List<JDA> shards = new ArrayList<>();
+    
+    private static final long START_TIME = System.currentTimeMillis();
+    public static final List<String> ADMIN_IDS = new FileManager("_DATA/administrators").readLines();
+    public static final PropertiesManager TOKENS = new PropertiesManager().load(new File("_DATA/tokens.properties"));
+    public static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     
     private GnarBot(String token, int shards)
     {
@@ -46,20 +44,24 @@ public class GnarBot
         {
             int servers = 0;
 
-            for(int shard=0; shard<shards; shard++) {
-                JDA jda = new JDABuilder().useSharding(shard, shards).setBotToken(token).buildBlocking();
+            for(int id = 0; id < shards; id++)
+            {
+                JDA jda = new JDABuilder()
+                        .useSharding(id, shards)
+                        .setBotToken(token)
+                        .buildBlocking();
 
                 jda.getAccountManager().setUsername("GNAR");
                 jda.getAccountManager().setGame("_help | _invite");
                 jda.getAccountManager().update();
 
                 jda.setAutoReconnect(true);
-
-                servers+=jda.getGuilds().size();
-
-                jdas.add(jda);
-
-                serverManager = new ServerManager(jda);
+                
+                new ServerManager(jda, id);
+    
+                servers += jda.getGuilds().size();
+    
+                GnarBot.getShards().add(jda);
             }
 
             DiscordBotsInfo.updateServerCount(servers);
@@ -75,9 +77,9 @@ public class GnarBot
         return instance;
     }
     
-    public ServerManager getServerManager()
+    public static List<JDA> getShards()
     {
-        return serverManager;
+        return shards;
     }
     
     public static String getUptimeStamp()
@@ -98,12 +100,10 @@ public class GnarBot
         return days + "d " + hours % 24 + "h " + minutes % 60 + "m " + seconds % 60 + "s";
     }
 
-    public static int getServerCount() {
-        int i = 0;
-        for(JDA jda : jdas) {
-            i += jda.getGuilds().size();
-        }
-
-        return i;
+    public static int getGuildCount()
+    {
+        return getShards().stream()
+                .mapToInt(jda -> jda.getGuilds().size())
+                .sum();
     }
 }

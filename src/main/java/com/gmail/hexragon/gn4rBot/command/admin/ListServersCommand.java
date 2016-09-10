@@ -14,9 +14,8 @@ import java.util.*;
 )
 public class ListServersCommand extends CommandExecutor {
     @Override
-    public void execute(GnarMessage message, String[] args) {
-        
-        
+    public void execute(GnarMessage message, String[] args)
+    {
         int page = 1;
         try {
             page = Integer.valueOf(args[0]);
@@ -44,7 +43,7 @@ public class ListServersCommand extends CommandExecutor {
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             i++;
             if (i < 10 * page + 1 && i > 10 * page - 10) {
-                mb = mb + "**#" + i + "** " + entry.getKey() + " (" + entry.getValue() + " users)\n";
+                mb += "**#" + i + "** " + entry.getKey() + " (" + entry.getValue() + " users)\n";
             }
         }
         

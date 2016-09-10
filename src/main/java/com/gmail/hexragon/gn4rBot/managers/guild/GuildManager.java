@@ -1,5 +1,7 @@
-package com.gmail.hexragon.gn4rBot.managers;
+package com.gmail.hexragon.gn4rBot.managers.guild;
 
+import com.gmail.hexragon.gn4rBot.managers.commands.CommandManager;
+import com.gmail.hexragon.gn4rBot.managers.ServerManager;
 import com.gmail.hexragon.gn4rBot.managers.users.UserManager;
 import com.gmail.hexragon.gn4rBot.util.FileManager;
 import com.gmail.hexragon.gn4rBot.util.NullableJSONObject;
@@ -47,7 +49,7 @@ public class GuildManager extends JDA_GuildManager
         
         this.commandManager = new CommandManager(this);
        
-        serverManager.getCommandRegistry().entrySet().forEach(entry ->
+        serverManager.getGlobalCMDRegistry().entrySet().forEach(entry ->
                 commandManager.registerCommand(entry.getKey(), entry.getValue()));
     
         serverManager.getManagerCommandRegistry().forEach(commandManager::registerCommand);
@@ -61,12 +63,10 @@ public class GuildManager extends JDA_GuildManager
     }
     
     
-    
     public UserManager getUserManager()
     {
         return userManager;
     }
-    
     
     
     public String getAccessID()
@@ -75,12 +75,10 @@ public class GuildManager extends JDA_GuildManager
     }
     
     
-    
     public ServerManager getServerManager()
     {
         return serverManager;
     }
-    
     
     
     public void handleMessageEvent(MessageReceivedEvent event)
