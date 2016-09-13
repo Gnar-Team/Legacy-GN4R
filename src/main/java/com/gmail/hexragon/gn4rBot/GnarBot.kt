@@ -7,7 +7,7 @@ import com.gmail.hexragon.gn4rBot.util.FileManager
 import com.gmail.hexragon.gn4rBot.util.PropertiesManager
 import net.dv8tion.jda.JDABuilder
 import java.io.File
-import java.util.Date
+import java.util.*
 import java.util.concurrent.Executors
 
 fun main(args : Array<String>)
@@ -20,7 +20,7 @@ fun main(args : Array<String>)
         return
     }
     
-    GnarBot(GnarBot.authTokens["beta-bot"], 4)
+    GnarBot(GnarBot.authTokens["main-bot"], 4)
 }
 
 class GnarBot(val token : String, shardsNum : Int)

@@ -195,6 +195,8 @@ public class GnarShard
         registerCommand(MarvelComics.class);
         registerCommand(DialogCommand.class);
         registerCommand(ProgressionCommand.class);
+        registerCommand(TriviaAnswerCommand.class);
+        registerCommand(TriviaCommand.class);
         
         registerCommand(GameLookupCommand.class);
         registerCommand(LeagueLookupCommand.class);
