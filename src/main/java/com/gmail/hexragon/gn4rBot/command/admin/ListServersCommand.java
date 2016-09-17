@@ -30,7 +30,9 @@ public class ListServersCommand extends CommandExecutor {
         for (Guild s : message.getJDA().getGuilds()) {
             map.put(s.getName(), s.getUsers().size());
         }
-        
+
+
+
         map = sortByComparator(map, false);
         
         String mb = "";

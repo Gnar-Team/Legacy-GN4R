@@ -41,7 +41,7 @@ class ASCIICommand : CommandExecutor()
         }
         catch (e : Exception)
         {
-            message.reply("Unable to generate ASCII art.")
+            message.reply("Unable to generate ASCII art. `Developer Note: Our ASCII API is down for the moment.`")
             e.printStackTrace()
         }
         
