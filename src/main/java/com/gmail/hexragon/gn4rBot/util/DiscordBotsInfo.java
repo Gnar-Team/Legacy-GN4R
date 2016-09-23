@@ -9,14 +9,13 @@ import java.net.URL;
 
 public class DiscordBotsInfo
 {
-    
+
     public static void updateServerCount(int i)
     {
         try
         {
-            /*
-                bots.discord.pw
-             */
+
+
             String url = GnarBot.getAuthTokens().get("url");
             URL object = new URL(url);
             
@@ -41,9 +40,6 @@ public class DiscordBotsInfo
             
             System.out.println("Successfully updated Abal server count to " + i + ", Response Code: " + con.getResponseCode());
 
-            /*
-                Carbonitex
-             */
 
             JSONObject serverCount2 = new JSONObject();
 

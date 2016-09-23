@@ -5,6 +5,7 @@ import com.gmail.hexragon.gn4rBot.managers.guild.GuildManager
 import com.gmail.hexragon.gn4rBot.util.DiscordBotsInfo
 import com.gmail.hexragon.gn4rBot.util.FileManager
 import com.gmail.hexragon.gn4rBot.util.PropertiesManager
+import com.gmail.hexragon.gn4rBot.util.Utils
 import net.dv8tion.jda.JDABuilder
 import java.io.File
 import java.util.*
@@ -19,7 +20,7 @@ fun main(args : Array<String>)
         System.exit(1)
         return
     }
-    
+
     GnarBot(GnarBot.authTokens["main-bot"], 4)
 }
 
@@ -84,5 +85,6 @@ class GnarBot(val token : String, shardsNum : Int)
         }
     
         DiscordBotsInfo.updateServerCount(servers)
+        Utils.startLeagueChampInfo()
     }
 }
