@@ -4,12 +4,15 @@ import com.gmail.hexragon.gn4rBot.GnarBot;
 import com.gmail.hexragon.gn4rBot.managers.GnarShard;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
+import com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Guild;
 
 @Command(
         aliases = {"shared", "serversshared"},
-        description = "Tilts dumb people."
+        description = "Shows shared servers",
+        permissionRequired = PermissionLevel.USER,
+        showInHelp = true
 )
 public class ServersSharedCommand extends CommandExecutor
 {

@@ -147,7 +147,9 @@ public class GnarShard
     {
         serverMap.put(server.getId(), new GuildManager(server.getId(), this, server, false));
     }
-    
+
+    //hidden notes are cool
+
     public GuildManager getGuildManager(String accessID)
     {
         return serverMap.get(accessID);

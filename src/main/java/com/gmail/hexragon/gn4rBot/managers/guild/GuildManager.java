@@ -49,6 +49,7 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager
             jsonObject.put("log-channel", "general");
             jsonObject.put("join-message-toggle", "disable");
             jsonObject.put("leave-message-toggle", "disable");
+
         }
         
         saveFile();
@@ -123,6 +124,8 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager
         } catch (Exception e) {}
     }
 
+
+    //fancy note
     public void editValue(String variable, String newValue) {
         jsonObject.put(variable, newValue);
         saveFile();

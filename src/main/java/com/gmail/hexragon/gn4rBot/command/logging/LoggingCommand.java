@@ -6,15 +6,15 @@ import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 
-import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.BOT_MASTER;
+import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.SERVER_OWNER;
 
 @GuildDependent
 @ManagerDependent
 @Command(
         aliases = {"loggingmessages", "lm"},
-        description = "Automatically update GN4R",
-        permissionRequired = BOT_MASTER,
-        showInHelp = false
+        description = "Change Logging messages",
+        permissionRequired = SERVER_OWNER,
+        showInHelp = true
 )
 public class LoggingCommand extends CommandExecutor {
 

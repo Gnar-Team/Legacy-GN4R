@@ -15,7 +15,7 @@ import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.BOT_MAST
         aliases = {"logchannel", "lc"},
         description = "Automatically update GN4R",
         permissionRequired = BOT_MASTER,
-        showInHelp = false
+        showInHelp = true
 )
 public class LoggingChannelCommand extends CommandExecutor {
 

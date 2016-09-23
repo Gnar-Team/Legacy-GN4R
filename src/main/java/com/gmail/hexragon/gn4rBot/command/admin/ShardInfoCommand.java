@@ -10,7 +10,7 @@ import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.BOT_MAST
 
 @Command(
         aliases = {"shard"},
-        description = "Get shard info",
+        description = "Get shard information",
         permissionRequired = BOT_MASTER,
         showInHelp = false
 )

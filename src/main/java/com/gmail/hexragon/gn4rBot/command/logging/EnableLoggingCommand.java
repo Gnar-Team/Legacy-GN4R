@@ -6,7 +6,7 @@ import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 
-import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.BOT_MASTER;
+import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.SERVER_OWNER;
 
 /**
  * Created by Mae on 9/22/2016.
@@ -15,9 +15,9 @@ import static com.gmail.hexragon.gn4rBot.managers.users.PermissionLevel.BOT_MAST
 @ManagerDependent
 @Command(
         aliases = {"enablelogging", "el"},
-        description = "Automatically update GN4R",
-        permissionRequired = BOT_MASTER,
-        showInHelp = false
+        description = "Enable logging features",
+        permissionRequired = SERVER_OWNER,
+        showInHelp = true
 )
 public class EnableLoggingCommand extends CommandExecutor {
 
