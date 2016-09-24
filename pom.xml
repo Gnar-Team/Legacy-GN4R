@@ -130,12 +130,6 @@
 			<!--<version>1.1-SNAPSHOT</version>-->
 		<!--</dependency>-->
 
-		<dependency>
-			<groupId>com.github.hexavalon</groupId>
-			<artifactId>Arrak</artifactId>
-			<version>1.0</version>
-		</dependency>
-
 		<!--JSOUP-->
 		<dependency>
 			<groupId>org.jsoup</groupId>

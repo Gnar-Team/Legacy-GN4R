@@ -18,8 +18,8 @@ import java.util.Random;
 @ManagerDependent
 @Command(
 
-        aliases = {"justagorilla", "no"},
-        description = "Modify the server ban message",
+        aliases = {"quotes", "q"},
+        description = "Get champions quotes",
         permissionRequired = PermissionLevel.USER,
         showInHelp = true
 )

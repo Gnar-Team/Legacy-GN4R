@@ -35,7 +35,6 @@
     <orderEntry type="library" name="Maven: org.json:json:20150729" level="project" />
     <orderEntry type="library" name="Maven: com.neovisionaries:nv-websocket-client:1.16" level="project" />
     <orderEntry type="library" name="Maven: ca.pjer:chatter-bot-api:1.4.2" level="project" />
-    <orderEntry type="library" name="Maven: com.github.hexavalon:Arrak:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.9.2" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-runtime:1.0.3" level="project" />

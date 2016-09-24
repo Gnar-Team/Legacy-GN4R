@@ -91,12 +91,9 @@ public class GnarShard
                     //privateGuild.handleMessageEvent(event);
                     return;
                 }
-                if (GnarBot.getAdminIDs().contains(event.getAuthor().getId()) || event.getGuild().getId().equals("215616923168276480"))
-                {
-                    if (!serverMap.containsKey(event.getGuild().getId())) addServer(event.getGuild());
-                    GuildManager server = serverMap.get(event.getGuild().getId());
-                    server.handleMessageEvent(event);
-                }
+                if (!serverMap.containsKey(event.getGuild().getId())) addServer(event.getGuild());
+                GuildManager server = serverMap.get(event.getGuild().getId());
+                server.handleMessageEvent(event);
             }
     
             @Override
