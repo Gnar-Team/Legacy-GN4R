@@ -104,7 +104,7 @@ public class GuildManager extends net.dv8tion.jda.managers.GuildManager
                 if (jsonObject.has("log-channel")) {
                     getGuild().getTextChannels().stream()
                             .filter(c -> c.getName().equals(jsonObject.get("log-channel")))
-                            .forEach(c -> c.sendMessage(formatMessage(jsonObject.get("leave-message").toString(), event, event.getUser())));
+                            .forEach(c -> c.sendMessage(formatMessage(jsonObject.get("join-message").toString(), event, event.getUser())));
                 }
             }
         } catch (Exception e) {}
