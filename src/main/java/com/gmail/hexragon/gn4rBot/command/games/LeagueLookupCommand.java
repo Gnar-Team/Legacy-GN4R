@@ -6,6 +6,7 @@ import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import com.gmail.hexragon.gn4rBot.util.Utils;
 import net.dv8tion.jda.MessageBuilder;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ public class LeagueLookupCommand extends CommandExecutor
         try
         {
             JSONObject jso = Utils.readJsonFromUrl("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/"
-                    + args[0] + "?api_key=" + GnarBot.getAuthTokens().get("leauge"));
+                    + StringUtils.join(args, "").toLowerCase() + "?api_key=" + GnarBot.getAuthTokens().get("leauge"));
             JSONObject info = jso.getJSONObject(args[0]);
             mb.appendString("**League Of Legends** Account Info: \n");
             mb.appendString("Season: **SEASON 2016** \n\n");

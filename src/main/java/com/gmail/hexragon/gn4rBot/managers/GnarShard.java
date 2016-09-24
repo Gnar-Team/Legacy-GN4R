@@ -9,6 +9,10 @@ import com.gmail.hexragon.gn4rBot.command.games.GameLookupCommand;
 import com.gmail.hexragon.gn4rBot.command.games.LeagueLookupCommand;
 import com.gmail.hexragon.gn4rBot.command.games.OverwatchLookupCommand;
 import com.gmail.hexragon.gn4rBot.command.general.*;
+import com.gmail.hexragon.gn4rBot.command.logging.EnableLoggingCommand;
+import com.gmail.hexragon.gn4rBot.command.logging.LogInfoCommand;
+import com.gmail.hexragon.gn4rBot.command.logging.LoggingChannelCommand;
+import com.gmail.hexragon.gn4rBot.command.logging.LoggingCommand;
 import com.gmail.hexragon.gn4rBot.command.media.*;
 import com.gmail.hexragon.gn4rBot.command.mod.*;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
@@ -76,9 +80,7 @@ public class GnarShard
             @Override
             public void onMessageReceived(MessageReceivedEvent event)
             {
-//                System.out.println("guild = " + event.getGuild().getName());
-//                System.out.println("message = " + event.getMessage().getContent());
-//                System.out.println("shardID = " + shardID);
+                //System.out.println("shardID = " + shardID);
                 
                 if (event.getAuthor().isBot())
                 {
@@ -89,7 +91,6 @@ public class GnarShard
                     //privateGuild.handleMessageEvent(event);
                     return;
                 }
-                
                 if (!serverMap.containsKey(event.getGuild().getId())) addServer(event.getGuild());
                 GuildManager server = serverMap.get(event.getGuild().getId());
                 server.handleMessageEvent(event);
@@ -143,7 +144,9 @@ public class GnarShard
     {
         serverMap.put(server.getId(), new GuildManager(server.getId(), this, server, false));
     }
-    
+
+    //hidden notes are cool
+
     public GuildManager getGuildManager(String accessID)
     {
         return serverMap.get(accessID);
@@ -172,6 +175,7 @@ public class GnarShard
         registerCommand(MuteCommand.class);
         registerCommand(UnmuteCommand.class);
         registerCommand(DeleteMessagesCommand.class);
+        registerCommand(KickCommand.class);
         
         registerCommand(CleverbotCommand.class);
         registerCommand(PandorabotCommand.class);
@@ -195,6 +199,8 @@ public class GnarShard
         registerCommand(MarvelComics.class);
         registerCommand(DialogCommand.class);
         registerCommand(ProgressionCommand.class);
+        registerCommand(TriviaAnswerCommand.class);
+        registerCommand(TriviaCommand.class);
         
         registerCommand(GameLookupCommand.class);
         registerCommand(LeagueLookupCommand.class);
@@ -213,6 +219,14 @@ public class GnarShard
         registerCommand(ArgsTestCommand.class);
         registerCommand(ThrowError.class);
         //registerCommand(TestingRoles.class);
+        registerCommand(ChampionQuotesCommand.class);
+        registerCommand(ChampDataCommand.class);
+        registerCommand(LoggingCommand.class);
+        registerCommand(EnableLoggingCommand.class);
+        registerCommand(LoggingChannelCommand.class);
+        registerCommand(LogInfoCommand.class);
+        registerCommand(ServersSharedCommand.class);
+        registerCommand(ShardInfoCommand.class);
     }
     
     private void registerCommand(Class<? extends CommandExecutor> cls)

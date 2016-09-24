@@ -1,5 +1,6 @@
 package com.gmail.hexragon.gn4rBot.util;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +16,9 @@ import java.util.Arrays;
 
 public class Utils
 {
+
+    public static JSONObject information;
+
     static
     {
         TrustManager[] trustAllCerts = new TrustManager[]
@@ -90,5 +94,16 @@ public class Utils
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static void startLeagueChampInfo() {
+        JSONObject jso = Utils.readJsonFromUrl("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=all&api_key=" + GnarBot.getAuthTokens().get("leauge"));
+
+        System.out.println(jso.toString());
+
+        information = (JSONObject) jso.get("data");
+
+        System.out.println("League Champion Info Loaded");
+        System.out.println(information.toString());
     }
 }
