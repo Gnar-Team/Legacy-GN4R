@@ -82,6 +82,8 @@ public class GnarShard
             {
                 //System.out.println("shardID = " + shardID);
                 
+                
+                
                 if (event.getAuthor().isBot())
                 {
                     return;

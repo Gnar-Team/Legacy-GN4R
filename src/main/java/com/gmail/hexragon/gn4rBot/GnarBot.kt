@@ -7,7 +7,7 @@ import com.gmail.hexragon.gn4rBot.util.FileManager
 import com.gmail.hexragon.gn4rBot.util.PropertiesManager
 import net.dv8tion.jda.JDABuilder
 import java.io.File
-import java.util.*
+import java.util.Date
 import java.util.concurrent.Executors
 
 fun main(args : Array<String>)

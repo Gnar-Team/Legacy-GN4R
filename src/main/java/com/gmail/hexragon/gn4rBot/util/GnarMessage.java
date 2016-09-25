@@ -24,7 +24,7 @@ public class GnarMessage implements Message
     // Stylized reply
     public Message reply(String s)
     {
-        return message.getChannel().sendMessage(message.getAuthor().getAsMention() + " ➜ " + s);
+        return message.getChannel().sendMessage(message.getAuthor().getAsMention() + " \u279c " + s);
     }
     
     @Override

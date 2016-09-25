@@ -10,12 +10,10 @@ import java.net.URL;
 
 public class DiscordBotsUserInfo
 {
-    
     public static String getUserInfo(String id)
     {
         try
         {
-            
             String data = "";
             
             String authToken = GnarBot.getAuthTokens().get("authToken");

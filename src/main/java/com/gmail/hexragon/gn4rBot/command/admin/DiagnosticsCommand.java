@@ -18,5 +18,7 @@ public class DiagnosticsCommand extends CommandExecutor
         message.replyRaw("```xl\n" + new SystemInfo().osInfo() + "```\n```xl\n" + new SystemInfo().memInfo() + "```");
         
         //getCommandManager().getCommandRegistry().forEach((str, cmd) -> System.out.println(str + "\t" + cmd.hashCode()));
+    
+
     }
 }

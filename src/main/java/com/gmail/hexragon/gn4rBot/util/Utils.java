@@ -1,7 +1,6 @@
 package com.gmail.hexragon.gn4rBot.util;
 
 import com.gmail.hexragon.gn4rBot.GnarBot;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -68,7 +67,7 @@ public class Utils
         return sb.toString();
     }
     
-    public static JSONObject readJsonFromUrl(String url) throws JSONException
+    public static JSONObject readJsonFromUrl(String url)
     {
         URLConnection uCon;
         try
