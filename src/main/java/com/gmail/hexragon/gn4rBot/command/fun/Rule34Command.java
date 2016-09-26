@@ -2,6 +2,8 @@ package com.gmail.hexragon.gn4rBot.command.fun;
 
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.GuildDependent;
+import com.gmail.hexragon.gn4rBot.managers.commands.annotations.ManagerDependent;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
 import net.dv8tion.jda.entities.Role;
 import org.jsoup.Jsoup;
@@ -14,6 +16,8 @@ import org.jsoup.select.Elements;
 
 import java.util.Random;
 
+@GuildDependent
+@ManagerDependent
 @Command(
         aliases = {"rule", "rule34"},
         usage = "[query]",

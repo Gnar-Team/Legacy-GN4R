@@ -1,5 +1,7 @@
 package com.gmail.hexragon.gn4rBot.command.admin;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.GnarShard;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
@@ -26,9 +28,10 @@ public class ListServersCommand extends CommandExecutor {
         }
         
         Map<String, Integer> map = new HashMap<>();
-        
-        for (Guild s : message.getJDA().getGuilds()) {
-            map.put(s.getName(), s.getUsers().size());
+        for(GnarShard g : GnarBot.getShards()) {
+            for (Guild s : g.getJDA().getGuilds()) {
+                map.put(s.getName(), s.getUsers().size());
+            }
         }
 
 

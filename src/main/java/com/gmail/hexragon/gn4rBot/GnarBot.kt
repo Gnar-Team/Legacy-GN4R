@@ -5,9 +5,10 @@ import com.gmail.hexragon.gn4rBot.managers.guild.GuildManager
 import com.gmail.hexragon.gn4rBot.util.DiscordBotsInfo
 import com.gmail.hexragon.gn4rBot.util.FileManager
 import com.gmail.hexragon.gn4rBot.util.PropertiesManager
+import com.gmail.hexragon.gn4rBot.util.Utils
 import net.dv8tion.jda.JDABuilder
 import java.io.File
-import java.util.Date
+import java.util.*
 import java.util.concurrent.Executors
 
 fun main(args : Array<String>)
@@ -84,5 +85,6 @@ class GnarBot(val token : String, shardsNum : Int)
         }
     
         DiscordBotsInfo.updateServerCount(servers)
+        Utils.startLeagueChampInfo()
     }
 }

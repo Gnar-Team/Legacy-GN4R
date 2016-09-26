@@ -1,5 +1,7 @@
 package com.gmail.hexragon.gn4rBot.command.admin;
 
+import com.gmail.hexragon.gn4rBot.GnarBot;
+import com.gmail.hexragon.gn4rBot.managers.GnarShard;
 import com.gmail.hexragon.gn4rBot.managers.commands.CommandExecutor;
 import com.gmail.hexragon.gn4rBot.managers.commands.annotations.Command;
 import com.gmail.hexragon.gn4rBot.util.GnarMessage;
@@ -30,12 +32,14 @@ public class ListBotsCommand extends CommandExecutor {
         if (page == 0) { page = 1; }
         
         ArrayList<String> list = new ArrayList<>();
-        
-        for(Guild s : message.getJDA().getGuilds()) {
-            s.getUsers().stream()
-                    .filter(User::isBot)
-                    .filter(u -> !list.contains(u.getUsername()))
-                    .forEach(u -> list.add(u.getUsername()));
+
+        for(GnarShard g : GnarBot.getShards()) {
+            for (Guild s : g.getJDA().getGuilds()) {
+                s.getUsers().stream()
+                        .filter(User::isBot)
+                        .filter(u -> !list.contains(u.getUsername()))
+                        .forEach(u -> list.add(u.getUsername()));
+            }
         }
         
         Collections.sort(list);
