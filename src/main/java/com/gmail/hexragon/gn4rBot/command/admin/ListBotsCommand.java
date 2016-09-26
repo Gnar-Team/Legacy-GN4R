@@ -34,8 +34,8 @@ public class ListBotsCommand extends CommandExecutor {
         ArrayList<String> list = new ArrayList<>();
         int servers = 0;
         for(GnarShard g : GnarBot.getShards()) {
+            servers += g.getJDA().getGuilds().size();
             for (Guild s : g.getJDA().getGuilds()) {
-                servers += s.getJDA().getGuilds().size();
                 s.getUsers().stream()
                         .filter(User::isBot)
                         .filter(u -> !list.contains(u.getUsername()))

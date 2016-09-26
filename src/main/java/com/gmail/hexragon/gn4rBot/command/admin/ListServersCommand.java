@@ -30,9 +30,9 @@ public class ListServersCommand extends CommandExecutor {
         Map<String, Integer> map = new HashMap<>();
         int servers = 0;
         for(GnarShard g : GnarBot.getShards()) {
+            servers += g.getJDA().getGuilds().size();
             for (Guild s : g.getJDA().getGuilds()) {
                 map.put(s.getName(), s.getUsers().size());
-                servers += g.getJDA().getGuilds().size();
             }
         }
 
