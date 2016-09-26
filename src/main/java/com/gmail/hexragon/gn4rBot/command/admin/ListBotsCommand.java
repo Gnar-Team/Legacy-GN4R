@@ -32,9 +32,10 @@ public class ListBotsCommand extends CommandExecutor {
         if (page == 0) { page = 1; }
         
         ArrayList<String> list = new ArrayList<>();
-
+        int servers = 0;
         for(GnarShard g : GnarBot.getShards()) {
             for (Guild s : g.getJDA().getGuilds()) {
+                servers += s.getJDA().getGuilds().size();
                 s.getUsers().stream()
                         .filter(User::isBot)
                         .filter(u -> !list.contains(u.getUsername()))
@@ -47,7 +48,7 @@ public class ListBotsCommand extends CommandExecutor {
         String mb = "";
         
         int pages;
-        if(message.getJDA().getGuilds().size() % 10 == 0) {
+        if(servers % 10 == 0) {
             pages = list.size()/10;
         } else {
             pages = list.size()/10+1;
